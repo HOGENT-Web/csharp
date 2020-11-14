@@ -7,6 +7,7 @@
   - Logging
   - Deployment
   - Architectural guidelines
+  - Integration Testing
 
 ### Exercises
 - Drillexercises as much as possible
