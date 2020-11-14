@@ -3,6 +3,10 @@
 ### Goals
 - Mimic how Web Applications are written in a company specific context
 - Practical design (anit)patterns
+- Best practises
+  - Logging
+  - Deployment
+  - Architectural guidelines
 
 ### Exercises
 - Drillexercises as much as possible
