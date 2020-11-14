@@ -15,7 +15,8 @@
   - ASP.NET Core 5.0 Web API
   - Background services
 - Fontend
-  - Blazor (SPA)
+  - Blazor (SPA, PWA)
+  - If we have time: Mobile app
 - Storage
   - EF Core 
   - Dapper
