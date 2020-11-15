@@ -17,7 +17,7 @@
 
 ### Technology Stack
 - Backend
-  - ASP.NET Core 5.0 Web API
+  - ASP.NET Core 5.0 Web API (REST and gRPC)
   - Background services
 - Fontend
   - Blazor (SPA, PWA)
