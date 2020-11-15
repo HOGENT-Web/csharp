@@ -28,6 +28,8 @@
   - Azure Blobstorage 
 - Logging
   - SeriLog
+- Deployment
+  - Azure
 
 ### Software
 - .NET 5
