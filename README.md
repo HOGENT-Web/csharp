@@ -2,7 +2,7 @@
 
 ### Goals
 - Mimic how Web Applications are written in a company specific context
-- Practical design (anit)patterns
+- Practical design (anti)patterns
 - Best practises
   - Logging
   - Deployment
