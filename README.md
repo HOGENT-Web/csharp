@@ -41,3 +41,11 @@
   - [.NET Interactive Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
 - Azure Data Studio
 - GitKraken
+
+### Books
+- [Microservices architecture e-book](https://docs.microsoft.com/nl-be/dotnet/architecture/microservices/)
+- [Cloud Native](https://docs.microsoft.com/nl-be/dotnet/architecture/cloud-native/)
+
+### Tutorials
+- [.NET Tutorial - Your First Microservice](https://dotnet.microsoft.com/learn/aspnet/microservice-tutorial/intro)
+- [Blazor (Blazing Pizza)](https://github.com/dotnet-presentations/blazor-workshop/)
