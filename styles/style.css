@@ -1,0 +1,71 @@
+body {
+  font-family: 'Lekton', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Yanone Kaffeesatz";
+  font-weight: 400;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+h1 {
+  font-size: 3.5em;
+}
+
+h2 {
+  font-size: 3em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+.inverse {
+  background: #272822;
+  color: #777872;
+  text-shadow: 0 0 20px #333;
+}
+
+.inverse h1,
+.inverse h2 {
+  color: #f3f3f3;
+  line-height: 0.8em;
+}
+
+pre {
+  border-left: 0.4em solid #d7d7d7;
+  padding: 1em !important;
+}
+
+code {
+  background: transparent !important;
+}
+
+a {
+  color: #f92672;
+  text-decoration: none;
+}
+
+.task {
+  float: right;
+  font-size: 0.9em;
+  padding-top: 0.6em;
+}
+
+.task a {
+  color: #080;
+  text-decoration: none;
+}
+
+.right {
+  float: right;
+  margin-left: 1em;
+}
+
+.pushdown {
+  margin-top: 12em;
+}
+/*# sourceMappingURL=style.css.map */

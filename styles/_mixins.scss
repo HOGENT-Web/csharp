@@ -1,0 +1,18 @@
+@import 'variables';
+
+// Determines the layout of the slide dark/light
+@mixin layout($colorschema) {
+    @if $colorschema==$light {
+        background-color: $light;
+        color: $dark;
+        background-image: url(../images/logo_dark.png);
+    }
+    @else {
+        background-color: $dark;
+        color: $light;
+        background-image: url(../images/logo_light.png);
+    }
+    background-size: 100px;
+    background-position: 97% 95%;
+    background-repeat: no-repeat;
+}
