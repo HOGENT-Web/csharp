@@ -10,6 +10,7 @@ class: dark middle
 Code Editors (IDE)
 - [Visual Studio Community 2019](#visual-studio)<sup> **Kinda Cross-platform**</sup>
 - [Visual Studio Code](#visual-studio-code)<sup> **Cross-platform**</sup>
+  - With various extensions
 
 Data Management
 - [Microsoft SQL Server Management Studio (SSMS)](#ssms)
@@ -72,6 +73,23 @@ A lightweight source code editor to manipulate code.
 ### Visual Studio Code - Installation workflow
 <img src="./images/visual-studio-code-install.gif" width="85%" class="center"/>
 > Your version could be a little bit different.
+
+---
+### Installation Guide
+# Visual Studio Code Extensions
+Some extra extensions to make our lives easier.
+
+1. Click on the name of the extension.
+2. Click `Install` on the page.
+
+Mandatory
+- [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+- [.NET Interactive Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+
+Optional
+- [NuGet Gallery](https://marketplace.visualstudio.com/items?itemName=patcx.vscode-nuget-gallery) (optional)
+- [Azure Static Web Apps](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps) (optional)
+- [ASP.NET Core Switcher](https://marketplace.visualstudio.com/items?itemName=adrianwilczynski.asp-net-core-switcher) (optional)
 
 ---
 class: dark middle
