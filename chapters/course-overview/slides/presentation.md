@@ -102,7 +102,7 @@ name:classes
  - 2 hours
  - 3 hours
 
-**Practise-first apprach**
+**Practise-first approach**
  - Essential theory explained with slides and demo's followed by exercises in each class.
 
 Time investment in this course
