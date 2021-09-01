@@ -104,7 +104,7 @@ name:ssms
 A fullblown data editor.
 
 1. Download SQL Server Management Studio (SSMS)
-  - [Download for Windows](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
+  - [Download for Windows](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
   - Not supported for apple devices
 
 2. Install*
