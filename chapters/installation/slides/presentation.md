@@ -31,8 +31,8 @@ name:visual-studio
 A fullblown source code editor to manipulate code **with a local database**
 
 1. Download Visual Studio Community 2019
-  - [Download for Windows](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
-  - [Download for Apple](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio-mac/?sku=communitymac&rel=16)
+  - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16" target="_blank">Download for Windows</a>
+  - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio-mac/?sku=communitymac&rel=16" target="_blank">Download for Apple</a>
 
 2. Install* (for Windows)
   - Double click the installer
@@ -83,13 +83,13 @@ Some extra extensions to make our lives easier.
 2. Click `Install` on the page.
 
 Mandatory
-- [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
-- [.NET Interactive Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+- <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp" target="_blank">C#</a>
+- <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode" target="_blank">.NET Interactive Notebooks</a>
 
 Optional
-- [NuGet Gallery](https://marketplace.visualstudio.com/items?itemName=patcx.vscode-nuget-gallery) (optional)
-- [Azure Static Web Apps](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps) (optional)
-- [ASP.NET Core Switcher](https://marketplace.visualstudio.com/items?itemName=adrianwilczynski.asp-net-core-switcher) (optional)
+- <a href="https://marketplace.visualstudio.com/items?itemName=patcx.vscode-nuget-gallery" target="_blank">NuGet Gallery</a>
+- <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps" target="_blank">Azure Static Web Apps</a>
+- <a href="https://marketplace.visualstudio.com/items?itemName=adrianwilczynski.asp-net-core-switcher" target="_blank">ASP.NET Core Switcher</a>
 
 ---
 class: dark middle
@@ -104,7 +104,7 @@ name:ssms
 A fullblown data editor.
 
 1. Download SQL Server Management Studio (SSMS)
-  - [Download for Windows](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
+  - [Download for Windows](https://aka.ms/ssmsfullsetup)
   - Not supported for apple devices
 
 2. Install*
@@ -149,8 +149,8 @@ name:gitkraken
 A lightweight **G**raphical **U**ser **I**nterface for GIT
 
 1. Download GitKraken
-  - [Download for Windows](https://www.gitkraken.com/download/windows64)
-  - [Download for Apple](https://www.gitkraken.com/download/mac)
+- <a href="https://www.gitkraken.com/download/windows64" target="_blank">Download for Windows</a>
+- <a href="https://www.gitkraken.com/download/mac" target="_blank">Download for Apple</a>
 
 2. Install* (for Windows)
   - Double click the installer
