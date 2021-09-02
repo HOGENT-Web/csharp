@@ -1,5 +1,7 @@
 # Enterprise Web Development: C#
 
+Portal can be found [here](https://hogent-web.github.io/csharp/)
+
 ### Goals
 - Mimic how Web Applications are written in a company specific context
 - Practical design (anti)patterns
