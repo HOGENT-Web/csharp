@@ -166,17 +166,6 @@ Source control for your code.
 <img src="images/git-install.gif" width="85%" class="center"/>
 > Your version could be a little bit different.
 
-
----
-### Installation Guide
-# Success!
-You're now ready to follow the classes in this course! #yay
-
-<img src="../../../images/pieter.jpg" width="40%" class="center">
-
-
-
-
 ---
 name:gitkraken
 ### Installation Guide
