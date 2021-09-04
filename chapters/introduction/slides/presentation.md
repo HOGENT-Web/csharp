@@ -1,17 +1,18 @@
 class: dark middle
 
 # Enterprise Web Development C&#35;
-> 1. Introduction to the .NET ecosystem
+> 1. Introducting the .NET ecosystem
 
 ---
-### Introduction to the .NET ecosystem
+### Introducting the .NET ecosystem
 # Table of contents
 
 - [.NET Explained](#net-explained)
 - [> Hello World!](#hello-world)
 - [Tutorials](#tutorials)
 - [Class Libraries](#class-Libraries)
-- [Architecture](#architecture)
+- [GIT](#git)
+- [Summary](#summary)
 
 ---
 name:net-explained
@@ -323,18 +324,42 @@ name:class-Libraries
 ---
 ### Class Libraries
 # Problem Domain
-Real projects resolve around a problem domain or multiple domains.
+Real projects resolve around a **problem domain** or multiple domains.
 Classes of the problem domain might be:
 - Customer
 - Product
 - ProductType (could be an `enum`)
-- Category
 - Order
 - OrderLine
 - Invoice
 - ...
 
-These classes should always reside in a separate **Class Library** so they're sharable between multiple applications.
+These classes should always reside in a separate **Class Library** so they're sharable between multiple applications and can be distributed via NuGet.
+
+> Class Libraries cannot run by themselves they need to be referenced by a runnable project (e.g. Console App). 
+---
+### Class Libraries
+# Class Example
+JAVA
+```
+class Bicycle {
+  private int gear = 5;
+  public void braking() {
+    System.out.println("I'm braking!");
+  }
+}
+```
+C#
+```
+class Bicycle {
+  private int gear = 5;
+  public void Braking() { // Notice the PascalCase instead of camelCase
+    Console.WriteLine("I'm braking!")
+  }
+}
+```
+
+> More about classes in Chapter 2, but in essence they're the same as JAVA classes. 
 
 ---
 ### Class Libraries
@@ -371,7 +396,34 @@ dotnet add App/App.csproj reference Domain/Domain.csproj
 </ItemGroup>
 ```
 
-> **Without a explicit reference you cannot use any classes defined in the Domain.csproj class library.**
+> **Without a explicit reference you cannot use any classes defined in the Domain.csproj class library from the Console Application.**
+
+---
+### Class Libraries
+# Referencing a Class Library
+1. Open the root folder `hello-class-libraries` in vs code
+2. Rename `Class1.cs` to `Bicycle.cs` and implement it:
+```
+    public class Bicycle { // Public is mandatory, (see later)
+        private int gear = 5; // Field
+        public void Braking() { // Function
+            System.Console.WriteLine("I'm braking in gear:" + gear)
+        }
+}
+```
+3. Use it in the `Program.cs` from the App package.
+```
+using Domain; // Importing the namespace
+var bike = new Bicycle(); // Instantiating a new Bicycle Object
+bike.Brake(); // Using the method
+```
+> Remember top-level-statements? all the boilerplate can go!
+4. Open a terminal and run the App. (**GIF on next slide**)
+
+---
+### Referencing a Class Library
+<img src="images/class-library-bicycle.gif" width="100%">
+> Same as the slide before.
 ---
 class: dark middle
 name:git
@@ -379,9 +431,60 @@ name:git
 >  GIT
 
 ---
-class: dark middle
-name:architecture
-# Enterprise Web Development C&#35;
->  Architecture
+### GIT
+# Repository Structure
+Although .NET is project based, the folder structure is important for GIT.
+
+Standard folder structure:
+- ProjectName (repository)
+- .gitignore (notice it's in the root folder)
+- readme.md (information about the repository)
+  - src
+        - project1
+            - Files for project1
+        - classlibrary1
+            - Files for classlibrary1
+        - ...
+  - tests
+        - Same as src but for tests
 
 ---
+### GIT
+# Source Control
+1. Open the root folder `hello-class-libraries` in vs code
+2. Open a terminal and initialize a git repository
+```
+git init
+```
+3. We don't want build artefacts being tracked by GIT, so add a .net specific `.gitignore` in the **root folder**:
+```
+dotnet new gitignore
+```
+
+Build artefacts are generated files by certain dotnet commands for example `dotnet build` or `dotnet run`. **Never track obj and bin folders, since they're binary files**!
+
+> GIF provided in the next slide. 
+
+
+---
+### GIT
+# Source Control for .NET
+<img src="images/git-ignore.gif" width="100%">
+
+---
+class: dark middle
+name:summary
+# Introducting the .NET ecosystem
+>  Summary
+
+---
+### Introducting the .NET ecosystem
+# Summary
+In this chapter you learned:
+- The ins- and outs of the .NET Ecosystem.
+- Basic C# syntax
+- dotnet **C**ommnad **L**ine **I**nterface
+- Creating a simple console application
+- The problem domain goes into it's own class library
+- Linking a class library to a console application
+- The standard GIT folder structure for .NET projects
