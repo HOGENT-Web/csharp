@@ -10,7 +10,7 @@ class: dark middle
 - [.NET Explained](#net-explained)
 - [> Hello World!](#hello-world)
 - [Tutorials](#tutorials)
-- [Class Libraries](#class-Libraries)
+- [Class Libraries](#class-libraries)
 - [GIT](#git)
 - [Summary](#summary)
 
