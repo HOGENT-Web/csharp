@@ -100,30 +100,6 @@ h2 {
   line-height: 0.6em;
 }
 
-.bootstrap {
-  font-family: Verdana,sans-serif;
-}
-
-.bootstrap a {
-  color: initial;
-  text-decoration: initial;
-  font-weight: initial;
-}
-
-.bootstrap ul {
-  list-style-type: none;
-  color: initial;
-}
-
-.bootstrap ul li {
-  text-indent: initial;
-}
-
-.bootstrap ul li:before {
-  content: initial;
-  text-indent: initial;
-}
-
 a {
   color: #26bdf9;
   text-decoration: none;
