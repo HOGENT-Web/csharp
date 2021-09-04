@@ -17,6 +17,7 @@ Data Management
 - [Azure Data Studio](#azure-data-studio)<sup> **Cross-platform**</sup>
 
 GIT
+- [Git](#git)<sup> **Cross-platform**</sup>
 - [Gitkraken](#gitkraken)<sup> **Cross-platform**</sup>
 ---
 class: dark middle
@@ -141,6 +142,40 @@ class: dark middle
 
 # Installation Guide
 > GIT: *unpleasant person* in British English slang
+
+---
+name:git
+### Installation Guide
+# GIT
+Source control for your code.
+
+1. Download Git
+- <a href="https://git-scm.com/download/win" target="_blank">Download for Windows</a>
+- <a href="https://git-scm.com/download/mac" target="_blank">Download for Apple</a>
+
+2. Install* (for Windows)
+  - Double click the installer
+  - Follow the GIF on the next slide
+  > Else you're gonna have a bad time...
+  - Restart your PC.
+
+> *GIF provided in the next slide.
+
+---
+### GIT - Installation workflow
+<img src="images/git-install.gif" width="85%" class="center"/>
+> Your version could be a little bit different.
+
+
+---
+### Installation Guide
+# Success!
+You're now ready to follow the classes in this course! #yay
+
+<img src="../../../images/pieter.jpg" width="40%" class="center">
+
+
+
 
 ---
 name:gitkraken
