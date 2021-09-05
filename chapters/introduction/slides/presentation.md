@@ -473,6 +473,30 @@ Build artefacts are generated files by certain dotnet commands for example `dotn
 
 ---
 class: dark middle
+# Introducting the .NET ecosystem
+>  Exercises
+
+---
+name:exercises
+### Introducting the .NET ecosystem
+# Exercises
+Complete the following exercises:
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-1" target="_blank">You</a>
+2. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-2" target="_blank">Fibonacci</a>
+3. <a href="https://www.w3resource.com/csharp-exercises/basic/index.php" target="_blank">92 Drill exercises if you're feeling keen!</a>
+
+---
+name:solutions
+### Introducting the .NET ecosystem
+# Solutions
+On the following links you can find the solutions for the exercises.
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-1/tree/solution" target="_blank">You</a>
+2. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-2/tree/solution" target="_blank">Fibonacci</a>
+3. <a href="https://www.w3resource.com/csharp-exercises/basic/index.php" target="_blank">92 Drill exercises if you're feeling keen!</a>
+ - Each exercise has it's own solution
+
+---
+class: dark middle
 name:summary
 # Introducting the .NET ecosystem
 >  Summary
