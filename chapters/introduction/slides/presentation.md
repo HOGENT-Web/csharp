@@ -490,8 +490,8 @@ name:solutions
 ### Introducting the .NET ecosystem
 # Solutions
 On the following links you can find the solutions for the exercises.
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-1/tree/solution" target="_blank">You</a>
-2. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-2/tree/solution" target="_blank">Fibonacci</a>
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-1/tree/solution#solution" target="_blank">You</a>
+2. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-2/tree/solution#solution" target="_blank">Fibonacci</a>
 3. <a href="https://www.w3resource.com/csharp-exercises/basic/index.php" target="_blank">92 Drill exercises if you're feeling keen!</a>
  - Each exercise has it's own solution
 
