@@ -1,0 +1,29 @@
+digraph G {
+  graph[splines=line];
+  node[shape=plaintext];
+  "types" -> "value types"
+  "types" -> "reference types"
+  "value types" -> "primitive types"
+  "value types" -> "enumerations"
+  "value types" -> "structs"
+  "reference types" -> "interfaces"
+  "reference types" -> "classes"
+  "reference types" -> "delegates"
+  "reference types" -> "arrays"
+  "primitive types" -> "bool\nchar"
+  "primitive types" -> "sbyte\nshort\nint\nlong"
+  "primitive types" -> "byte\nushort\nuint\nulong"
+  "primitive types" -> "float\ndouble\ndecimal"
+
+  subgraph cluster_sg {
+    "enumerations";
+    "structs";
+    "classes";
+    "interfaces";
+    "arrays";
+    "delegates";
+    label="user-definable types"
+    labelloc="b";
+    graph[style=dotted];
+  }
+}
