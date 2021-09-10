@@ -51,3 +51,90 @@ Portal can be found [here](https://hogent-web.github.io/csharp/)
 ### Tutorials
 - [.NET Tutorial - Your First Microservice](https://dotnet.microsoft.com/learn/aspnet/microservice-tutorial/intro)
 - [Blazor (Blazing Pizza)](https://github.com/dotnet-presentations/blazor-workshop/)
+
+
+---
+
+## Classes
+### Week 1
+#### Day 1:
+- Go through the slides <a target="_blank" href="chapters/course-overview/slides/index.html">Course Overview</a>.
+- Go through the slides [Introduction](chapters/introduction/index.html):
+  - Demo `Your First Application`
+  - Self-study `Tutorials` until class is finsihed.
+
+#### Day 2
+- Continue with 1 hour of `Tutorials` as self-study.
+- Continue through the slides [Introduction](chapters/introduction/index.html) after `Tutorials`
+  - Demo `Creating a Class Library`
+- Continue through the slides [Introduction](chapters/introduction/index.html) from `GIT`.
+  - Demo `Source Control`
+  - Self-study `Exercises` until class is finished.
+
+### Week 2
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+### Week 3
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+### Week 4
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+
+### Week 5
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+### Week 6
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+### Week 7
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+### Week 8
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+### Week 9
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+
+### Week 10
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+### Week 11
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
+
+### Week 12
+#### Day 1:
+> TODO
+#### Day 2
+> TODO
