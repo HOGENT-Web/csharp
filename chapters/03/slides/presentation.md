@@ -10,6 +10,7 @@ class: dark middle
 TODO: shouldn't collections be the last thing?
 
 - [The Visual Studio Solution](#vs-solution)
+- [The sample application](#sample-application)
 - [Classes](#classes)
 - [Associations &amp; collections](#associations)
 - [Inheritance](#inheritance)
@@ -21,26 +22,33 @@ TODO: shouldn't collections be the last thing?
 - [Unit Testing](#unit-testing)
 
 ---
-name:vs-solution
-### Chapter 3 - Model &amp; Unit Testing
-# The Visual Studio Solution
+name: vs-solution
+class: dark middle
+
+# Model &amp; Unit Testing
+> The Visual Studio Solution
 
 TODO: add some info about a Visual Studio Solution and the projects
 
 ---
+name: sample-application
+class: dark middle
+# Model &amp; Unit Testing
+> The sample application
 
-### Chapter 3 - Model &amp; Unit Testing
-# The sample application
-
-
-TODO: add UML diagram for Banking app
+TODO: add UML diagram for Banking app (draw.io)
 
 ---
-name:classes
-### Chapter 3 - Model &amp; Unit Testing
-# Classes
+name: classes
+class: dark middle
 
-**Members of a class**
+# Model &amp; Unit Testing
+> Classes
+
+---
+### Classes
+# Members of a class
+
 - [Fields (= attributes)](#fields)
 - [Methods](#methods)
 - [Constructor](#constructor) - [destructor](#destructor)
@@ -48,10 +56,16 @@ name:classes
 - Events (later)
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Classes
+### Classes
 
-**Access modifiers for members**
+# Access modifiers for classes
+
+TODO: access modifiers for classes
+
+---
+### Classes
+# Access modifiers for members
+
 - `public`
   - accessible from everywhere, no limits
 - `private`
@@ -68,9 +82,9 @@ name:classes
 
 
 ---
-name:fields
-### Chapter 3 - Model &amp; Unit Testing
-# Classes: Fields
+name: fields
+### Classes
+# Fields
 
 > **[modifier]** *datatype variableName*
 
@@ -92,8 +106,8 @@ public class BankAccount
 
 ---
 
-### Chapter 3 - Model &amp; Unit Testing
-# Classes: Constants
+### Classes
+# Constants
 
 * Use the keyword **`const`**
 * Must be **initialized** when declared
@@ -116,8 +130,8 @@ Console.WriteLine(BankAccount.WithdrawCost);
 
 ---
 
-### Chapter 3 - Model &amp; Unit Testing
-# Classes: readonly
+### Classes
+# readonly
 
 * Use the keyword **`readonly`**
 * Can only be **assigned a value once**
@@ -134,8 +148,8 @@ public class BankAccount
 ```
 
 ---
-name:methods
-### Chapter 3 - Model &amp; Unit Testing
+name: methods
+### Classes
 # Methods
 
 > **[modifier]** return_type MethodName([parameters]) { ... }
@@ -159,8 +173,8 @@ public class BankAccount
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Methods: Parameter list
+### Methods
+# Parameter list
 
 * **separated by a comma**
 * have a **type** and **name** (camelCase)
@@ -182,8 +196,8 @@ ExampleMethod(5, 8); // optionalInt will be 8
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Methods: Named arguments
+### Methods
+# Named arguments
 
 - not every optional parameter may have a value
 - what if you only want to give a value for the last int?
@@ -203,8 +217,8 @@ ExampleMethod(5, `optionalInt`: 8);
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Methods: Passing parameters (1)
+### Methods
+# Passing parameters (1)
 
 Parameters can be passed in 3 ways:
 * **value** parameters
@@ -221,8 +235,8 @@ Test1(i); // i is still 0
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Methods: Passing parameters (2)
+### Methods
+# Passing parameters (2)
 
 Parameters can be passed in 3 ways:
 
@@ -242,8 +256,8 @@ Test2(ref i); // i has now value 1
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Methods: Passing parameters (3)
+### Methods
+# Passing parameters (3)
 
 Parameters can be passed in 3 ways:
 
@@ -263,8 +277,8 @@ Test3(out i); // i has now value 10
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Methods: Passing parameters (4)
+### Methods
+# Passing parameters (4)
 
 > **Passing objects as value parameters, copies the references**
 
@@ -289,8 +303,8 @@ Demonstrate2(ref myAccount); // myAccount is null now
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Methods: Return types
+### Methods
+# Return types
 
 Methods can also have a return type
 
@@ -311,7 +325,7 @@ public decimal GetBalance()
 
 ---
 name: constructor
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Constructor
 
 > **[modifier]** ClassName([parameters]) { ... }
@@ -335,7 +349,7 @@ public BankAccount(string accountNumber,
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Constructor
 
 A constructor also supports **optional parameters**
@@ -352,7 +366,7 @@ public BankAccount(string accountNumber, decimal balance = 0M)
 > Visual Studio snippet: **ctor + tab**
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Constructor
 
 Declaration and instantiation can be seperate
@@ -369,7 +383,7 @@ BankAccount myAccount = new BankAccount("123-123123-12");
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Constructor
 
 If the setter for `Balance` was public, but there is no constructor to set it right away, there is a solution: **object initializers**.
@@ -385,7 +399,7 @@ BankAccount account = new BankAccount("123-123123-12") { Balance = 200M };
 
 ---
 name: destructor
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Destructor
 
 * **Cleans** objects
@@ -405,8 +419,8 @@ public class BankAccount
 ```
 
 ---
-name:properties
-### Chapter 3 - Model &amp; Unit Testing
+name: properties
+### Classes
 # Properties
 
 * Combination of fields and methods, **used as if it's a field**
@@ -441,7 +455,7 @@ myAccount.AccountNumber = "12-456376-25";
   * `value` is a keyword in C# which contains the value that is being assigned (and obviously has the same type as the property)
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Properties
 
 * don't always need getter and setter
@@ -463,7 +477,7 @@ public class BankAccount
 ```
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Properties: Automatic properties
 
 > You don't always need a field, there is a **shortcut**
@@ -482,7 +496,7 @@ The compiler will still use a field behind the scenes, but this is much more con
 <img src="./images/c-java-get-set.png" width="40%" class="center" />
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Properties: Automatic properties
 
 You can also change the access level
@@ -505,7 +519,7 @@ public class BankAccount
 **Read-only** properties only have a `get` and can be initialized as above or in the constructor.
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
+### Classes
 # Regions
 
 * Used to **group pieces of code**
@@ -526,8 +540,8 @@ public class BankAccount
 > In Visual Studio: select code > right click > Snippet > Surround with > #region
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Classes: Example
+### Classes
+# Example
 
 Let's implement the `BankAccount` class!
 
@@ -553,51 +567,58 @@ Let's implement the `BankAccount` class!
 > Or use GitKraken or the git CLI, whatever you like
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
-# Classes: Example
+name: associations
+class: dark middle
 
-Then create a folder for the domain and add an empty `BankAccount` class
-
-
-
----
-name:associations
-### Chapter 3 - Model &amp; Unit Testing
-# Associations &amp; collections
-
+# Model &amp; Unit Testing
+> Associations &amp; collections
 
 ---
-name:inheritance
-### Chapter 3 - Model &amp; Unit Testing
-# Inheritance
+name: inheritance
+class: dark middle
+
+# Model &amp; Unit Testing
+> Inheritance
 
 ---
-name:polymorphism
-### Chapter 3 - Model &amp; Unit Testing
-# Polymorphism
+name: polymorphism
+class: dark middle
+
+# Model &amp; Unit Testing
+> Polymorphism
 
 ---
-name:abstract-class
-### Chapter 3 - Model &amp; Unit Testing
-# Abstract class
+name: abstract-class
+class: dark middle
+
+# Model &amp; Unit Testing
+> Abstract class
 
 ---
-name:interface
-### Chapter 3 - Model &amp; Unit Testing
-# Interface
+name: interface
+class: dark middle
+
+# Model &amp; Unit Testing
+> Interface
 
 ---
-name:static-members
-### Chapter 3 - Model &amp; Unit Testing
-# Static members
+name: static-members
+class: dark middle
+
+# Model &amp; Unit Testing
+> Static members
 
 ---
-name:events
-### Chapter 3 - Model &amp; Unit Testing
-# Delegates &amp; Events
+name: events
+class: dark middle
+
+# Model &amp; Unit Testing
+> Delegates &amp; Events
 
 ---
-name:unit-testing
-### Chapter 3 - Model &amp; Unit Testing
-# Unit Testing
+name: unit-testing
+class: dark middle
+
+# Model &amp; Unit Testing
+> Unit Testing
 
