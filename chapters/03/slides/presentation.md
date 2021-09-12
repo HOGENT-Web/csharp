@@ -554,7 +554,7 @@ public class BankAccount
 
 Let's implement the `BankAccount` class!
 
-<img src="./images/DCD_part1.png" width="50%" class="center" />
+<img src="./images/DCD_part1.svg" width="50%" class="center" />
 
 ---
 ### Create a new project in Visual Studio 2019
