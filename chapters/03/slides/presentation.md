@@ -656,6 +656,19 @@ Two associations in `Transaction` class:
   * `Remove(T item): void`
   * `RemoveAt(int index): void`
 
+---
+### Associations &amp; collections
+# Implementations
+
+C# has different types of collections, all serving its unique purpose:
+* **List**: just a simple list of items
+* **ArrayList**: a simple list to store `object`s, no type is given
+* **Stack**: LIFO structure
+* **Queue**: FIFO structure
+* **Dictionary**: list of key-value pairs in unordered way
+* **Hashtable**: list of key-value pairs stored by a hash of the key
+
+Learn about collection with this [tutorials](https://www.tutorialsteacher.com/csharp/csharp-collection).
 
 ---
 ### Associations &amp; collections
