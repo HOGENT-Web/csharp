@@ -852,6 +852,45 @@ class: dark middle
 > Polymorphism
 
 ---
+### Model &amp; Unit Testing
+# Polymorphism
+
+* Can happen when classes inherit from each other
+* Makes easy to save instances of a subclass in a collection of the superclass
+
+```{cs}
+IList<BankAccount> accounts = new List<BankAccount>();
+accounts.Add(new BankAccount("123-123123-12"));
+accounts.Add(new SavingsAccount("123-123123-13", 0.1M));
+accounts.Add(new SavingsAccount("123-123123-13", 0.05M));
+```
+
+* Executes the correct method depending on the instance type
+
+```{cs}
+IList<BankAccount> accounts = new List<BankAccount>();
+
+foreach (var account in accounts)
+{
+  account.Withdraw(10M);
+}
+```
+
+---
+### Model &amp; Unit Testing
+# Polymorphism
+
+Checking the type of the instance is possible with the **`is` keyword**
+
+```{cs}
+BankAccount s = new SavingsAccount("123-123123-13", 0.1M)
+if (s is SavingsAccount)
+{
+  // Do something useful
+}
+```
+
+---
 name: abstract-class
 class: dark middle
 
