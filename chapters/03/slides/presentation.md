@@ -57,13 +57,6 @@ class: dark middle
 
 ---
 ### Classes
-
-# Access modifiers for classes
-
-TODO: access modifiers for classes
-
----
-### Classes
 # Access modifiers for members
 
 - `public`
@@ -80,6 +73,22 @@ TODO: access modifiers for classes
 - `protected internal`
   - combination of `protected` and `internal`
 
+---
+### Classes
+
+# Access modifiers for classes
+
+Classes, structs or records directly declared in a namespace can be `public` or `internal` (default).
+
+> Directly declared in a namespace = not nested within another class or struct
+
+Nested classes or structs _in structs_ can be declared `public`, `internal` or `private`.
+
+Nested classes or structs _in classes_ can be declared all of the previous ones (`public`, `private`, `protected`, `internal` or `protected internal`).
+
+The default for nested classes or structs is `private`.
+
+> Derived classes and records can't have greater accessibility than their base types (see later).
 
 ---
 name: fields
