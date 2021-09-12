@@ -629,6 +629,15 @@ Two associations in `Transaction` class:
 <br />
 <img src="./images/IEnumerable.svg" width="30%" class="center" />
 
+```{cs}
+// Short way to create a list
+IEnumerable<string> list = new List<string>
+{
+  "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+  "Saturday", "Sunday"
+}
+```
+
 ---
 ### Collections
 # ICollection&lt;T&gt;
@@ -637,8 +646,15 @@ Two associations in `Transaction` class:
 * Knows the **number of items**
 * Knows if its items can be **manipulated**
 
-<br />
-<img src="./images/ICollection.svg" width="30%" class="center" />
+<img src="./images/ICollection.svg" width="25%" class="center" />
+
+```{cs}
+ICollection<string> list = new List<string>
+{
+  "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+  "Saturday", "Sunday"
+}
+```
 
 ---
 ### Collections
@@ -687,6 +703,138 @@ class: dark middle
 
 # Model &amp; Unit Testing
 > Inheritance
+
+---
+### Model &amp; Unit Testing
+# Inheritance
+
+* Mechanism to **reuse code**
+* **Superclass** contains shared properties and methods
+* **Subclass inherits all** `public` and `protected` members
+  * `private` members are not accessible/inherited
+* **Subclass extends or specialises** the superclass' behavior
+* **"Is a"** relation between sub- and superclass
+
+---
+### Inheritance
+# Superclass definition
+
+Nothing special is needed in the superclass
+
+```{cs}
+public class BankAccount { /* ... */ }
+```
+
+If no class can inherit from a given class, it must be **sealed**
+
+```{cs}
+public `sealed` class BankAccount { /* ... */ }
+```
+
+---
+### Inheritance
+# Subclass definition
+
+A subclass defines its superclass after the classname, followed by a colon
+
+```{cs}
+public class SavingsAccount `: BankAccount` { /* ... */ }
+```
+
+A class can **only inherit from one class**, no multiple inhertance allowed.
+
+<img src="./images/multiple-inheritance.jpg" width="40%" class="center" />
+
+---
+### Inheritance
+# Constructors
+
+* Constructors are **not inherited**
+* If no constructors are written, you get a default constructor for free
+  * It'll call the superclass' constructor
+  * Will give an error if the superclass has no default constructor
+
+<img src="./images/no-def-ctor-superclass.png" width="100%" class="center" />
+
+* **Keyword `base`**: call method/constructor of superclass
+* Keyword `this`: references the current instance
+
+---
+### Inheritance
+# Constructors
+
+```{cs}
+public class SavingsAccount: BankAccount
+{
+  public decimal IntrestRate { get; set; };
+
+  public SavingsAccount(string accountNumber, decimal intrestRate)
+    : `base(accountNumber)` // call constructor of BankAccount
+  {
+    IntrestRate = intrestRate;
+  }
+
+  public SavingsAccount(string accountNumber, decimal intrestRate,
+    bool goldMember) : `this(accountNumber, intrestRate)`
+  // call the other constructor of SavingsAccount
+  {
+    // ...
+  }
+}
+```
+
+---
+### Inheritance
+# Methods
+
+* By default methods cannot be overriden in the subclass
+* **Keyword `virtual`** is needed in the superclass
+
+```{cs}
+public `virtual` void Withdraw(decimal amount)
+{
+  _transactions.Add(new Transaction(amount, TransactionType.Withdraw));
+  Balance -= amount;
+}
+```
+
+* **Keyword `override`** is needed in the subclass
+
+```{cs}
+public `override` void Withdraw(decimal amount)
+{
+  base.Withdraw(amount);
+  base.Withdraw(WithdrawCost);
+}
+```
+
+---
+### Inheritance
+# Methods
+
+The compiler will always choose the right implementation, depending on the runtime type.
+
+```{cs}
+BankAccount account1 = new BankAccount("123-123123-12");
+BankAccount account2 = new SavingsAccount("123-123123-13", 0.1M);
+
+account1.Withdraw(100M); // method from BankAccount
+account2.Withdraw(100M); // method from SavingsAccount
+```
+
+---
+### Inheritance
+# Object class
+
+* **Every object** in C# implicitly **inherits from `System.Object`**
+  * No need to write this
+* You get these methods for free with this behaviour
+  * `ToString()`: returns the class name
+  * `Equals(Object)`: returns true
+      * if two reference variables reference the same object or
+      * if two value variables have the same value
+  * `GetHashCode()`: used in hash-based collections (e.g. `Dictionary`)
+* In most cases, one wants to override these methods
 
 ---
 name: polymorphism
