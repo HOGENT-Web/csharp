@@ -566,8 +566,6 @@ Let's implement the `BankAccount` class!
 
 <img src="./images/create-bankaccount-class.gif" width="100%" />
 
-> The class diagram is a bit laggy in the beginning, ignore this
-
 ---
 ### Pushing your changes to GitHub
 
