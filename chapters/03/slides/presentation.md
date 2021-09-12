@@ -837,6 +837,14 @@ account2.Withdraw(100M); // method from SavingsAccount
 * In most cases, one wants to override these methods
 
 ---
+### Inheritance
+# Example
+
+Now implement the `SavingsAccount` class!
+
+<img src="./images/DCD_part4.svg" width="100%" class="center" />
+
+---
 name: polymorphism
 class: dark middle
 
