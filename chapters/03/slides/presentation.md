@@ -581,6 +581,94 @@ class: dark middle
 > Associations &amp; collections
 
 ---
+### Associations &amp; collections
+# Associations
+
+Associations are relations between classes:
+* one to one
+* one to many
+* many to one
+* many to many
+
+> It's just a member of a class with a (list of a) class as type.
+
+---
+### Associations &amp; collections
+# Example
+
+<img src="./images/DCD_part2.svg" width="90%" class="center" />
+
+Two associations in `Transaction` class:
+* `TransactionType`: one to one
+* `_transactions`: one to many - use a Collection
+
+> Note: `Transaction` is **immutable** (no setters)
+
+---
+### Associations &amp; collections
+# Collections
+
+* Collections are **generic types**
+* Can only contain items of that type
+* Namespace: `System.Collections.Generic`
+* Always **use collection interfaces**
+  * better testable code
+  * loosely coupled
+
+> TODO: image of slide 58 (web III)
+
+---
+### Collections
+# IEnumerable&lt;T&gt;
+
+* Most important interface
+* You can **iterate over its items**
+* Offers an **enumerator** to iterate through the collection
+* `T` is the **generic** type parameter (can be any class, struct or record)
+
+<br />
+<img src="./images/IEnumerable.svg" width="30%" class="center" />
+
+---
+### Collections
+# ICollection&lt;T&gt;
+
+* Implements `IEnumerable<T>`
+* Knows the **number of items**
+* Knows if its items can be **manipulated**
+
+<br />
+<img src="./images/ICollection.svg" width="30%" class="center" />
+
+---
+### Collections
+# IList&lt;T&gt;
+
+* Implements `ICollection<T>`
+* Can manipulate its items
+* Index-based access to the items
+  * first index is 0
+  * use square brackets: `[index]`
+* Some useful methods:
+  * `Add(T item): int`
+  * `Clear(): void`
+  * `Insert(int index, T item): void`
+  * `Remove(T item): void`
+  * `RemoveAt(int index): void`
+
+
+---
+### Associations &amp; collections
+# Example
+
+
+Let's implement the `Transaction` class! Update the `BankAccount` class with its association with `Transaction`. Don't forget to update its two methods.
+
+<img src="./images/DCD_part2.svg" width="90%" class="center" />
+
+> You might need computed properties for `IsDeposit` or `IsWithdraw`, see [Properties with backing fields](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/properties#properties-with-backing-fields) or even [Expression body definitions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/properties#expression-body-definitions)
+
+---
 name: inheritance
 class: dark middle
 
