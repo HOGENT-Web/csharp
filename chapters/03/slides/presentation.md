@@ -932,11 +932,69 @@ class: dark middle
 > Interface
 
 ---
+### Model &amp; Unit Testing
+# Interface
+
+* An interface defines a **contract**
+* Any **class or struct** which implements an interface should **implement all members in the contract**
+* An interface may define a **default implementation** for members (since C# 8.0)
+* Can also define static members (= single implementation for common functionality)
+* **Cannot be instantiated**
+* Name convention: start with an `I`
+
+---
+### Interface
+# Example
+
+Let's create an interface for the `BankAccount` class. Remove the abstract method from `BankAccount`.
+
+<img src="./images/DCD_part5.svg" width="90%" class="center" />
+
+---
 name: static-members
 class: dark middle
 
 # Model &amp; Unit Testing
 > Static members
+
+---
+### Model &amp; Unit Testing
+# Static members
+
+* Information **linked to the class**, not to an instance
+* Are **always accessible**, even without an instance
+* **Keyword `static`**
+* Accessed through the class name
+
+Declaring a static member
+
+```{cs}
+public class SavingsAccount: BankAccount
+{
+  public `static` int nrOfAccounts = 0;
+}
+```
+
+And accessing it
+
+```
+int total = SavingsAccount.nrOfAccounts;
+```
+
+---
+### Model &amp; Unit Testing
+# Static class
+
+* A class can also be static
+* **Only static members**
+* **Cannot be instantiated**
+* Are **sealed**, cannot be inherited
+
+The class `Math` is static
+
+```{cs}
+double result = Math.Cos(45);
+```
 
 ---
 name: events
