@@ -898,6 +898,33 @@ class: dark middle
 > Abstract class
 
 ---
+### Model &amp; Unit Testing
+# Abstract class
+
+* A class with **one or more abstract methods is an abstract class**
+* An abstract class can also have normal members
+* **Cannot be instantiated**, a subclass should be used to create an instance
+* **Keyword `abstract`**
+* A subclass of an abstract class should implement all abstract methods or be an abstract class itself
+  * **Implementation** of method should use **keyword `override`**
+
+---
+### Abstract class
+# Example
+
+The class `BankAccount` is now abstract because of the `Print` method.
+
+```{cs}
+public abstract class BankAccount
+{
+  public virtual void Withdraw(decimal amount) { /* ... */ }
+  `public abstract string Print();`
+}
+```
+
+Now let's implement this in our example.
+
+---
 name: interface
 class: dark middle
 
