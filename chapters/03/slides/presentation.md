@@ -1004,6 +1004,95 @@ class: dark middle
 > Delegates &amp; Events
 
 ---
+### Delegates &amp; Events
+# Events
+
+* **Something that happened** during the execution of a program
+* **Inform others** about it (i.e. some other piece of code)
+* Examples:
+  * a new user was created
+  * a product was added to a cart
+  * some user changed something
+  * someone scored a certain amount of points
+  * ...
+
+---
+### Delegates &amp; Events
+# Events
+
+* Based on the **delegate model**
+* Follows the [observer design pattern](https://refactoring.guru/design-patterns/observer).
+* Type of message sent by an object to signal the occurence of an action
+* Typically a member of the event sender
+* Event sender doesn't know which object or method will receive (or handle) his events
+
+???
+### Observer
+With this pattern you enable subscriber to register with and receive notifications from a provider. The event sender (= provider) pushes a notification after an event occured, the event receiver (= subscriber) receives it and does something with it.
+
+---
+### Events
+# Definition
+
+Simply add the `event` keyword before the declaration of an `EventHandler`.
+
+```{cs}
+class Counter {
+  `event EventHandler ThresholdReached;`
+}
+```
+
+The EventHandler can also get a type parameter: `EventHandler<TEventArgs>`.
+
+---
+### Events
+# Emitting an event
+
+Define a `protected` and `virtual` method following the name convention **On*EventName***. This method always has **one parameter** of type **`EventArgs`** which contain the event data, if present.
+
+```{cs}
+class Counter {
+  event EventHandler ThresholdReached;
+
+  `protected virtual void OnThresholdReached(EventArgs e) {`
+    `ThresholdReached?.Invoke(this, e);`
+  `}`
+}
+```
+
+---
+### Delegates &amp; Events
+# Delegates
+
+* Reference type
+* Holds a **reference to a method**
+* **Declares signature** of the method: return type and parameters
+  * Can only hold references to methods with an exact match
+  * Type-safe function pointer (as in C++ for example) or a callback (JavaScript)
+* **Intermediary** between event source and code that handles it
+* **Multicast**: can hold more than one reference
+* `EventHandler` itself is a delegate: look at the [documentation](https://docs.microsoft.com/en-us/dotnet/api/system.eventhandler?view=net-5.0).
+* Can also be **used to emit events**, it's easier to define the arguments.
+  * No inheritance of `EventArgs` needed
+
+---
+### Delegates
+# Definition
+
+Define a `public` `void` method using the **keyword `delegate`** and declaring the parameters.
+
+```{cs}
+public `delegate` void ThresholdReachedEventHandler(object sender,
+  ThresholdReachedEventArgs e);
+```
+
+Or even with custom arguments
+
+```{cs}
+public delegate void OnThresholdReached(`int threshold`);
+```
+
+---
 name: unit-testing
 class: dark middle
 
