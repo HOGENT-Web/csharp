@@ -840,7 +840,7 @@ account2.Withdraw(100M); // method from SavingsAccount
 ### Inheritance
 # Example
 
-Now implement the `SavingsAccount` class!
+Now implement the `SavingsAccount` class! Also add a `ToString`, `Equals` and `GetHashCode` to the class `BankAccount`.
 
 <img src="./images/DCD_part4.svg" width="100%" class="center" />
 
