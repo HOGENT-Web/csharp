@@ -1164,7 +1164,16 @@ Or even with custom arguments
 public delegate void OnThresholdReached(`int threshold`);
 ```
 
+---
+### Delegates &amp; Events
+# Example
 
+Add an event to a BankAccount which emits a transaction when one is added.
+
+> Why do we need a setter for `TransactionAdded`?
+
+
+<img src="./images/DCD_part6.svg" width="90%" class="center" />
 
 ---
 name: unit-testing
