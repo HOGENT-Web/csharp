@@ -1061,6 +1061,78 @@ class Counter {
 ```
 
 ---
+### Events
+# Event arguments
+
+* Every event can have arguments (not required!)
+* Create a **subclass of `EventArgs`**
+  * Has a static property **`Empty`**
+  * Used for events without arguments
+  * Pass `EventArgs.Empty` to the second parameter of the handler
+* Add the arguments as **properties** in this new class
+
+```{cs}
+public class ThresholdReachedEventArgs : EventArgs
+{
+  public int Threshold { get; set; }
+  public DateTime TimeReached { get; set; }
+}
+```
+
+---
+### Events
+# Event arguments
+
+Example of empty event arguments
+
+```{cs}
+public class Counter
+{
+  private int threshold;
+  private int total;
+  public event EventHandler ThresholdReached;
+
+  public Counter(int passedThreshold) { /* ... */ }
+
+  public void Add(int x)
+  {
+    total += x;
+    if (total >= threshold)
+      `OnThresholdReached(EventArgs.Empty);`
+  }
+
+  protected virtual void OnThresholdReached(EventArgs e) { /* ... */ }
+}
+```
+
+---
+### Events
+# Event arguments
+
+Example of custom event arguments
+
+```{cs}
+public class Counter
+{
+  private int threshold;
+  private int total;
+  public event EventHandler ThresholdReached;
+
+  public Counter(int passedThreshold) { /* ... */ }
+
+  public void Add(int x)
+  {
+    total += x;
+    if (total >= threshold)
+      `OnThresholdReached(new ThresholdReachedEventArgs() {`
+        `Threshold = threshold, TimeReached = DateTime.Now });`
+  }
+
+  protected virtual void OnThresholdReached(EventArgs e) { /* ... */ }
+}
+```
+
+---
 ### Delegates &amp; Events
 # Delegates
 
@@ -1091,6 +1163,8 @@ Or even with custom arguments
 ```{cs}
 public delegate void OnThresholdReached(`int threshold`);
 ```
+
+
 
 ---
 name: unit-testing
