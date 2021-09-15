@@ -7,8 +7,6 @@ class: dark middle
 ### Chapter 3 - Model &amp; Unit Testing
 # Table of contents
 
-TODO: shouldn't collections be the last thing?
-
 - [The Visual Studio Solution](#vs-solution)
 - [The sample application](#sample-application)
 - [Classes](#classes)
@@ -36,7 +34,7 @@ class: dark middle
 # Model &amp; Unit Testing
 > The sample application
 
-TODO: add UML diagram for Banking app (draw.io)
+TODO: add final UML diagram for Banking app
 
 ---
 name: classes
@@ -615,7 +613,15 @@ Two associations in `Transaction` class:
   * better testable code
   * loosely coupled
 
-> TODO: image of slide 58 (web III)
+---
+### Associations &amp; collections
+# Collection interfaces
+
+<img src="./images/collection_interfaces.svg" width="100%" class="center" />
+
+<br />
+
+<img src="./images/collection_interfaces_enumerator.svg" width="30%" class="center" />
 
 ---
 ### Collections
