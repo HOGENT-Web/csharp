@@ -1353,7 +1353,7 @@ public class BankAccountTest
 * Create a new **xUnit Test Project** called `Tests`
 * Add a **reference to** the **Domain** project
 * Remove the class `UnitTest1.cs`
-* Create a new class named `BankAccountTest`
+* Create a new class named `BankAccountTest` in a folder named `Domain`
 
 ---
 ### Create a new test project
