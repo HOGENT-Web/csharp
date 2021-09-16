@@ -1297,7 +1297,8 @@ Some useful methods of **Assert**
 * Every test is a **`public void` method** with one of these annotations
   * **`[Fact]`**: test with same data (one case)
   * **`[Theory]`**: data driven test (multiple cases at once)
-      * use **`[InlineData(/* ... */)]`** to supply parameters
+      * use **`[InlineData(/* ... */)]`** or
+      * **`[MemberData(nameof(/* field */))]`**
 * **Set up** code goes in the constructor
 * **Tear down** code goes in the `Dispose` method
   * Inherit from `IDisposable`
@@ -1313,7 +1314,7 @@ Some useful methods of **Assert**
 public class BankAccountTest
 {
   `[Fact]`
-  public void `NewAccount_BalanceZero`()
+  `public void NewAccount_BalanceZero`()
   {
     // Arrange
     string accountNumber = "123-4567890-02";
@@ -1333,7 +1334,7 @@ public class BankAccountTest
 public class BankAccountTest
 {
   `[Theory]`
-  [InlineData("123-4567890-0333")] // too long
+  `[InlineData("123-4567890-0333")]` // too long
   [InlineData("063-1547563@60")] // wrong format
   [InlineData("133-4567890-03")] // not divisable by 97
   public void NewAccount_WrongAccountNumber_Fails(`string accountNumber`)
@@ -1343,6 +1344,33 @@ public class BankAccountTest
       `() => new BankAccount(accountNumber))`
     `);`
   }
+}
+```
+
+---
+### Show me the code
+# Theory
+
+```{cs}
+public class BankAccountTest
+{
+  public static IEnumerable<object[]> TestData
+  {
+      get
+      {
+          DateTime yesterday = DateTime.Today.AddDays(-1);
+          DateTime tomorrow = DateTime.Today.AddDays(1);
+
+          yield return new object[] { null, null, 2 };
+          yield return new object[] { yesterday, tomorrow, 2 };
+          yield return new object[] { yesterday, yesterday, 0 };
+      }
+  }
+
+  [Theory]
+  `[MemberData(nameof(TestData))]`
+  public void GetTransactions_ReturnsTransactions(`DateTime? from,`
+    `DateTime? till, int expected`) { /* ... */ }
 }
 ```
 
@@ -1371,6 +1399,8 @@ Create the following tests for **`BankAccount`** (use `"123-4567890-02"` as acco
 | NewAccount_BalanceZero       | Balance is `0.00`                   |
 | NewAccount_SetsAccountNumber | AccountNumber is `"123-4567890-02"` |
 
+> **Hint:** create regions for each method you test
+
 ---
 ### Run the tests
 
@@ -1390,6 +1420,9 @@ Create the following tests for **`BankAccount`**
 | NewAccount_WrongFormat_Fails    | `063-1547563@60`   | `ArgumentException`     |
 | NewAccount_NoDivisionBy97_Fails | `133-4567890-03`   | `ArgumentException`     |
 
+> You might need a [Regex](https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex?view=net-5.0) here<br />
+> Checksum account number `"123-4567890-02"`:<br/>&nbsp;&nbsp;(123 + 4567890) % 97 == 2
+
 ---
 ### Unit Testing
 # Example (3)
@@ -1404,6 +1437,8 @@ Create the following tests for **`BankAccount`** (use `"123-4567890-02"` or `""1
 | Deposit_NegativeOrZeroAmount_Fails           | `ArgumentOutOfRangeException` |
 | Equals_SameAccountNumber_ReturnsTrue         | `true`                        |
 | Equals_DifferentAccountNumber_ReturnsFalse   | `false`                       |
+
+> Use a `Theory` for the first four tests
 
 ---
 ### Unit Testing
