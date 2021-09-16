@@ -26,7 +26,40 @@ class: dark middle
 # Model &amp; Unit Testing
 > The Visual Studio Solution
 
-TODO: add some info about a Visual Studio Solution and the projects
+---
+### The Visual Studio Solution
+# Projects
+
+* **Every idea starts with a project** (app, website...)
+* Contains all files for **one executable, library or website**
+* Can contain source code, images, data files...
+* Contains compiler settings and other configuration
+
+---
+### The Visual Studio Solution
+# Project file
+
+* Visual Studio builds with **MSBuild**
+* **Every project has a project file** (C# extension `.csproj`)
+* **XML** document with all information and instructions
+  * content
+  * platform requirements
+  * versioning information
+  * web/database server settings
+  * tasks to perform
+
+<img src="./images/xml.jpg" width="35%" class="center" />
+
+---
+### The Visual Studio Solution
+# Solution
+
+* **Container for one or more projects**
+* Also contains build information, VS window settings...
+* Extension `.sln`
+
+<br />
+<img src="./images/vs-solution-2.jpg" width="60%" class="center" />
 
 ---
 name: sample-application
