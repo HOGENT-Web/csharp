@@ -1350,10 +1350,15 @@ public class BankAccountTest
 ### Unit Testing
 # Example
 
-* Create a new **xUnit Test Project** called `Banking.Tests`
-* Add a **reference to** the **Banking** project
+* Create a new **xUnit Test Project** called `Tests`
+* Add a **reference to** the **Domain** project
 * Remove the class `UnitTest1.cs`
 * Create a new class named `BankAccountTest`
+
+---
+### Create a new test project
+
+<img src="./images/create-test-project.gif" width="100%" />
 
 ---
 ### Unit Testing
