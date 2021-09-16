@@ -34,7 +34,11 @@ class: dark middle
 # Model &amp; Unit Testing
 > The sample application
 
-TODO: add final UML diagram for Banking app
+---
+### The sample application
+# Domain Class Diagram
+
+<img src="./images/DCD_part7.svg" width="100%" />
 
 ---
 name: classes
@@ -1306,9 +1310,6 @@ Some useful methods of **Assert**
 ---
 ### Show me the code
 # Fact
-
-// TODO: does Assert.Equal exist?
-
 
 ```{cs}
 public class BankAccountTest
