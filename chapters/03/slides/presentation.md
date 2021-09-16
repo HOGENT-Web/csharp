@@ -1259,18 +1259,18 @@ Use the **3A pattern**:
 * **A**ssert
   * check if the result is as expected
   * **only test one thing**
-  * use the [`Assert`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting.assert?view=visualstudiosdk-2019) class and its methods
+  * use the **Assert** class and its methods
 
 ---
 ### Unit Testing
 # Assert
 
-Some useful methods of [`Assert`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting.assert?view=visualstudiosdk-2019)
+Some useful methods of **Assert**
 * **`(Not)Null`**: check if the parameter is (not) null
 * **`Empty`**: check if the given collection is empty
 * **`Contains`**: check if the given collection contains an element
 * **`Is(Not)Type`**: check if the parameter is (not) of a certain type
-* **`Are(Not)Equal`**: check if both parameters are equal
+* **`(Not)Equal`**: check if both parameters are equal
 * **`True`**/**`False`**: check if the given parameter is `true`/`false`
 * **`Throws`**: check if the given lambda throws an exception
 
@@ -1294,7 +1294,7 @@ Some useful methods of [`Assert`](https://docs.microsoft.com/en-us/dotnet/api/mi
 # Show me the code
 
 * **One test class per class**
-* Every test is a method with one of these annotations
+* Every test is a **`public void` method** with one of these annotations
   * **`[Fact]`**: test with same data (one case)
   * **`[Theory]`**: data driven test (multiple cases at once)
       * use **`[InlineData(/* ... */)]`** to supply parameters
@@ -1364,6 +1364,22 @@ public class BankAccountTest
 ### Unit Testing
 # Example (1)
 
+Create the following tests for **`BankAccount`** (use `"123-4567890-02"` as account number)
+
+| Test name                    | Outcome                             |
+| ---------------------------- | ----------------------------------- |
+| NewAccount_BalanceZero       | Balance is `0.00`                   |
+| NewAccount_SetsAccountNumber | AccountNumber is `"123-4567890-02"` |
+
+---
+### Run the tests
+
+<img src="./images/run-tests.gif" width="100%" />
+
+---
+### Unit Testing
+# Example (2)
+
 Create the following tests for **`BankAccount`**
 
 | Test name                       | AccountNumber      | Outcome                 |
@@ -1376,7 +1392,7 @@ Create the following tests for **`BankAccount`**
 
 ---
 ### Unit Testing
-# Example (2)
+# Example (3)
 
 Create the following tests for **`BankAccount`** (use `"123-4567890-02"` or `""123-4567891-03"` as account number)
 
@@ -1391,7 +1407,7 @@ Create the following tests for **`BankAccount`** (use `"123-4567890-02"` or `""1
 
 ---
 ### Unit Testing
-# Example (3)
+# Example (4)
 
 Now create a test class for **`SavingsAccount`** and **`Transaction`** and think of some test cases yourself.
 
@@ -1399,7 +1415,7 @@ Now create a test class for **`SavingsAccount`** and **`Transaction`** and think
 
 ---
 ### Unit Testing
-# Example (4)
+# Example (5)
 
 Finally extend the tests for **`BankAccount`** for all transactions stuff.
 
