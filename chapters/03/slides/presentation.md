@@ -1490,3 +1490,24 @@ Finally extend the tests for **`BankAccount`** for all transactions stuff.
 
 <img src="./images/test-pass-code-fails.jpg" width="70%" class="center" />
 
+---
+class: dark middle
+# Model &amp; Unit Testing
+> Exercises
+
+---
+### Model &amp; Unit Testing
+# Exercises
+
+TODO: add exercises
+
+---
+class: dark middle
+# Model &amp; Unit Testing
+> Solutions
+
+---
+### Model &amp; Unit Testing
+# Solutions
+
+TODO: add solutions
