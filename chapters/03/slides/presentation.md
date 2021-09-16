@@ -1188,3 +1188,215 @@ class: dark middle
 # Model &amp; Unit Testing
 > Unit Testing
 
+---
+### Model &amp; Unit Testing
+# Unit Testing 
+
+Always write tests, use a **Test Driven Development (TDD)** approach
+
+<img src="./images/test-in-production.jpg" width="80%" class="center" />
+
+---
+### Unit Testing
+# Test Driven Development
+
+The idea of TDD:
+* write a **test**
+* let it **fail**
+* make it **pass**
+* **improve** your code (= refactor)
+
+> **Refactoring** <br />
+> &nbsp;&nbsp;= restructuring existing code in order to make it better/cleaner <br />
+> &nbsp;&nbsp;!= changing its external behavior
+
+<img src="./images/tdd-cycle.png" width="30%" class="center" />
+
+---
+### Test Driven Development
+# Step by step
+
+1. Create the class you want to test
+  * Every method throws a `NotImplemenedException`
+2. Create a test class
+3. Write all tests you need (e.g. for one method)
+4. Implement all tests
+5. Run the tests -> they fail
+6. Adapt the class' code to make the tests pass
+7. Run the tests -> they pass
+8. Refactor the code
+7. Run the tests -> they should still pass
+9. Repeat steps 3-9 untill the entire class is implemented
+
+---
+### Unit Testing
+# When to write tests?
+
+* No silver bullet
+* Don't exaggerate
+  * don't test boiler plate getters and setters
+  * don't test constructors
+  * ...
+* **Test business logic**
+* **Use mocks only when needed**
+  * prefer integration testing over unit testing for everything other than business logic
+  * testing nothing when everything is mocked
+* Make tests **independent of implementation**
+  * mocks are implementation aware
+
+---
+### Unit Testing
+# How to write good unit tests?
+
+Use the **3A pattern**:
+* **A**rrange
+  * initialization:
+      * create an object of the class being tested
+      * initialize variables
+      * ...
+* **A**ct
+  * call the method being tested
+* **A**ssert
+  * check if the result is as expected
+  * **only test one thing**
+  * use the [`Assert`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting.assert?view=visualstudiosdk-2019) class and its methods
+
+---
+### Unit Testing
+# Assert
+
+Some useful methods of [`Assert`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting.assert?view=visualstudiosdk-2019)
+* **`(Not)Null`**: check if the parameter is (not) null
+* **`Empty`**: check if the given collection is empty
+* **`Contains`**: check if the given collection contains an element
+* **`Is(Not)Type`**: check if the parameter is (not) of a certain type
+* **`Are(Not)Equal`**: check if both parameters are equal
+* **`True`**/**`False`**: check if the given parameter is `true`/`false`
+* **`Throws`**: check if the given lambda throws an exception
+
+---
+### Unit Testing
+# What should be tested?
+
+* Be **creative**
+* Get inspiration from use cases (if you have any)
+* **Test every possible outcome**
+  * one normal case
+  * every possible error
+  * edge case(s)
+* Name convention:
+  * test class: `ClassNameTest`
+  * method: **`MethodName_TestCase_Outcome`**
+  * constructor: **`NewClassName_TestCase_Outcome`**
+
+---
+### Unit Testing
+# Show me the code
+
+* **One test class per class**
+* Every test is a method with one of these annotations
+  * **`[Fact]`**: test with same data (one case)
+  * **`[Theory]`**: data driven test (multiple cases at once)
+      * use **`[InlineData(/* ... */)]`** to supply parameters
+* **Set up** code goes in the constructor
+* **Tear down** code goes in the `Dispose` method
+  * Inherit from `IDisposable`
+
+---
+### Show me the code
+# Fact
+
+// TODO: does Assert.Equal exist?
+
+
+```{cs}
+public class BankAccountTest
+{
+  `[Fact]`
+  public void `NewAccount_BalanceZero`()
+  {
+    // Arrange
+    string accountNumber = "123-4567890-02";
+    // Act
+    BankAccount account = new BankAccount(accountNumber);
+    // Assert
+    `Assert.Equal(0, account.Balance);`
+  }
+}
+```
+
+---
+### Show me the code
+# Theory
+
+```{cs}
+public class BankAccountTest
+{
+  `[Theory]`
+  [InlineData("123-4567890-0333")] // too long
+  [InlineData("063-1547563@60")] // wrong format
+  [InlineData("133-4567890-03")] // not divisable by 97
+  public void NewAccount_WrongAccountNumber_Fails(`string accountNumber`)
+  {
+    // Assert
+    `Assert.Throws<ArgumentException>(`
+      `() => new BankAccount(accountNumber))`
+    `);`
+  }
+}
+```
+
+---
+### Unit Testing
+# Example
+
+* Create a new **xUnit Test Project** called `Banking.Tests`
+* Add a **reference to** the **Banking** project
+* Remove the class `UnitTest1.cs`
+* Create a new class named `BankAccountTest`
+
+---
+### Unit Testing
+# Example (1)
+
+Create the following tests for **`BankAccount`**
+
+| Test name                       | AccountNumber      | Outcome                 |
+| ------------------------------- | ------------------ | ----------------------- |
+| NewAccount_EmptyString_Fails    | `string.Empty`     | `ArgumentException`     |
+| NewAccount_Null_Fails           | `null`             | `ArgumentNullException` |
+| NewAccount_TooLong_Fails        | `133-4567890-0333` | `ArgumentException`     |
+| NewAccount_WrongFormat_Fails    | `063-1547563@60`   | `ArgumentException`     |
+| NewAccount_NoDivisionBy97_Fails | `133-4567890-03`   | `ArgumentException`     |
+
+---
+### Unit Testing
+# Example (2)
+
+Create the following tests for **`BankAccount`** (use `"123-4567890-02"` or `""123-4567891-03"` as account number)
+
+| Test name                                    | Outcome                       |
+| -------------------------------------------- | ----------------------------- |
+| Deposit_AmountBiggerThanZero_ChangesBalance  | Balance is changed            |
+| Withdraw_AmountBiggerThanZero_ChangesBalance | Balance is changed            |
+| Withdraw_NegativeOrZeroAmount_Fails          | `ArgumentOutOfRangeException` |
+| Deposit_NegativeOrZeroAmount_Fails           | `ArgumentOutOfRangeException` |
+| Equals_SameAccountNumber_ReturnsTrue         | `true`                        |
+| Equals_DifferentAccountNumber_ReturnsFalse   | `false`                       |
+
+---
+### Unit Testing
+# Example (3)
+
+Now create a test class for **`SavingsAccount`** and **`Transaction`** and think of some test cases yourself.
+
+<img src="./images/start-writing-unit-tests.jpg" width="70%" class="center" />
+
+---
+### Unit Testing
+# Example (4)
+
+Finally extend the tests for **`BankAccount`** for all transactions stuff.
+
+<img src="./images/test-pass-code-fails.jpg" width="70%" class="center" />
+
