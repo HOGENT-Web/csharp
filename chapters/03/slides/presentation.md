@@ -1493,21 +1493,27 @@ Finally extend the tests for **`BankAccount`** for all transactions stuff.
 ---
 class: dark middle
 # Model &amp; Unit Testing
-> Exercises
+> Exercise
 
 ---
-### Model &amp; Unit Testing
-# Exercises
+name: exercise
+### Excercise
+# <a href="https://github.com/HOGENT-Web/csharp-ch-3-exercise" target="_blank">BlackJack</a>
 
-TODO: add exercises
+Read the exercise on the <a href="https://github.com/HOGENT-Web/csharp-ch-3-exercise" target="_blank">GitHub repository</a>.
+
+<img src="./images/blackjack.jpg" width="80%" class="center" />
 
 ---
 class: dark middle
 # Model &amp; Unit Testing
-> Solutions
+> Solution
 
 ---
-### Model &amp; Unit Testing
-# Solutions
+name: solution
+### Solution
+# <a href="https://github.com/HOGENT-Web/csharp-ch-3-exercise/tree/solution" target="_blank">BlackJack</a>
 
-TODO: add solutions
+<a href="https://github.com/HOGENT-Web/csharp-ch-3-exercise/tree/solution" target="_blank">Here</a> is a solution.
+
+<img src="./images/blackjack.jpg" width="80%" class="center" />
