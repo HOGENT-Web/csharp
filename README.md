@@ -110,9 +110,23 @@ Portal can be found [here](https://hogent-web.github.io/csharp/)
 
 ### Week 3
 #### Day 1:
-> TODO
+
+- Go through the slides [Model &amp; Unit Testing](chapters/03/slides/index.html) up to `Delegates &amp; Events`
+  - Demo `Create a new project in Visual Studio 2019` (includes a solution)
+  - Demo `Create an empty BankAccount class`
+  - Demo `Pushing your changes to GitHub`
+  - Make the [BlackJack exercise](https://github.com/HOGENT-Web/csharp-ch-3-exercise) until the creation of an xUnit Test Project
+
+
 #### Day 2
-> TODO
+
+- Continue through the slides [Model &amp; Unit Testing](chapters/03/slides/index.html) starting with `Unit Testing`
+  - Demo `Create a new test project`
+  - Complete the [BlackJack exercise](https://github.com/HOGENT-Web/csharp-ch-3-exercise)
+  - A solution can be found [here](https://github.com/HOGENT-Web/csharp-ch-3-exercise/tree/solution#solution)
+
+> One should prefer the `dotnet` CLI over using Visual Studio to create a solution/project, it's much faster
+
 
 ### Week 4
 #### Day 1:
