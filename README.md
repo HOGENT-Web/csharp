@@ -81,31 +81,31 @@ Portal can be found [here](https://hogent-web.github.io/csharp/)
 - Go through the first notebook <a target="_blank" href="chapters/02/notebooks/00_getting-started.ipynb">Getting started</a>
 - Go through the second notebook <a target="_blank" href="chapters/02/notebooks/01_data-types.ipynb">Data types</a> up to `Strings`
   - Make the <a target="_blank" href="chapters/02/notebooks/exercises.ipynb">exercises</a> about `Strings`
-  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solution.ipynb">here</a>
+  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solutions.ipynb">here</a>
 - Continue with the second notebook <a target="_blank" href="chapters/02/notebooks/01_data-types.ipynb">Data types</a> up to `Date and Time`
   - Make the <a target="_blank" href="chapters/02/notebooks/exercises.ipynb">exercises</a> about `Date and Time`
-  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solution.ipynb">here</a>
+  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solutions.ipynb">here</a>
 - Continue with the second notebook <a target="_blank" href="chapters/02/notebooks/01_data-types.ipynb">Data types</a> up to `StringBuilder`
   - Make the <a target="_blank" href="chapters/02/notebooks/exercises.ipynb">exercises</a> about `StringBuilder`
-  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solution.ipynb">here</a>
+  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solutions.ipynb">here</a>
 
 
 #### Day 2
 - Go through the third notebook <a target="_blank" href="chapters/02/notebooks/02_operators.ipynb">Operators</a>
   - Make the <a target="_blank" href="chapters/02/notebooks/exercises.ipynb">exercises</a> about `Bit operations`
-  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solution.ipynb">here</a>
+  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solutions.ipynb">here</a>
 - Go through the fourth notebook <a target="_blank" href="chapters/02/notebooks/03_constrol-statements.ipynb">Control statements</a>
   - Make the <a target="_blank" href="chapters/02/notebooks/exercises.ipynb">exercises</a> about `Control statements`
-  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solution.ipynb">here</a>
+  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solutions.ipynb">here</a>
 - Go through the fifth notebook <a target="_blank" href="chapters/02/notebooks/04_arrays.ipynb">Arrays</a>
   - Make the <a target="_blank" href="chapters/02/notebooks/exercises.ipynb">exercises</a> about `Arrays`
-  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solution.ipynb">here</a>
+  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solutions.ipynb">here</a>
 - Go through the last notebook <a target="_blank" href="chapters/02/notebooks/05_exceptions.ipynb">Exceptions</a>
   - You'll practice this in the [next chapter](#week-3)
 - Self-study <a target="_blank" href="https://github.com/ardalis/GuardClauses">GuardClauses</a> by reading through the GitHub's README
   - Search in the <a target="_blank" href="https://www.nuget.org/">NuGet gallery</a> what the package for GuardClauses is called and which statement is needed to install this package in a .NET Interactive playbook
   - Make the <a target="_blank" href="chapters/02/notebooks/exercises.ipynb">exercises</a> about `GuardClauses`
-  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solution.ipynb">here</a>
+  - A solution can be found <a target="_blank" href="chapters/02/notebooks/solutions.ipynb">here</a>
 
 
 ### Week 3
