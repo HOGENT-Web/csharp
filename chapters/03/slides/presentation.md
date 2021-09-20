@@ -1,10 +1,10 @@
 class: dark middle
 
 # Enterprise Web Development C&#35;
-> Chapter 3 - Model &amp; Unit Testing
+> Chapter 3 - Solving The Problem Domain
 
 ---
-### Chapter 3 - Model &amp; Unit Testing
+### Chapter 3 - Solving The Problem Domain
 # Table of contents
 
 - [The Visual Studio Solution](#vs-solution)
@@ -23,7 +23,7 @@ class: dark middle
 name: vs-solution
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > The Visual Studio Solution
 
 ---
@@ -64,7 +64,7 @@ class: dark middle
 ---
 name: sample-application
 class: dark middle
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > The sample application
 
 ---
@@ -77,7 +77,7 @@ class: dark middle
 name: classes
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Classes
 
 ---
@@ -612,7 +612,7 @@ Let's implement the `BankAccount` class!
 name: associations
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Associations &amp; collections
 
 ---
@@ -744,11 +744,11 @@ Let's implement the `Transaction` class! Update the `BankAccount` class with its
 name: inheritance
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Inheritance
 
 ---
-### Model &amp; Unit Testing
+### Solving The Problem Domain
 # Inheritance
 
 * Mechanism to **reuse code**
@@ -891,11 +891,11 @@ Now implement the `SavingsAccount` class! Also add a `ToString`, `Equals` and `G
 name: polymorphism
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Polymorphism
 
 ---
-### Model &amp; Unit Testing
+### Solving The Problem Domain
 # Polymorphism
 
 * Can happen when classes inherit from each other
@@ -920,7 +920,7 @@ foreach (var account in accounts)
 ```
 
 ---
-### Model &amp; Unit Testing
+### Solving The Problem Domain
 # Polymorphism
 
 Checking the type of the instance is possible with the **`is` keyword**
@@ -937,11 +937,11 @@ if (s is SavingsAccount)
 name: abstract-class
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Abstract class
 
 ---
-### Model &amp; Unit Testing
+### Solving The Problem Domain
 # Abstract class
 
 * A class with **one or more abstract methods is an abstract class**
@@ -971,11 +971,11 @@ Now let's implement this in our example.
 name: interface
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Interface
 
 ---
-### Model &amp; Unit Testing
+### Solving The Problem Domain
 # Interface
 
 * An interface defines a **contract**
@@ -997,11 +997,11 @@ Let's create an interface for the `BankAccount` class. Remove the abstract metho
 name: static-members
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Static members
 
 ---
-### Model &amp; Unit Testing
+### Solving The Problem Domain
 # Static members
 
 * Information **linked to the class**, not to an instance
@@ -1025,7 +1025,7 @@ int total = SavingsAccount.nrOfAccounts;
 ```
 
 ---
-### Model &amp; Unit Testing
+### Solving The Problem Domain
 # Static class
 
 * A class can also be static
@@ -1043,7 +1043,7 @@ double result = Math.Cos(45);
 name: events
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Delegates &amp; Events
 
 ---
@@ -1222,11 +1222,11 @@ Add an event to a BankAccount which emits a transaction when one is added.
 name: unit-testing
 class: dark middle
 
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Unit Testing
 
 ---
-### Model &amp; Unit Testing
+### Solving The Problem Domain
 # Unit Testing 
 
 Always write tests, use a **Test Driven Development (TDD)** approach
@@ -1492,7 +1492,7 @@ Finally extend the tests for **`BankAccount`** for all transactions stuff.
 
 ---
 class: dark middle
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Exercise
 
 ---
@@ -1506,7 +1506,7 @@ Read the exercise on the <a href="https://github.com/HOGENT-Web/csharp-ch-3-exer
 
 ---
 class: dark middle
-# Model &amp; Unit Testing
+# Solving The Problem Domain
 > Solution
 
 ---
