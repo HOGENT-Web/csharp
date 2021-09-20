@@ -130,7 +130,11 @@ Portal can be found [here](https://hogent-web.github.io/csharp/)
 
 ### Week 4
 #### Day 1:
-> TODO
+
+- Go through the notebook <a target="_blank" href="chapters/04/notebooks/linq.ipynb">LINQ</a>
+- Make the <a target="_blank" href="chapters/04/notebooks/exercises.ipynb">exercises</a>
+- A solution can be found <a target="_blank" href="chapters/04/notebooks/solutions.ipynb">here</a>
+
 #### Day 2
 > TODO
 
