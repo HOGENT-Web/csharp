@@ -134,6 +134,6 @@ name:examination
 ---
 ### Course Overview
 # Help
-We don't provide help **after** class. Unless you created a [Stackoverflow](https://stackoverflow.com/) post to describe the issue and tried to copy-pasta code like a real developer.
+We don't provide help **after** class. Unless you created a [Stackoverflow](https://stackoverflow.com/) post to describe the issue and tried to copy-paste code like a real developer.
 
 <img src="./images/copy-paste.jpg" width="35%" class="center" /> 
