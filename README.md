@@ -58,21 +58,21 @@ Portal can be found [here](https://hogent-web.github.io/csharp/)
 ## Classes
 
 ### Week 0:
-- Install all the software in the [Installation Guide](chapters/installation/index.html)
+- Install all the software in the [Installation Guide](chapters/installation/slides/index.html)
 
 ### Week 1
 #### Day 1:
 - Go through the slides <a target="_blank" href="chapters/course-overview/slides/index.html">Course Overview</a>.
-- Go through the slides [Introduction](chapters/introduction/index.html):
+- Go through the slides [Introduction](chapters/introduction/slides/index.html):
   - Demo `Your First Application`
   - Self-study `Tutorials` until class is finsihed.
   - (Help to those who failed the install guide.)
 
 #### Day 2
 - Continue with 1 hour of `Tutorials` as self-study.
-- Continue through the slides [Introduction](chapters/introduction/index.html) after `Tutorials`
+- Continue through the slides [Introduction](chapters/introduction/slides/index.html) after `Tutorials`
   - Demo `Creating a Class Library`
-- Continue through the slides [Introduction](chapters/introduction/index.html) from `GIT`.
+- Continue through the slides [Introduction](chapters/introduction/slides/index.html) from `GIT`.
   - Demo `Source Control`
   - Self-study `Exercises` until class is finished.
 
