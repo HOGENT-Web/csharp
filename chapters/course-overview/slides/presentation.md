@@ -16,6 +16,13 @@ class: dark middle
 - [Examination](#examination)
 
 ---
+name:situation
+### Course Overview
+# Situation
+<br/>
+<img src="./images/situation.jpg" width="100%" class="center" /> 
+
+---
 name:goals
 ### Course Overview
 # Goals
