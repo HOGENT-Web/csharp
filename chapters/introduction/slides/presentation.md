@@ -344,7 +344,7 @@ JAVA
 ```
 class Bicycle {
   private int gear = 5;
-  public void braking() {
+  public void brake() {
     System.out.println("I'm braking!");
   }
 }
@@ -353,7 +353,7 @@ C#
 ```
 class Bicycle {
   private int gear = 5;
-  public void Braking() { // Notice the PascalCase instead of camelCase
+  public void Brake() { // Notice the PascalCase instead of camelCase
     Console.WriteLine("I'm braking!")
   }
 }
@@ -406,7 +406,7 @@ dotnet add App/App.csproj reference Domain/Domain.csproj
 ```
     public class Bicycle { // Public is mandatory, (see later)
         private int gear = 5; // Field
-        public void Braking() { // Function
+        public void Brake() { // Function
             System.Console.WriteLine("I'm braking in gear:" + gear)
         }
 }
