@@ -226,6 +226,33 @@ This ensures **uniform interfaces** accross multiple REST APIs
 <img src="./images/swagger-ui.png" width="90%" class="center" />
 
 ---
+### What is REST?
+# Consumer
+
+Who can consume a REST API?
+
+- MVC application
+- SPA application (Blazor, Angular, React, Vue...)
+- The Swagger UI
+- Postman app
+- ...
+
+---
+### What is REST?
+# Summary
+
+- **not a standard**
+- set of 6 **constraints** to call an API **RESTful**
+  - Uniform interface
+  - Client-server separated
+  - Stateless
+  - Cachable
+  - Layered system
+  - Code on demand (optional)
+
+> <a href="https://restfulapi.net/rest-architectural-constraints/" target="_blank">Read more about it</a>
+
+---
 name: building-rest-api
 class: dark middle
 
