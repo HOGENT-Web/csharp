@@ -16,13 +16,6 @@ class: dark middle
 - [Examination](#examination)
 
 ---
-name:situation
-### Course Overview
-# Situation
-
-- 
-
----
 name:goals
 ### Course Overview
 # Goals
