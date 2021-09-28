@@ -16,12 +16,6 @@ class: dark middle
 - [Examination](#examination)
 
 ---
-name:situation
-### Course Overview
-# Situation
-
-TODO: probably steal some slides from Pieter VDH.
----
 name:goals
 ### Course Overview
 # Goals
@@ -90,7 +84,7 @@ name:learning-materials
 - Recordings (EN)
  - Every class will be recorded by one of the lecturers.
 - Summary 
- - There is a [portal](www.todo.com) with links to all the learning materials.
+ - There is a [portal](../../../index.html) with links to all the learning materials.
 
 > During this course we try to mimic the life of a professional developer. Therefore reading the official docs is mandatory.
 
