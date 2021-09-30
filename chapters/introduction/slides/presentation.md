@@ -472,6 +472,11 @@ Build artefacts are generated files by certain dotnet commands for example `dotn
 <img src="images/git-ignore.gif" width="100%">
 
 ---
+### Visual Studio Community 2019 Solution Setup
+<img src="images/create-solution-structure-vs.gif" width="110%"/>
+[Click here to see the GIF in fullscreen](images/create-solution-structure-vs.gif)
+
+---
 class: dark middle
 # Introducting the .NET ecosystem
 >  Exercises
