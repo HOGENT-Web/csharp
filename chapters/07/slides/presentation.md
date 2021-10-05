@@ -16,20 +16,6 @@ class: dark middle
 - [Summary](#summary)
 
 ---
-name: building-rest-api
-class: dark middle
-
-# The REST is still unwritten
-> Building a REST API
-
-
----
-class: dark middle
-
-# The REST is still unwritten
-> Input validation
-
----
 name: api
 class: dark middle
 
@@ -74,6 +60,8 @@ class: dark middle
   - stateless
   - cachable
   - layered system
+
+> <a href="https://restfulapi.net/rest-architectural-constraints/" target="_blank">Read more about these constraints</a>
 
 ---
 ### What is REST?
@@ -278,6 +266,14 @@ class: dark middle
 # The REST is still unwritten
 > Building a REST API
 
+---
+
+### The REST is still unwritten
+# Building a REST API
+
+Read through the following tutorial
+
+- [Create a web API with ASP.NET Core](https://docs.microsoft.com/en-us/learn/modules/build-web-api-aspnet-core/)
 
 ---
 name: input-validation
@@ -285,6 +281,41 @@ class: dark middle
 
 # The REST is still unwritten
 > Input validation
+
+---
+### The REST is still unwritten
+# Input validation
+
+Read through these tutorials
+
+- <a href="https://docs.fluentvalidation.net/en/latest/index.html" target="_blank">FluentValidation documentation</a>
+- <a href="https://github.com/ryanelian/FluentValidation.Blazor" target="_blank">FluentValidation in Blazor</a>
+
+---
+name: exercise
+class: dark middle
+
+# The REST is still unwritten
+> Exercise
+
+---
+### The REST is still unwritten
+# Exercise
+
+TODO: add SportStore exercise
+
+---
+name: solution
+class: dark middle
+
+# The REST is still unwritten
+> Solution
+
+---
+### The REST is still unwritten
+# Solution
+
+TODO: add SportStore solution
 
 ---
 name: summary
@@ -304,5 +335,3 @@ class: dark middle
   - Stateless
   - Cachable
   - Layered system
-
-> <a href="https://restfulapi.net/rest-architectural-constraints/" target="_blank">Read more about it</a>
