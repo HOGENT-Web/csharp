@@ -1,10 +1,10 @@
 class: dark middle
 
 # Enterprise Web Development C&#35;
-> Chapter 7 - The REST is still unwritten
+> Chapter 7 - Ain't no REST for the wicked
 ---
 
-### Chapter 7 - The REST is still unwritten
+### Chapter 7 - Ain't no REST for the wicked
 # Table of contents
 
 - [What is an API?](#api)
@@ -20,11 +20,11 @@ class: dark middle
 name: api
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > What is an API?
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # What is an API?
 
 * **A**pplication **P**rogramming **I**nterface
@@ -36,11 +36,11 @@ class: dark middle
 name: rest
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > What is REST?
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # What is REST?
 
 - **R**epresentational **S**tate **T**ransfer, [°Roy Fielding in 2000](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm)
@@ -52,7 +52,7 @@ class: dark middle
   - easy to use **U**niform **R**esource **I**dentifier
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # What is REST?
 
 - leverages these features with 5 constraints:
@@ -151,7 +151,7 @@ Examples:
 name: http
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > HTTP methods and status ranges
 
 ---
@@ -188,11 +188,11 @@ This ensures **uniform interfaces** accross multiple REST APIs
 name: documentation
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > Document your API
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # Document your API
 
 - OpenAPI = specification
@@ -264,12 +264,12 @@ Who can consume a REST API?
 name: building-rest-api
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > Building a REST API
 
 ---
 
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # Building a REST API
 
 Read through the following tutorial
@@ -280,11 +280,11 @@ Read through the following tutorial
 name: input-validation
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > Input validation
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # Input validation
 
 Read through these tutorials
@@ -296,11 +296,11 @@ Read through these tutorials
 name: grpc
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > gRPC
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # gRPC
 
 Read through these tutorials
@@ -312,11 +312,11 @@ Read through these tutorials
 name: exercise
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > Exercise
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # Exercise
 
 TODO: add SportStore exercise
@@ -325,11 +325,11 @@ TODO: add SportStore exercise
 name: solution
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > Solution
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # Solution
 
 TODO: add SportStore solution
@@ -338,11 +338,11 @@ TODO: add SportStore solution
 name: summary
 class: dark middle
 
-# The REST is still unwritten
+# Ain't no REST for the wicked
 > Summary
 
 ---
-### The REST is still unwritten
+### Ain't no REST for the wicked
 # Summary
 
 - REST is **not a standard**
