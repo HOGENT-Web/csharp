@@ -7,10 +7,46 @@ class: dark middle
 ### Chapter 7 - The REST is still unwritten
 # Table of contents
 
-TODO: complete ToC
+- [What is an API?](#api)
+- [What is REST?](#rest)
+- [HTTP methods and status ranges](#http)
+- [Document your API](#documentation)
+- [Building a REST API](#building-rest-api)
+- [Input validation](#input-validation)
+- [Summary](#summary)
 
 ---
-name: what-rest
+name: building-rest-api
+class: dark middle
+
+# The REST is still unwritten
+> Building a REST API
+
+
+---
+class: dark middle
+
+# The REST is still unwritten
+> Input validation
+
+---
+name: api
+class: dark middle
+
+# The REST is still unwritten
+> What is an API?
+
+---
+### The REST is still unwritten
+# What is an API?
+
+* **A**pplication **P**rogramming **I**nterface
+* approach to make software work with other software
+* <=> User Interface: let's users work with software
+* nowadays mostly in the context of the Web (HTTP)
+
+---
+name: rest
 class: dark middle
 
 # The REST is still unwritten
@@ -20,30 +56,28 @@ class: dark middle
 ### The REST is still unwritten
 # What is REST?
 
-- **R**epresentational **S**tate **T**ransfer
-- introduced and defined in 2000 by Roy Fielding in his [doctoral dissertation](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm)
-
-<br />
-
-> Representational State Transfer is inteded to evoke an image of how a well-designed Web application behaves: a network of web pages (a virtual state machine), where the user progresses through an application by selecting links (state transitions), resulting in the next page (representing the next state of the application) being transferred to the user and rendered for their use.
-
-<p style="text-align:right;"><em>Roy Fielding</em></p>
-
----
-### The REST is still unwritten
-# What is REST?
-
+- **R**epresentational **S**tate **T**ransfer, [°Roy Fielding in 2000](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm)
 - **architectural style** for designing networked applications
 - nothing more but **using current features of the web**
   - 40y old matured and widely accepted HTTP protocol
   - standard and unified methods (POST, GET, PUT and DELETE)
   - stateless nature of HTTP
   - easy to use **U**niform **R**esource **I**dentifier
-- leverages these features with some constraints: **7 principles**
+
+---
+### The REST is still unwritten
+# What is REST?
+
+- leverages these features with 5 constraints:
+  - uniform interface
+  - client-server
+  - stateless
+  - cachable
+  - layered system
 
 ---
 ### What is REST?
-# Principle 1
+# Uniform interface
 
 > Everything is **Resource**
 
@@ -61,7 +95,7 @@ Examples:
 
 ---
 ### What is REST?
-# Principle 2
+# Uniform interface
 
 > Every resource is identified by a **Unique Identifier**
 
@@ -76,7 +110,64 @@ Examples:
 
 ---
 ### What is REST?
-# Principle 3
+# Uniform interface
+
+> Communication is done by **Representation**
+
+- use some **media type**
+  - often JSON (`application/json`)
+  - or XML (`application/xml`)
+- set the appropriate **HTTP headers**
+  - `Accept`: what do you expect as input?
+  - `Content-Type`: what are you returning?
+
+---
+### What is REST?
+# Client-Server
+
+* client and server should be able to evolve independently
+* client should be able to do all it needs with the available resource URI's
+
+---
+### What is REST?
+# Stateless
+
+- every request is independent
+- server does not need to remember previous requests and state
+- no sessions, no history...
+
+<br />
+<img src="./images/REST-stateless.png" width="70%" class="center" />
+
+---
+### What is REST?
+# Cacheable
+
+* all responses should be made cachable (if possible)
+* good caching ensures the server scales better (less requests to process)
+* and the client responds faster
+
+---
+### What is REST?
+# Layered System
+
+* REST allows to spread data and API over several servers
+* example:
+  * Server A: API
+  * Server B: data storage
+  * Server C: authentication
+* big advantage: servers are able to scale independently
+
+---
+name: http
+class: dark middle
+
+# The REST is still unwritten
+> HTTP methods and status ranges
+
+---
+### What is REST?
+# HTTP methods
 
 > Describe resource **functionality** with **HTTP methods**
 
@@ -93,57 +184,7 @@ Examples:
 This ensures **uniform interfaces** accross multiple REST APIs
 
 ---
-### Principle 3
-# Examples (1/2)
-
-- `/orders`:
-  - GET: list all orders
-  - POST: create a new order
-  - PUT/DELETE: unused
-
-
-- `/orders/{id}`:
-  - GET: get order details
-  - POST: add item
-  - PUT: update order
-  - DELETE: delete an order
-
----
-### Principle 3
-# Examples (2/2)
-
-- `/customers/{id}/orders`:
-  - GET: get orders for customer
-  - POST: add order
-  - PUT: unused
-  - DELETE: cancel all customer orders
-
----
 ### What is REST?
-# Principle 4
-
-> Communication is done by **Representation**
-
-- use some **media type**
-  - often XML (`application/xml`)
-  - or JSON (`application/json`)
-- set the appropriate **HTTP headers**
-  - `Accept`: what do you expect as input?
-  - `Content-Type`: what are you returning?
-
----
-### What is REST?
-# Principle 5
-
-> Responses: give **feedback** to help developers succeed
-
-- helps using an API
-- helps debugging errors
-- use the correct **HTTP response code**
-  - and provide some **message** in the body
-
----
-### Principle 5
 # HTTP status ranges in a nutshell
 
 - `1xx`: hold on
@@ -155,22 +196,15 @@ This ensures **uniform interfaces** accross multiple REST APIs
 > <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">Read about all HTTP status codes yourself</a>
 
 ---
-### What is REST?
-# Principle 6
+name: documentation
+class: dark middle
 
-> Be **stateless**
-
-- every request is independent
-- server does not need to remember previous requests and state
-
-<br />
-<img src="./images/REST-stateless.png" width="70%" class="center" />
+# The REST is still unwritten
+> Document your API
 
 ---
-### What is REST?
-# Principle 7
-
-> **Document** your API
+### The REST is still unwritten
+# Document your API
 
 - OpenAPI = specification
 - Swagger = tools (for displaying OpenAPI specs, etc.)
@@ -179,7 +213,7 @@ This ensures **uniform interfaces** accross multiple REST APIs
 <img src="./images/openapi-swagger.png" width="50%" class="center" />
 
 ---
-### Principle 7
+### Document your API
 # OpenAPI
 
 - **O**pen**A**PI **S**pecification (OAS)
@@ -194,7 +228,7 @@ This ensures **uniform interfaces** accross multiple REST APIs
 - from documentation the client code can be generated
 
 ---
-### Principle 7
+### Document your API
 # swagger.json
 
 ```{json}
@@ -217,7 +251,7 @@ This ensures **uniform interfaces** accross multiple REST APIs
 > <a href="https://petstore.swagger.io/v2/swagger.json" target="_blank">Take a look at a live example (you might need a JSON prettifier)</a>
 
 ---
-### Principle 7
+### Document your API
 # Swagger UI
 
 - to visualize and interact with the API's resources
@@ -238,21 +272,6 @@ Who can consume a REST API?
 - ...
 
 ---
-### What is REST?
-# Summary
-
-- **not a standard**
-- set of 6 **constraints** to call an API **RESTful**
-  - Uniform interface
-  - Client-server separated
-  - Stateless
-  - Cachable
-  - Layered system
-  - Code on demand (optional)
-
-> <a href="https://restfulapi.net/rest-architectural-constraints/" target="_blank">Read more about it</a>
-
----
 name: building-rest-api
 class: dark middle
 
@@ -261,7 +280,29 @@ class: dark middle
 
 
 ---
+name: input-validation
 class: dark middle
 
 # The REST is still unwritten
 > Input validation
+
+---
+name: summary
+class: dark middle
+
+# The REST is still unwritten
+> Summary
+
+---
+### The REST is still unwritten
+# Summary
+
+- REST is **not a standard**
+- set of **5 constraints** to call an API **RESTful**
+  - Uniform interface
+  - Client-server separated
+  - Stateless
+  - Cachable
+  - Layered system
+
+> <a href="https://restfulapi.net/rest-architectural-constraints/" target="_blank">Read more about it</a>
