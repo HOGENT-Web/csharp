@@ -34,6 +34,7 @@ A fullblown source code editor to manipulate code **with a local database**
 1. Download Visual Studio Community 2019
   - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16" target="_blank">Download for Windows</a>
   - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio-mac/?sku=communitymac&rel=16" target="_blank">Download for Apple</a>
+  - Linux: Visual Studio Code + dotnet CLI is sufficient
 
 2. Install* (for Windows)
   - Double click the installer
@@ -59,6 +60,7 @@ A lightweight source code editor to manipulate code.
 1. Download Visual Studio Code
   - [Download for Windows](https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user)
   - [Download for Apple](https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal)
+  - [Dowload for Linux](https://code.visualstudio.com/download)
 
 2. Install* (for Windows)
   - Double click the installer
@@ -106,7 +108,8 @@ A fullblown data editor.
 
 1. Download SQL Server Management Studio (SSMS)
   - [Download for Windows](https://aka.ms/ssmsfullsetup)
-  - Not supported for apple devices
+  - [Alternative for macOS & Linux](https://tableplus.com/)
+      - You should use [Docker to run SQL Server](https://hub.docker.com/_/microsoft-mssql-server)
 
 2. Install*
   - Double click the installer
@@ -123,6 +126,7 @@ A lightweight data editor to manipulate the database.
 1. Download Azure Data Studio
   - [Download for Windows](https://go.microsoft.com/fwlink/?linkid=2170400)
   - [Download for Apple](https://go.microsoft.com/fwlink/?linkid=2169955)
+  - [Download for Linux](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15#download-azure-data-studio)
 
 2. Install* (for Windows)
   - Double click the installer
@@ -152,6 +156,7 @@ Source control for your code.
 1. Download Git
 - <a href="https://git-scm.com/download/win" target="_blank">Download for Windows</a>
 - <a href="https://git-scm.com/download/mac" target="_blank">Download for Apple</a>
+- <a href="https://git-scm.com/download/linux" target="_blank">Download for Linux</a>
 
 2. Install* (for Windows)
   - Double click the installer
@@ -175,6 +180,7 @@ A lightweight **G**raphical **U**ser **I**nterface for GIT
 1. Download GitKraken
 - <a href="https://www.gitkraken.com/download/windows64" target="_blank">Download for Windows</a>
 - <a href="https://www.gitkraken.com/download/mac" target="_blank">Download for Apple</a>
+- <a href="https://www.gitkraken.com/download" target="_blank">Download for Linux</a>
 
 2. Install* (for Windows)
   - Double click the installer
