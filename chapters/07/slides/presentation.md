@@ -13,6 +13,7 @@ class: dark middle
 - [Document your API](#documentation)
 - [Building a REST API](#building-rest-api)
 - [Input validation](#input-validation)
+- [gRPC](#grpc)
 - [Summary](#summary)
 
 ---
@@ -290,6 +291,22 @@ Read through these tutorials
 
 - <a href="https://docs.fluentvalidation.net/en/latest/index.html" target="_blank">FluentValidation documentation</a>
 - <a href="https://github.com/ryanelian/FluentValidation.Blazor" target="_blank">FluentValidation in Blazor</a>
+
+---
+name: grpc
+class: dark middle
+
+# The REST is still unwritten
+> gRPC
+
+---
+### The REST is still unwritten
+# gRPC
+
+Read through these tutorials
+
+- <a href="https://docs.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-5.0" target="_blank">Introduction to gRPC on .NET</a>
+- <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-5.0&tabs=visual-studio" target="_blank">Create a gRPC client and server in ASP.NET Core</a>
 
 ---
 name: exercise
