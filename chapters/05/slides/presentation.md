@@ -210,7 +210,7 @@ Complete the following tutorial:
 1. <a target="_blank" href="https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro">Build your first Blazor app. (10 mins.)</a>
 > The tutorial is meant to give you a sneak peek at 
 >
->Chapter 5 - Suit up wear a Blazor.
+> Chapter 6 - Suit up wear a Blazor.
 
 ---
 class: dark middle
