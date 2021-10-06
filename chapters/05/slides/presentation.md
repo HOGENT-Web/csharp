@@ -80,6 +80,7 @@ However:
 > Read more [here](https://docs.microsoft.com/nl-be/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-apps) or [here](https://docs.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui?view=aspnetcore-5.0)
 
 ---
+name:hosting-models
 ### Modern Web Applications
 # Support in ASP.NET
 Following templates are available in ASP.NET:
@@ -232,12 +233,11 @@ name:blazor-server
 > We won't be creating a Blazor Server application in this course, we'll use the WASM version.
 ---
 class: dark middle
-name:architectural-principles
+name:common-design-principles
 # Architecture
 > Architectural principles
 
 ---
-name:common-design-principles
 ### Architectural principles
 # Common design principles
 The principles outlined in this section can help guide you toward architectural decisions that will result in **clean**, **maintainable** applications.
@@ -380,7 +380,7 @@ DDD involves investments in modeling, architecture, and communication that may n
 
 ---
 class: dark middle
-name:architecture
+name:common-architectures
 # Architecture
 > Common web application architectures
 
