@@ -1272,7 +1272,7 @@ The idea of TDD:
 * No silver bullet
 * Don't exaggerate
   * don't test boiler plate getters and setters
-  * don't test constructors
+  * don't test obvious constructors
   * ...
 * **Test business logic**
 * **Use mocks only when needed**
