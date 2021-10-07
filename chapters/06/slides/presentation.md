@@ -62,9 +62,89 @@ name:snake-eyes
     - 2 dices are rolled on the click of a button.
     - If the dices both show `1`, you lose.
     - If the dices are not both equal to 1 you sum up the amount
-    - Play as long as you don't get SnakEyes.
+    - Play as long as you don't get Snake Eyes 🎲-🎲.
 
 (TODO: Gif here)
+
+---
+### SnakeEyes
+# Creating the Solution
+Create a new folder called `SnakeEyes`
+
+```
+mkdir SnakeEyes
+cd SnakeEyes
+```
+
+Initialize the GIT Repository with a `.gitignore`
+
+```
+git init
+dotnet new gitignore
+```
+
+Create a Visual Studio Solution (`.sln`)
+```
+dotnet new sln
+```
+
+---
+### SnakeEyes
+# Creating the Projects
+Create a `src` folder which will contain our projects.
+```
+mkdir src
+cd src
+```
+
+Create a Blazor Web Assembly Project called `App`
+```
+dotnet new blazorwasm -o App
+```
+
+Create a Class Library called `Domain`
+```
+dotnet new classlib -o Domain
+```
+
+Reference the Domain Class Library in the Client
+```
+dotnet add App/App.csproj reference Domain/Domain.csproj
+```
+
+---
+### Linking the Solution
+Open the Solution in Visual Studio and follow along
+
+<img src="images/snake-eyes-1.gif" width="100%" class="center">
+
+> <a href="images/snake-eyes-1.gif" target="_blank">Fullscreen</a>
+
+---
+### SnakeEyes
+# Why a domain project?
+Imagine, you want to re-use this super kewl game in a 
+- MVC Application
+- Razor Application
+- Console Application
+- ...
+
+Then we can re-use the Domain.csproj with all it's goodness inside and just implement the presentation layer.
+
+> TBH: You would probably never do this for this small app, but for bigger apps it might be a good idea.
+
+
+
+---
+### SnakeEyes
+# Domain
+> 📝 Commit: Add Project Files
+
+Implement the class `Domain`
+
+
+
+
 
 ---
 name:sportstore
