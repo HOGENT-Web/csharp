@@ -44,6 +44,131 @@ name:hosting-models
     - Only works on modern browsers
     - Single threaded
     - **Not SEO friendly** by default (server-side pre-rendering)
+
+---
+### Hosting Models
+# Server Side (WASM)
+- Pro's
+- Con's
+
+
+
+---
+name:snake-eyes
+### Suit up, wear a Blazor
+# SnakeEyes
+- We'll develop a SnakeEyes game to learn basic concepts of Blazor
+- Concepts of the Game:
+    - 2 dices are rolled on the click of a button.
+    - If the dices both show `1`, you lose.
+    - If the dices are not both equal to 1 you sum up the amount
+    - Play as long as you don't get Snake Eyes 🎲-🎲.
+
+(TODO: Gif here)
+
+---
+### SnakeEyes
+# Creating the Solution
+Create a new folder called `SnakeEyes`
+
+```
+mkdir SnakeEyes
+cd SnakeEyes
+```
+
+Initialize the GIT Repository with a `.gitignore`
+
+```
+git init
+dotnet new gitignore
+```
+
+Create a Visual Studio Solution (`.sln`)
+```
+dotnet new sln
+```
+
+---
+### SnakeEyes
+# Creating the Projects
+Create a `src` folder which will contain our projects.
+```
+mkdir src
+cd src
+```
+
+Create a Blazor Web Assembly Project called `App`
+```
+dotnet new blazorwasm -o App
+```
+
+Create a Class Library called `Domain`
+```
+dotnet new classlib -o Domain
+```
+
+Reference the Domain Class Library in the Client
+```
+dotnet add App/App.csproj reference Domain/Domain.csproj
+```
+
+---
+### Linking the Solution
+Open the Solution in Visual Studio and follow along
+
+<img src="images/snake-eyes-1.gif" width="100%" class="center">
+
+> <a href="images/snake-eyes-1.gif" target="_blank">Fullscreen</a>
+
+---
+### SnakeEyes
+# Why a domain project?
+Imagine, you want to re-use this super kewl game in a 
+- MVC Application
+- Razor Application
+- Console Application
+- ...
+
+Then we can re-use the Domain.csproj with all it's goodness inside and just implement the presentation layer.
+
+> TBH: You would probably never do this for this small app, but for bigger apps it might be a good idea.
+
+
+
+---
+### SnakeEyes
+# Domain
+> 📝 Commit: Add Project Files
+
+Implement the class `Domain`
+
+
+
+
+
+---
+name:sportstore
+### Suit up, wear a Blazor
+# SportStore
+What we're building:
+- A Storestore where customers can buy items
+- A Customer can filter items.
+- A Customer can add items to his shoppingcart. 
+- Administrators can use CRUD operations.
+- The client will call a Web API which returns data.
+    - > The Web API will be developt in the next chapter.
+
+---
+name:sportstore
+### Suit up, wear a Blazor
+# Second Blazor App
+How we're building it:
+- Using a blazorwasm template.
+- [BULMA](https://bulma.io) will be used as a CSS library
+    - Does not contain any JavaScript.
+- Put all contracts in a separate classlib
+
+
 ---
 name:blazor-workshop
 ### Suit up, wear a Blazor
