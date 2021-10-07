@@ -44,6 +44,51 @@ name:hosting-models
     - Only works on modern browsers
     - Single threaded
     - **Not SEO friendly** by default (server-side pre-rendering)
+
+---
+### Hosting Models
+# Server Side (WASM)
+- Pro's
+- Con's
+
+
+
+---
+name:snake-eyes
+### Suit up, wear a Blazor
+# SnakeEyes
+- We'll develop a SnakeEyes game to learn basic concepts of Blazor
+- Concepts of the Game:
+    - 2 dices are rolled on the click of a button.
+    - If the dices both show `1`, you lose.
+    - If the dices are not both equal to 1 you sum up the amount
+    - Play as long as you don't get SnakEyes.
+
+(TODO: Gif here)
+
+---
+name:sportstore
+### Suit up, wear a Blazor
+# SportStore
+What we're building:
+- A Storestore where customers can buy items
+- A Customer can filter items.
+- A Customer can add items to his shoppingcart. 
+- Administrators can use CRUD operations.
+- The client will call a Web API which returns data.
+    - > The Web API will be developt in the next chapter.
+
+---
+name:sportstore
+### Suit up, wear a Blazor
+# Second Blazor App
+How we're building it:
+- Using a blazorwasm template.
+- [BULMA](https://bulma.io) will be used as a CSS library
+    - Does not contain any JavaScript.
+- Put all contracts in a separate classlib
+
+
 ---
 name:blazor-workshop
 ### Suit up, wear a Blazor
