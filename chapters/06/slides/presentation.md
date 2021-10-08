@@ -121,6 +121,12 @@ Open the Solution in Visual Studio and follow along
 > <a href="images/snake-eyes-1.gif" target="_blank">Fullscreen</a>
 
 ---
+class: dark middle
+
+# Suit up, wear a Blazor
+> 📝 Commit: Add Project Files
+
+---
 ### SnakeEyes
 # Why a domain project?
 Imagine, you want to re-use this super kewl game in a 
@@ -133,14 +139,27 @@ Then we can re-use the Domain.csproj with all it's goodness inside and just impl
 
 > TBH: You would probably never do this for this small app, but for bigger apps it might be a good idea.
 
-
-
 ---
 ### SnakeEyes
 # Domain
-> 📝 Commit: Add Project Files
+Let's implement the following Domain
+<img src="images/snake-eyes-domain.png" width="75%" class="center">
 
-Implement the class `Domain`
+> For now all the methods can `throw new ImplementedException()`
+
+---
+### SnakeEyes
+# Game
+- `Constructor`
+    - Uses the `Initialize()` method
+- `Initialize()`
+    - Initializes the 2 `Dice`s
+
+---
+class: dark middle
+
+# Suit up, wear a Blazor
+> 📝 Commit: Implement Domain
 
 
 
