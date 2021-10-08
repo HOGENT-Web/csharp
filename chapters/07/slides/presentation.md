@@ -290,7 +290,7 @@ class: dark middle
 Read through these tutorials
 
 - <a href="https://docs.fluentvalidation.net/en/latest/index.html" target="_blank">FluentValidation documentation</a>
-- <a href="https://github.com/ryanelian/FluentValidation.Blazor" target="_blank">FluentValidation in Blazor</a>
+- <a href="https://github.com/Blazored/FluentValidation" target="_blank">FluentValidation in Blazor</a>
 
 ---
 name: grpc
@@ -300,13 +300,90 @@ class: dark middle
 > gRPC
 
 ---
+### gRPC
+# What is gRPC?
+
+- **R**emote **P**rocedure **C**all
+- Open-source
+- Developed at Google
+- **Call a method on a server as if it's a local method** on the client
+- Uses **protocol buffers**
+- Defines
+    - **services**: expose the methods
+    - **messages**: what is sent around
+
+> <a href="https://grpc.io/docs" target="_blank">Read the official docs</a>
+
+TODO: probably add video about gRPC in .NET
+
+---
+### gRPC
+# What is gRPC?
+
+<img src="./images/gRPC-example.svg" class="center" width="70%" />
+
+> Clients and servers can talk to each other in a variety of languages/environments
+
+---
+### gRPC
+# Protocol buffers
+
+- Mechanism to **serialize data**
+- **Independent** of language, platform...
+- Like XML or JSON but smaller, faster and simpler
+- Works with so called messages
+- Messages transformed into a **binary** format before being sent
+
+
+```{proto}
+message Person {
+  required string name = 1;
+  required int32 id = 2;
+  optional string email = 3;
+}
+```
+
+---
+### gRPC
+# Typical protocol buffers
+
+- Domain objects
+- Requests
+- Replies
+- ... (whatever you need)
+
+
+---
+### gRPC
+# Services
+
+- **Expose methods** on a server
+- Clients can call these methods
+- Defines methods which
+    - take a **message as argument**
+    - can **return a message**
+
+```{protobuf}
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
+```
+
+---
 ### Ain't no REST for the wicked
 # gRPC
 
-Read through these tutorials
+Read through the following tutorial:
 
-- <a href="https://docs.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-5.0" target="_blank">Introduction to gRPC on .NET</a>
-- <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-5.0&tabs=visual-studio" target="_blank">Create a gRPC client and server in ASP.NET Core</a>
+- [Code-first gRPC services and clients with .NET](https://docs.microsoft.com/en-us/aspnet/core/grpc/code-first?view=aspnetcore-5.0)
 
 ---
 name: exercise
