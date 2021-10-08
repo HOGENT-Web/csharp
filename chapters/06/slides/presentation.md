@@ -64,7 +64,10 @@ name:snake-eyes
     - If the dices are not both equal to 1 you sum up the amount
     - Play as long as you don't get Snake Eyes 🎲-🎲.
 
-(TODO: Gif here)
+> GIF on next slide
+
+---
+### SnakeEyes
 
 ---
 ### SnakeEyes
@@ -97,9 +100,9 @@ mkdir src
 cd src
 ```
 
-Create a Blazor Web Assembly Project called `App`
+Create a Blazor Web Assembly Project called `Client`
 ```
-dotnet new blazorwasm -o App
+dotnet new blazorwasm -o Client
 ```
 
 Create a Class Library called `Domain`
@@ -109,16 +112,16 @@ dotnet new classlib -o Domain
 
 Reference the Domain Class Library in the Client
 ```
-dotnet add App/App.csproj reference Domain/Domain.csproj
+dotnet add Client/Client.csproj reference Domain/Domain.csproj
 ```
 
 ---
 ### Linking the Solution
 Open the Solution in Visual Studio and follow along
 
-<img src="images/snake-eyes-1.gif" width="100%" class="center">
+<img src="images/snake-eyes-project-setup.gif" width="100%" class="center">
 
-> <a href="images/snake-eyes-1.gif" target="_blank">Fullscreen</a>
+> <a href="images/snake-eyes-project-setup.gif" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle
@@ -135,7 +138,7 @@ Imagine, you want to re-use this super kewl game in a
 - Console Application
 - ...
 
-Then we can re-use the Domain.csproj with all it's goodness inside and just implement the presentation layer.
+Then we can re-use the `Domain.csproj` with all it's fluffy goodness and just implement the presentation layer.
 
 > TBH: You would probably never do this for this small app, but for bigger apps it might be a good idea.
 
@@ -148,12 +151,29 @@ Let's implement the following Domain
 > For now all the methods can `throw new ImplementedException()`
 
 ---
-### SnakeEyes
+### SnakeEyes - Domain
+# Dice
+- `Constructor`
+    - Set's the default value of `Dots` which is `6`.
+- `Roll()`
+    - Uses the `_randomizer` to set the `Dots` to a value between `1` and `6`
+    > Google is your friend for this one...
+
+---
+### SnakeEyes - Domain
 # Game
 - `Constructor`
     - Uses the `Initialize()` method
+- `Restart()`
+    - Uses the `Initialize()` method
 - `Initialize()`
     - Initializes the 2 `Dice`s
+- `Play()`
+    - Rolls the 2 `dice`s
+    - Checks if the game is finished (HasSnakeEyes)
+    - If so :Adds the `Total` to the `_highscores` and resets the `Total`.
+    - If not: Adds the sum of the 2 Eyes / Dices to the `Total`.
+
 
 ---
 class: dark middle
@@ -161,9 +181,228 @@ class: dark middle
 # Suit up, wear a Blazor
 > 📝 Commit: Implement Domain
 
+---
+### SnakeEyes - Client
+# Unboxing the Client
+```
+Dependencies
+Properties
+|- launchSettings.json 
+wwwroot
+|- css
+|- sample-data
+   |- weather.json
+|- favicon.ico
+|- index.html
+Pages
+|- Counter.razor
+|- FetchData.razor
+|- Index.razor
+Shared
+|- MainLayout.razor
+|- NavMenu.razor
+|- SurveyPrompt.razor
+_Imports.razor
+App.razor
+Program.cs
+```
+> Read more about the structure <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/project-structure?view=aspnetcore-5.0#blazor-webassembly-1">here</a>
+
+---
+### Unboxing the Client
+# launchSettings.json
+
+<img src="images/launchsettings.png" width="75%" class="center">
+- Is only used on the local development machine.
+- Contains profile settings.
+
+> Read more about profils <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-5.0#development-and-launchsettingsjson-1">here</a>
+
+---
+### Unboxing the Client
+# wwwroot
+- **Static assets** which are available on the Web Server.
+- Can be downloaded by the client.
+```
+css
+|- bootstrap
+       |- bootstrap.min.css  // Default template is bootstrap.
+|- open-iconic           // Some Fonts to use in App.css
+       |- font
+|- app.css               // Main CSS file 
+sample-data              
+|- weather.json          // Mock JSON data for the FetchData.razor page
+favicon.ico              // Icon in the browser tab
+index.html               // Entry point of the client.
+```
+
+---
+### Unboxing the Client
+# index.html
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" /> // Main CSS File
+    <link href="Client.styles.css" rel="stylesheet" /> 
+    <!-- Compiled Scoped CSS File -->
+</head>
+<body>
+    <!-- Looks for the <App/> component and loads it here. -->
+    <div id="app">Loading...</div> 
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <!-- Starts | Bootstraps the Blazor Application -->
+    <script src="_framework/blazor.webassembly.js"></script> 
+</body>
+</html>
+```
+
+---
+### Unboxing the Client
+# Index.razor
+```
+*@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+*<SurveyPrompt Title="How is Blazor working for you?" />
+```
+- Is a page, specified by the `@page` directive
+- Navigate to **`/`** and you'll see this page.
+- Uses HTML + C# (Razor)
+- Renders a component called `SurveyPrompt`
+
+---
+### Unboxing the Client
+# SurveyPrompt.razor
+```
+<div class="alert alert-secondary mt-4" role="alert">
+    <span class="oi oi-pencil mr-2" aria-hidden="true"></span>
+    <strong>`@Title`</strong>
+    <span class="text-nowrap">
+        Please take our
+        <a target="_blank" class="font-weight-bold" href="google.com">
+            brief survey
+        </a>
+    </span>
+    and tell us what you think.
+</div>
+
+*@code {
+*    [Parameter] public string Title { get; set; }
+*}
+```
+- Is not a page but a component, since there is no `@page` directive
+- Has a `[Parameter]` called `Title` that can be passed by the `Parent`
+
+> Read more about components <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0"> here</a>
+---
+### Unboxing the Client
+# Counter.razor
+```
+@page "/counter" 
+
+<h1>Counter</h1>
+<p>Current count: `@currentCount`</p>
+<button class="btn btn-primary" `@onclick="IncrementCount"`>Click</button>
+@code {
+*   private int currentCount = 0;
+
+*   private void IncrementCount()
+*   {
+*       currentCount++;
+*   }
+}
+```
+- The `code` block can use all the C# goodness you're used to.
+- The event handler `@onclick` takes in a delegate.
+    - Called the same as HTML ones but don't forget `@`
+
+> Read more about event handling <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0"> here</a>
+
+---
+### Unboxing the Client
+# MainLayout.razor
+```
+*@inherits LayoutComponentBase
+<div class="page">
+    <div class="sidebar">
+        `<NavMenu />`
+    </div>
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="/" target="_blank" class="ml-md-auto">About</a>
+        </div>
+        <div class="content px-4">
+            `@Body`
+        </div>
+    </div>
+</div>
+```
+- MainLayout page for the Application, but can be changed / nested.
+- `NavMenu` is a component with navigation links (left side)
+- Renders pages inside the `@Body` 
+
+> Read more about layouts <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/layouts?view=aspnetcore-5.0"> here</a>
+
+---
+### Unboxing the Client
+# NavMenu.razor
+```
+<ul class="nav flex-column">
+    <li class="nav-item px-3">
+*     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+*         <span class="oi oi-home" aria-hidden="true"></span> Home
+*     </NavLink>
+    </li>
+    <li class="nav-item px-3">
+      <NavLink class="nav-link" href="counter">
+          <span class="oi oi-plus" aria-hidden="true"></span> Counter
+      </NavLink>
+    </li>
+    <li class="nav-item px-3">
+      <NavLink class="nav-link" href="fetchdata">
+          <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch
+      </NavLink>
+    </li>
+</ul>
+```
+- Take a look at the source code for <a target="_blank" href="https://github.com/dotnet/aspnetcore/blob/8b30d862de6c9146f466061d51aa3f1414ee2337/src/Components/Web/src/Routing/NavLink.cs">NavLink</a>
+
+> Read more <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#navlink-and-navmenu-components-1"> here</a>
 
 
+---
+### Unboxing the Client
+# App.razor
+```html
+<Router AppAssembly="@typeof(Program).Assembly" 
+        PreferExactMatches="@true">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" 
+                   DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>Sorry, there is nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+```
+- Loaded in the index.**html**, bootstraps the App
+- Layouts are defined
+- 404 page is available
 
+> Read more about routing <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0"> here</a>
 
 ---
 name:sportstore
