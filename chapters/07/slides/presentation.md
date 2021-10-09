@@ -284,13 +284,122 @@ class: dark middle
 > Input validation
 
 ---
-### Ain't no REST for the wicked
-# Input validation
+### Input validation
+# What is input validation?
 
-Read through these tutorials
+- **Testing the incoming data**
+- User or application may send malicious/wrong data
+- **Prevents improperly formed data** from entering the system
+- Databases usually check data, but the earlier you check, the better
+- Prevents input validation attacks:
+    - SQL injection
+    - XSS attacks
+    - Buffer overflow
+    - ...
 
-- <a href="https://docs.fluentvalidation.net/en/latest/index.html" target="_blank">FluentValidation documentation</a>
-- <a href="https://github.com/Blazored/FluentValidation" target="_blank">FluentValidation in Blazor</a>
+---
+### Input validation
+# FluentValidation
+
+[FluentValidation](https://docs.fluentvalidation.net/en/latest/index.html) is one library to validate in .NET.
+
+Installation using the dotnet CLI
+
+```
+dotnet add package FluentValidation
+```
+
+Add the integration for Blazor
+
+```
+dotnet add package Blazored.FluentValidation
+```
+
+---
+### FluentValidation
+# How does it work?
+
+Take the following class as an example
+
+```{cs}
+public class Customer {
+  public int Id { get; set; }
+  public string LastName { get; set; }
+  public string FirstName { get; set; }
+  public decimal Discount { get; set; }
+  public string Address { get; set; }
+}
+```
+
+---
+### FluentValidation
+# How does it work?
+
+If we want to validate the given `Customer` class, we should create a validator
+class which inherits from `AbstractValidator`.
+
+```{cs}
+public class CustomerValidator : `AbstractValidator<Customer>` { }
+```
+
+---
+### FluentValidation
+# How does it work?
+
+Within this class, define a constructor with all validation rules.
+
+```{cs}
+public class CustomerValidator : AbstractValidator<Customer> {
+
+  public CustomerValidator() {
+    `RuleFor(customer => customer.LastName).NotNull();`
+  }
+}
+```
+
+> Obviously you only define validators for DTO's and not for domain objects
+
+
+> You may define the validator as a nested class in the DTO
+
+---
+### FluentValidation
+# How does it work?
+
+The complete validator might look something like this
+
+```{cs}
+using FluentValidation;
+
+public class CustomerValidator : AbstractValidator<Customer> {
+
+  public CustomerValidator() {
+    RuleFor(customer => customer.Id).GreaterThan(0);
+    RuleFor(customer => customer.LastName).NotNull();
+    RuleFor(customer => customer.FirstName).NotNull();
+    RuleFor(customer => customer.Discount).GreaterThan(0).LessThan(1);
+    RuleFor(customer => customer.Address).NotNull();
+  }
+}
+```
+
+---
+### Input validation
+# FluentValidation
+
+Read through these documentation sections
+
+- <a href="https://docs.fluentvalidation.net/en/latest/configuring.html" target="_blank">Overriding the Message</a>
+- <a href="https://docs.fluentvalidation.net/en/latest/conditions.html" target="_blank">Conditions</a>
+- <a href="https://docs.fluentvalidation.net/en/latest/built-in-validators.html" target="_blank">Built-in Validators</a>
+- <a href="https://docs.fluentvalidation.net/en/latest/custom-validators.html" target="_blank">Custom Validators</a>
+
+---
+### Input validation
+# FluentValidation in Blazor
+
+Read through the <a href="https://github.com/Blazored/FluentValidation" target="_blank">GitHub's README</a>
+of the Blazor integration for FluentValidation.
 
 ---
 name: grpc
@@ -333,6 +442,8 @@ TODO: probably add video about gRPC in .NET
 - Like XML or JSON but smaller, faster and simpler
 - Works with so called messages
 - Messages transformed into a **binary** format before being sent
+- Every property of a message gets a number
+    - Used to parse incoming/create outgoing buffers
 
 
 ```{proto}
@@ -350,8 +461,6 @@ message Person {
 - Domain objects
 - Requests
 - Replies
-- ... (whatever you need)
-
 
 ---
 ### gRPC
