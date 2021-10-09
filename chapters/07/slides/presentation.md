@@ -15,6 +15,7 @@ class: dark middle
 - [Input validation](#input-validation)
 - [gRPC](#grpc)
 - [Summary](#summary)
+- [GraphQL (extra)](#graphql)
 
 ---
 name: api
@@ -538,3 +539,21 @@ class: dark middle
   - Stateless
   - Cachable
   - Layered system
+
+---
+name: graphql
+class: dark middle
+
+# Ain't no REST for the wicked
+> GraphQL (extra)
+
+---
+### Ain't no REST for the wicked
+# GraphQL (extra)
+
+As an extra you might want to use GraphQL in .NET. Go through this LinkedIN Learning
+tutorial on your own (not mandatory).
+
+[API Development in .NET with GraphQL](https://www.lynda.com/NET-tutorials/API-Development-NET-GraphQL/664823-2.html)
+
+> You should be able to register using your HOGENT account
