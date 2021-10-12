@@ -572,7 +572,8 @@ What we're building:
 - A Customer can add items to his shoppingcart. 
 - Administrators can use CRUD operations.
 - The client will call a Web API which returns data.
-    - > The Web API will be developt in the next chapter.
+
+> The Web API will be developed in the next chapter.
 
 ---
 name:sportstore
