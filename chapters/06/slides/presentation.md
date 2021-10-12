@@ -7,7 +7,10 @@ class: dark middle
 ### Suit up, wear a Blazor
 # Table of contents
 
+- [Hosting Models](#hosting-models)
 - [Blazor Workshop](#introduction)
+- [Snake Eyes](#snake-eyes)
+- [Unboxing Blazor](#unboxing-blazor)
 
 ---
 name:introduction
@@ -153,15 +156,19 @@ Let's implement the following Domain
 ---
 ### SnakeEyes - Domain
 # Dice
+Implement the following:
 - `Constructor`
     - Set's the default value of `Dots` which is `6`.
 - `Roll()`
     - Uses the `_randomizer` to set the `Dots` to a value between `1` and `6`
     > Google is your friend for this one...
+- `Eye1 | Eye2`
+    - Return the `Dots` (which should be private) of `_dice1` and `_dice2`.
 
 ---
 ### SnakeEyes - Domain
 # Game
+Implement the following:
 - `Constructor`
     - Uses the `Initialize()` method
 - `Restart()`
@@ -182,6 +189,7 @@ class: dark middle
 > 📝 Commit: Implement Domain
 
 ---
+name:unboxing-blazor
 ### SnakeEyes - Client
 # Unboxing the Client
 ```
@@ -305,6 +313,7 @@ Welcome to your new app.
 - Has a `[Parameter]` called `Title` that can be passed by the `Parent`
 
 > Read more about components <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0"> here</a>
+
 ---
 ### Unboxing the Client
 # Counter.razor
@@ -328,6 +337,35 @@ Welcome to your new app.
     - Called the same as HTML ones but don't forget `@`
 
 > Read more about event handling <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0"> here</a>
+
+---
+### Unboxing the Client
+# Counter.razor.cs
+```
+@page "/counter"  // Counter.razor
+<h1>Counter</h1>
+<p>Current count: `@currentCount`</p>
+<button class="btn btn-primary" `@onclick="IncrementCount"`>Click</button>
+```
+
+```
+*namespace Client.Pages // Counter.razor.cs
+{
+    public `partial` class Counter
+    {
+        private int currentCount = 0;
+        void IncrementCount()
+        {
+            currentCount++;
+        }
+    }
+}
+```
+- Code behind can be separated into it's own file (recommended)
+
+> Read more about code-behind and partial class support <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#partial-class-support-1"> here</a>
+
+
 
 ---
 ### Unboxing the Client
@@ -380,6 +418,26 @@ Welcome to your new app.
 
 > Read more <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#navlink-and-navmenu-components-1"> here</a>
 
+---
+### Unboxing the Client
+# NavMenu.razor.css
+```css
+h1 { 
+    color: brown;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+```
+- CSS Isolation is used to not leak styles to other components.
+- Any `h1` CSS declarations defined elsewhere in the app don't conflict with the `NavMenu` component's styles.
+- Convention in file naming: 
+  - Component.**razor**
+  - Component.**razor.css**
+- Used in `index.html`
+  - `<link href="Client.styles.css" rel="stylesheet" />`
+- Shared CSS can be put inside `wwwroot/css/app.css`
+
+
+> Read more about CSS Isolation <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-5.0"> here</a>
 
 ---
 ### Unboxing the Client
@@ -400,9 +458,109 @@ Welcome to your new app.
 ```
 - Loaded in the index.**html**, bootstraps the App
 - Layouts are defined
-- 404 page is available
+- 404 page is available, due to the `<Router>` component
 
 > Read more about routing <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0"> here</a>
+
+---
+### Unboxing the Client
+# Program.cs
+```
+namespace Client
+{
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            //Link to index.html and App.razor
+            builder.RootComponents.Add<App>("#app"); 
+            // Possibility to add Dependency Injection
+            // HttpClient in this case, refers to it's own wwwroot folder
+            builder.Services.AddScoped(sp => new HttpClient 
+            { 
+               BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
+            });
+
+            await builder.Build().RunAsync();
+        }
+    }
+}
+```
+> Read more about Dependency Injection <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=webassembly"> here</a>
+
+---
+### Unboxing the Client
+# FetchData.razor (1)
+```
+@code {
+    private WeatherForecast[] forecasts;
+*   protected override async Task OnInitializedAsync()
+    {
+*       forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>
+*       (
+*           "sample-data/weather.json" // JSON file in wwwroot
+*                                      // Can also be any (JSON) Web API
+*       );
+    }
+    public class WeatherForecast // Data Transfer Object (DTO) Class.
+    {
+        public DateTime Date { get; set; }
+        public int TemperatureC { get; set; }
+        public string Summary { get; set; }
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}
+```
+
+> Read more about `OnInitializedAsync` and component lifecycles <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=webassembly"> here</a>
+
+---
+### FetchData.razor (2)
+```razor
+*@if (forecasts == null) { <p><em>Loading...</em></p> }
+else
+{
+    <table class="table">
+        <thead><tr>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+        </tr></thead>
+        <tbody>
+*           @foreach (var forecast in forecasts)
+            `{`
+                <tr>
+                    <td>`@forecast.Date.ToShortDateString()`</td>
+                    <td>`@forecast.TemperatureC`</td>
+                    <td>`@forecast.TemperatureF`</td>
+                </tr>
+            `}`
+        </tbody>
+    </table>
+}
+```
+> Rendering Razor which is a combination of C# and HTML.
+
+---
+### Unboxing the Client
+# _Imports.razor
+```
+@code {
+@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.JSInterop
+@using Client
+@using Client.Shared
+```
+Every folder of an app can optionally contain a template file named `_Imports.razor`. The compiler includes the directives specified in the imports file in all of the Razor templates in the same folder and recursively in all of its subfolders.
+
+> Read more about `_Imports.razor` <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/layouts?view=aspnetcore-5.0#apply-a-layout-to-a-folder-of-components-1"> here</a>
 
 ---
 name:sportstore
