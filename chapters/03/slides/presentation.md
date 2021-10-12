@@ -1254,7 +1254,7 @@ The idea of TDD:
 # Step by step
 
 1. Create the class you want to test
-  * Every method throws a `NotImplemenedException`
+  * Every method throws a `NotImplementedException`
 2. Create a test class
 3. Write all tests you need (e.g. for one method)
 4. Implement all tests
@@ -1322,7 +1322,7 @@ Some useful methods of **Assert**
   * every possible error
   * edge case(s)
 * Name convention:
-  * test class: `ClassNameTest`
+  * test class: **`ClassNameTest`**
   * method: **`MethodName_TestCase_Outcome`**
   * constructor: **`NewClassName_TestCase_Outcome`**
 
@@ -1422,6 +1422,8 @@ public class BankAccountTest
 
 <img src="./images/create-test-project.gif" width="100%" />
 
+> Or use the CLI
+
 ---
 ### Unit Testing
 # Example (1)
@@ -1461,7 +1463,7 @@ Create the following tests for **`BankAccount`**
 ### Unit Testing
 # Example (3)
 
-Create the following tests for **`BankAccount`** (use `"123-4567890-02"` or `""123-4567891-03"` as account number)
+Create the following tests for **`BankAccount`** (use `"123-4567890-02"` or `"123-4567891-03"` as account number)
 
 | Test name                                    | Outcome                       |
 | -------------------------------------------- | ----------------------------- |
