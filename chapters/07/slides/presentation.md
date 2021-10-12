@@ -16,6 +16,7 @@ class: dark middle
 - [gRPC](#grpc)
 - [Summary](#summary)
 - [GraphQL (extra)](#graphql)
+- [OData (extra)](#odata)
 
 ---
 name: api
@@ -557,3 +558,20 @@ tutorial on your own (not mandatory).
 [API Development in .NET with GraphQL](https://www.lynda.com/NET-tutorials/API-Development-NET-GraphQL/664823-2.html)
 
 > You should be able to register using your HOGENT account
+
+---
+name: odata
+class: dark middle
+
+# Ain't no REST for the wicked
+> OData (extra)
+
+---
+### Ain't no REST for the wicked
+# OData (extra)
+
+OData (Open Data) is an open protocol which allows to create and consume queryable and interoperable REST APIs. It provides all necessary documentation and information right in the API, in a simple and standard way.
+
+Have a look at the next video and try to follow the example.
+
+[Supercharging your Web APIs with OData and ASP.NET Core](https://www.youtube.com/watch?v=ZCDWUBOJ5FU)
