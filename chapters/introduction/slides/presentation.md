@@ -25,13 +25,13 @@ class: dark middle
 ### .NET Explained
 # What is .NET?
 <br/>
-<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--jC30EswE--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/gf33dzppdwjqq7azxdyo.png" width="100%"/>
+<img src="./images/dotnet-ecosystem.png" width="100%"/>
 
 ---
 ### .NET Explained
 # Why.NET?
 <br/>
-<img src="https://scontent-bru2-1.xx.fbcdn.net/v/t1.6435-9/191142819_317925109916551_7933506348530649157_n.png?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_ohc=y7G0Ol3yp2kAX_74oph&tn=NcjXLhfOLQTWIZCU&_nc_ht=scontent-bru2-1.xx&oh=a69b0c504163df1655d687f5df98f285&oe=6158E7CD" width="100%"/>
+<img src="./images/dotnet-ecosystem-momentum.png" width="100%"/>
 
 ---
 ### .NET Explained
