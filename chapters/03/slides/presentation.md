@@ -592,7 +592,50 @@ Let's implement the `BankAccount` class!
 <img src="./images/DCD_part1.svg" width="50%" class="center" />
 
 ---
-### Create a new project in Visual Studio 2019
+### Example
+# Create a new solution & project
+
+Create a new folder named `Banking` with a child folder `src`
+
+```
+mkdir Banking
+cd Banking
+mkdir src
+```
+
+Create a new solution
+
+```
+dotnet new sln -n Banking -o .
+```
+
+Create a `Class Library` named `Domain` in the `src` folder
+
+```
+cd src
+dotnet new classlib -n Domain
+```
+
+---
+### Example
+# Create a new solution & project
+
+Create a `Console App` named `App` in the `src` folder
+
+```
+dotnet new console -n App
+```
+
+Reference the `Domain` proejct from the `App` project
+
+```
+dotnet add .\App\App.csproj reference .\Domain\Domain.csproj
+```
+
+Open the solution in Visual Studio (Code).
+
+---
+### Create a new solution & project
 
 <img src="./images/create-vs-console-app.gif" width="100%" />
 
@@ -1409,13 +1452,30 @@ public class BankAccountTest
 ```
 
 ---
-### Unit Testing
-# Example
+### Example
+# Create a new test project
 
-* Create a new **xUnit Test Project** called `Tests`
-* Add a **reference to** the **Domain** project
-* Remove the class `UnitTest1.cs`
-* Create a new class named `BankAccountTest` in a folder named `Domain`
+Go to the project folder and create a `tests` folder
+
+```
+cd Banking
+mkdir tests
+```
+
+Create a new **xUnit Test Project** called `Domain.Tests`
+
+```
+cd tests
+dotnet new xunit -n Domain.Tests
+```
+
+Add a **reference to** the **Domain** project
+
+```
+dotnet .\Domain.Tests\Domain.Tests.csproj reference ..\src\Domain\Domain.csproj
+```
+
+Remove the class `UnitTest1.cs` and create a new class named `BankAccountTest` in a folder named `Domain`
 
 ---
 ### Create a new test project
