@@ -970,6 +970,26 @@ name:github-pages
 <img src="https://c.tenor.com/-iop9obK0IwAAAAC/i-want-to-play-a-game-play-time.gif" width="100%" class="center">
 
 ---
+name:exercises
+class: dark middle
+
+# Suit up, wear a Blazor
+> Exercises
+
+---
+### Suit up, wear a Blazor
+# Exercises
+Complete the following exercise:
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-6-exercise-1" target="_blank">Blackjack</a>
+
+---
+name:solutions
+### Suit up, wear a Blazor
+# Solution
+On the following links you can find the solutions for the exercises.
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-6-exercise-1/tree/solution/src/Client" target="_blank">Blackjack</a>
+
+---
 name:workshop
 ### Suit up, wear a Blazor
 # Blazor Workshop
