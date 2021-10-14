@@ -11,6 +11,8 @@ class: dark middle
 - [Snake Eyes](#snake-eyes)
 - [Unboxing Blazor](#unboxing-blazor)
 - [Deployment](#deployment)
+- [Blazor WASM Hosted](#blazor-wasm-hosted)
+- [Fake it till you make it](#faking)
 - [Workshop](#workshop)
 
 ---
@@ -988,6 +990,135 @@ name:solutions
 # Solution
 On the following links you can find the solutions for the exercises.
 1. <a href="https://github.com/HOGENT-Web/csharp-ch-6-exercise-1/tree/solution/src/Client" target="_blank">Blackjack</a>
+
+
+---
+name:blazor-wasm-hosted
+class: dark middle
+
+# Suit up, wear a Blazor
+> dotnet new blazorwasm --hosted
+
+---
+### > dotnet new blazorwasm --hosted
+# Introduction
+Until now we've been playing games. Let's introduce a more realistic example. Run the following command:
+```
+dotnet new blazorwasm --hosted -o Project
+```
+Which generates 3 projects
+- Project.Client which is a Blazor WASM Client
+- Project.Server which is a REST API and serves the client in one go.
+- Project.Shared DTO's shared by both projects
+> Project.Shared is **not** meant for a Domain modelling!
+
+The biggest difference is that now, we use the REST API to serve data to the client. Instead of serving it from a `.json` file in `wwwroot`.
+
+> More about REST API's in Chapter 7 : Ain't no REST for the wicked.
+
+---
+### > dotnet new blazorwasm --hosted
+# First run (Client)
+When you run the client (alone), no data will be accessible, since the server cannot serve data since it's offline.
+<img src="images/client-solo-run.gif" width="100%" class="center">
+
+> <a href="images/client-solo-run.gif" target="_blank">Fullscreen</a>
+
+---
+### > dotnet new blazorwasm --hosted
+# First run (Server + Client)
+When you run the server, the data is accessible.
+<img src="images/server-run.gif" width="100%" class="center">
+
+> <a href="images/server-run.gif" target="_blank">Fullscreen</a>
+
+---
+### > dotnet new blazorwasm --hosted
+# Retrieve data on the Client
+How is the JSON data being retrieved on the client?
+
+**Program.cs**
+```
+builder.Services.AddScoped(sp => new HttpClient {
+    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
+});
+```
+
+**FetchData.razor**
+```
+@inject HttpClient Http
+// ... Other code
+protected override async Task OnInitializedAsync()
+{
+    forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>
+    (
+        "WeatherForecast"
+    );
+}
+```
+
+---
+### A more realistic example
+# Send data from the Server
+How is the JSON data being sent to the client?
+```
+[ApiController] 
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase {
+//... Other code 
+    [HttpGet]
+    public IEnumerable<WeatherForecast> Get()
+    {
+        var rng = new Random();
+        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = DateTime.Now.AddDays(index),
+            TemperatureC = rng.Next(-20, 55),
+            Summary = Summaries[rng.Next(Summaries.Length)]
+        }).ToArray();
+    }
+}
+```
+
+---
+name:faking
+class: dark middle
+
+# Suit up, wear a Blazor
+> Fake it till you make it
+
+---
+### Fake it till you make it
+# The customer
+A customer asking for an app/website does (most of the time) not care about:
+- Which database you're going to use
+- Which protocols you're using
+- Which design patterns you (didn't) use
+- How you're authenticating your users
+
+What he actually cares about is:
+- How it looks and feels
+- Does it solve the problem at hand
+- How user friendly it is
+
+> Getting feedback on your mock-ups or client is important! The back-end, database and authentication can easily be faked. 
+
+---
+### Fake it till you make it
+# The customer
+A customer asking for an app/website does (most of the time) not care about:
+- Which database you're going to use
+- Which protocols you're using
+- Which design patterns you (didn't) use
+- How you're authenticating your users
+
+What he actually cares about is:
+- How it looks and feels
+- Does it solve the problem at hand
+- How user friendly it is
+
+> Getting feedback on your mock-ups or client is important! The back-end, database and authentication can easily be faked. 
+
 
 ---
 name:workshop
