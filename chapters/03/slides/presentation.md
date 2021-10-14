@@ -1472,7 +1472,7 @@ dotnet new xunit -n Domain.Tests
 Add a **reference to** the **Domain** project
 
 ```
-dotnet .\Domain.Tests\Domain.Tests.csproj reference ..\src\Domain\Domain.csproj
+dotnet add .\Domain.Tests\Domain.Tests.csproj reference ..\src\Domain\Domain.csproj
 ```
 
 Remove the class `UnitTest1.cs` and create a new class named `BankAccountTest` in a folder named `Domain`
