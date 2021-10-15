@@ -178,7 +178,7 @@ Then we can re-use the `Domain.csproj` with all it's fluffy goodness and just im
 Let's implement the following Domain
 <img src="images/snake-eyes-domain.png" width="75%" class="center">
 
-> For now all the methods can `throw new ImplementedException()`
+> For now all the methods can `throw new NotImplementedException()`
 
 ---
 ### SnakeEyes - Domain
@@ -189,17 +189,15 @@ Implement the following:
 - `Roll()`
     - Uses the `_randomizer` to set the `Dots` to a value between `1` and `6`
     > Google is your friend for this one...
-- `Eye1 | Eye2`
-    - Return the `Dots` (which should be private) of `_dice1` and `_dice2`.
 
 ---
 ### SnakeEyes - Domain
 # Game
 Implement the following:
-- `Constructor`
-    - Uses the `Initialize()` method
-- `Restart()`
-    - Uses the `Initialize()` method
+- `Eye1 | Eye2`
+    - Return the `Dots` (which should be private) of `_dice1` and `_dice2`.
+- `Constructor` and `Restart()`
+    - Use the `Initialize()` method
 - `Initialize()`
     - Initializes the 2 `Dice`s
 - `Play()`
