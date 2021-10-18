@@ -1131,6 +1131,12 @@ What he actually cares about is:
 > Note that we don't need all the fields in a list.
 
 ---
+### Fake it till you make it
+# Show me the code
+From this point onwards, we'll create an application which is hosted <a href="https://hogent-web.github.io/csharp-ch-6-example-2/" target="_blank">here</a> and the source code can be found <a href="https://github.com/HOGENT-Web/csharp-ch-6-example-2" target="_blank">here</a>. If there are link to commits you'll find them there.
+
+
+---
 ### Final result
 # Product Index
 
@@ -1634,7 +1640,7 @@ namespace Project.Client
 ---
 ### Fake it till you make it
 # _Imports.razor
-In the `_Imports.razor` file, add the following using statement:
+In the `_Imports.razor` file, add the following using statements:
 ```
 @using System.Net.Http
 @using System.Net.Http.Json
@@ -1647,7 +1653,30 @@ In the `_Imports.razor` file, add the following using statement:
 @using Project.Client
 @using Project.Client.Shared
 *@using Microsoft.AspNetCore.Authorization
+*@using Microsoft.AspNetCore.Components.Authorization
+
 ```
+
+---
+### Fake it till you make it
+# App.razor
+Replace the Project.Client's App.razor file with the following contents:
+
+```
+*<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+        <Found Context="routeData">
+           ` <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />`
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+*</CascadingAuthenticationState>
+```
+> Learn more about Cascading Parameters <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0">here</a>.
 
 > 📝 Commit: FakeAuthorization Infrastructure
 
@@ -1679,6 +1708,123 @@ public override Task<AuthenticationState> GetAuthenticationStateAsync()
 ```
 
 Launch the `Project.Client` and try to navigate to the `Product/Index.razor` page (`/product`) you should see the list of products.
+
+---
+### Fake it till you make it
+# Product.Detail
+Add the Authorize attribute in the Product/Detail.razor page.
+
+```
+@page "/product/`{id:int}`"
+@using Project.Shared.Products
+@inject IProductService ProductService
+*@attribute [Authorize]
+```
+
+---
+### Product.Detail
+# DeleteAsync - Exercise
+Add a `DeleteAsync` to to `IProductService` and implement it in `FakeProductService`.
+
+---
+### Product.Detail
+# DeleteAsync - Solution
+```
+public interface IProductService
+{
+    Task<IEnumerable<ProductDto.Index>> GetIndexAsync();
+    Task<ProductDto.Detail> GetDetailAsync(int productId);
+*   Task DeleteAsync(int productId);
+}
+```
+
+```
+public class FakeProductService : IProductService
+{
+    // Other code from before
+    public Task DeleteAsync(int productId)
+    {
+        var p = _products.SingleOrDefault(x => x.Id == productId);
+        _products.Remove(productToDelete);
+        return Task.CompletedTask;
+    }
+}
+```
+
+> 📝 Commit: Implement DeleteAsync
+
+---
+### Product.Detail
+# DeleteAsync
+Now only Administrators should be able to delete products,
+Add the AuthorizeView component with a button to the Product/Detail.razor page.
+
+```
+<AuthorizeView Roles="`Administrator`">
+    <button class="btn btn-danger" `@onclick="DeleteAsync"`>Delete</button>
+</AuthorizeView>
+```
+
+Inject the `NavigationManager` at the top of the file
+```
+@inject NavigationManager NavigationManager
+```
+
+> Read more about the NavigationManager <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0" target="_blank">here</a>.
+
+---
+### Fake it till you make it
+# Product.Detail DeleteAsync
+Add the DeleteAsync function to the code block
+```
+private async Task DeleteAsync()
+{
+    await ProductService.DeleteAsync(product.Id);
+    NavigationManager.NavigateTo("/product");
+}
+```
+Restart the App and try to delete a product... you won't be able to see the button...
+
+In `FakeAuthenticationProvider` switch the fake user from `Customer` to `Administrator`
+```
+public override Task<AuthenticationState> GetAuthenticationStateAsync()
+{
+    return Task.FromResult(new AuthenticationState(`Administrator`));
+}
+```
+
+---
+### Fake it till you make it
+# Product.Detail DeleteAsync
+Add the DeleteAsync function to the code block
+```
+private async Task DeleteAsync()
+{
+    await ProductService.DeleteAsync(product.Id);
+    NavigationManager.NavigateTo("/product");
+}
+```
+Restart the App and try to delete a product... you won't be able to see the button...
+
+In `FakeAuthenticationProvider` switch the fake user from `Customer` to `Administrator`
+```
+public override Task<AuthenticationState> GetAuthenticationStateAsync()
+{
+    return Task.FromResult(new AuthenticationState(`Administrator`));
+}
+```
+
+---
+### Final result
+<img src="images/delete-admin.gif" width="100%" class="center">
+
+> <a href="images/delete-admin.gif" target="_blank">Fullscreen</a>
+
+---
+### Suit up, wear a Blazor
+# Summary
+- In the next chapter, you'll learn how to use the Web API and see how easy it is to swap from Fakes to a real implementation.
+
 
 ---
 name:workshop
