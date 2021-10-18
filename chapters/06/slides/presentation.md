@@ -1330,7 +1330,7 @@ else
             @foreach (var product in products)
             {
             <tr>
-              <td><a href="/product/@product.Id">@product.Name</a></td>
+              <td><a href="product/@product.Id">@product.Name</a></td>
               <td>@product.Price.ToString("C")</td>
             </tr>
             }
@@ -1342,7 +1342,7 @@ else
 ---
 ### Product Index
 # Finished
-It should now be possible to navigate to the /products page and get a list of 25 products provided by the FakeProductService which in turn uses Bogus to generate the products.
+It should now be possible to navigate to the products page and get a list of 25 products provided by the FakeProductService which in turn uses Bogus to generate the products.
 
 Notice that we don't have to run the Server, the Client project is more than enough.
 
@@ -1449,15 +1449,15 @@ public Task<ProductDto.Detail> GetDetailAsync(int productId)
 ---
 ### Product Detail
 # Navigation
-The index page renders a table with anchor elements to navigate to the `/product/id` page. Let's make sure we can navigate to it.
+The index page renders a table with anchor elements to navigate to the `product/id` page. Let's make sure we can navigate to it.
 ```
-<td><a href="/product/@product.Id">@product.Name</a></td>
+<td><a href="product/@product.Id">@product.Name</a></td>
 ```
 
 - Create a new razor component called `Detail.razor` in the `Client/Pages/Products` folder.
 
 ```
-@page "/product/`{id:int}`"
+@page "product/`{id:int}`"
 @using Project.Shared.Products
 
 @code {
@@ -1515,7 +1515,7 @@ else
 ---
 ### Product Detail
 # Finished
-It should now be possible to navigate to the /products/1 page and see the details of a product.
+It should now be possible to navigate to the products/1 page and see the details of a product.
 
 Notice that we don't have to run the Server, the Client project is still more than enough.
 
@@ -1780,28 +1780,7 @@ Add the DeleteAsync function to the code block
 private async Task DeleteAsync()
 {
     await ProductService.DeleteAsync(product.Id);
-    NavigationManager.NavigateTo("/product");
-}
-```
-Restart the App and try to delete a product... you won't be able to see the button...
-
-In `FakeAuthenticationProvider` switch the fake user from `Customer` to `Administrator`
-```
-public override Task<AuthenticationState> GetAuthenticationStateAsync()
-{
-    return Task.FromResult(new AuthenticationState(`Administrator`));
-}
-```
-
----
-### Fake it till you make it
-# Product.Detail DeleteAsync
-Add the DeleteAsync function to the code block
-```
-private async Task DeleteAsync()
-{
-    await ProductService.DeleteAsync(product.Id);
-    NavigationManager.NavigateTo("/product");
+    NavigationManager.NavigateTo("product");
 }
 ```
 Restart the App and try to delete a product... you won't be able to see the button...
