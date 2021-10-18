@@ -1097,26 +1097,588 @@ A customer asking for an app/website does (most of the time) not care about:
 What he actually cares about is:
 - How it looks and feels
 - Does it solve the problem at hand
-- How user friendly it is
 
-> Getting feedback on your mock-ups or client is important! The back-end, database and authentication can easily be faked. 
+> Getting feedback on your mock-ups or client is important! The infrastructure layer can easily be faked, which **speeds up development time.**
 
 ---
 ### Fake it till you make it
-# The customer
-A customer asking for an app/website does (most of the time) not care about:
-- Which database you're going to use
-- Which protocols you're using
-- Which design patterns you (didn't) use
-- How you're authenticating your users
+# Different terms
+**Dummy objects** are passed around but never actually used. Usually they are just used to fill parameter lists.
 
-What he actually cares about is:
-- How it looks and feels
-- Does it solve the problem at hand
-- How user friendly it is
+**Fake objects** actually have working implementations, but usually take some shortcut which makes them not suitable for production (an in memory database is a good example). We'll be using these quite frequently.
 
-> Getting feedback on your mock-ups or client is important! The back-end, database and authentication can easily be faked. 
+**Stubs** provide an explicit value to calls made during the test, usually not responding at all to anything outside what's programmed in for the test.
 
+**Spies** are stubs that also record some information based on how they were called. One form of this might be an email service that records how many messages it sent.
+
+**Mocks objects** are pre-programmed with expectations which form a specification of the calls they are expected to receive.
+
+---
+### Fake it till you make it
+# Usecases
+- **Product Index Page**
+    - We want to show a list of products with a name and a price.
+    - Customer has to be logged in
+- **Product Detail Page**
+    - When we want to show more details, we have to navigate to a details page, which shows properties of the product:
+        - Id
+        - Name
+        - Description 
+        - Price
+    - User has to be logged in
+    - An administrator can delete a product, after deletion, show the list of products.
+
+> Note that we don't need all the fields in a list.
+
+---
+### Final result
+# Product Index
+
+<img src="images/product-index.png" width="90%" class="center">
+
+---
+### Final result
+# Product Detail
+
+<img src="images/product-detail.png" width="90%" class="center">
+
+
+---
+### Product Index
+# Page
+- Create a new folder in the client's pages folder called `Products`
+- Create a new razor component called `Index.razor` in the folder.
+- When we navigate to `/product` we want to see the page so add a `@page "/product"` directive.
+```
+@page "/product"
+<h1>Products</h1>
+```
+It's pretty silly to have pages where you cannot navigate to, add a `<NavLink/>` in the `<NavMenu>` component. 
+```
+<li class="nav-item px-3">
+      <NavLink class="nav-link" href="`product`">
+         <span class="oi oi-list-rich" aria-hidden="true"></span> `Products`
+      </NavLink>
+</li>
+```
+
+> 📝 Commit: Add Product Index Page
+
+---
+### Product Index
+# ProductDto
+- Create a new folder in de `Shared project` called `Products`
+> The Shared project is meant for classes and contracts, shared by the `Client` and `Server`, it's not meant for `Domain` classes.
+- Add a `ProductDto` class to the folder, with a `Index` subclass
+```
+    public static class ProductDto
+    {
+        public class Index
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public decimal Price { get; set; }
+        }
+    }
+```
+
+> Learn more about **D**ata **T**ransfer **O**bjects <a href="https://enterprisecraftsmanship.com/posts/dto-vs-value-object-vs-poco/" target="_blank">here</a>
+
+---
+### Product Index
+# IProductService
+We'll code against an `Interface` so that we can easily fake out back-end responsibilities, e.g. database, Web API, ...
+
+- Add a `IProductService` interface to the folder
+```cs
+public interface IProductService
+{
+      Task<IEnumerable<ProductDto.Index>> GetIndexAsync();
+}
+```
+> It's a async function, which does not block the UI thread on the client.
+> More information about UI Threads can be found <a href="https://dev.to/glsolaria/c-async-await-eventually-ui-threads-341l" target="_blank">here</a>.
+
+> 📝 Commit: Add ProductDto and IProductService
+
+---
+### Product Index
+# `FakeProductService`
+Creating fake data can be tedious, but it can also be helpfull. Creating realistic fakes for your customer can help them to understand your application better. But can also speed up your development time when working in front-end and back-end teams.
+
+In this example we'll use some fake data generator called `Bogus`, read how to use it <a href="https://github.com/bchavez/Bogus" target="_blank">here</a>.
+
+- Create a new class in the Shared/Products folder in the Project.Shared package called `FakeProductService` 
+- Install the `bogus` package using NuGet
+```
+Install-Package Bogus
+```
+---
+### `FakeProductService`
+```
+*using Bogus;
+public class FakeProductService
+{
+    private static readonly List<ProductDto.Index> _products = new();
+
+    `static` FakeProductService()
+    {
+        var productIds = 0;
+
+        var productFaker = new Faker<ProductDto.Index>("nl")
+        .UseSeed(1337) // Always return the same products
+        .RuleFor(x => x.Id, _ => ++productIds)
+        .RuleFor(x => x.Name, f => f.Commerce.ProductName())
+        .RuleFor(x => x.Price, f => f.Random.Decimal(0, 250));
+
+        `_products = productFaker.Generate(25)`;
+    }
+}
+```
+- When the class is constructed for the first time, it creates a list of 25 dummy products specified by the `RuleFor()` calls.
+- Notice that we're using a <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/static-constructors" target="_blank">static constructor</a> here.
+
+---
+### `FakeProductService` implementing `IProductService`
+```
+public class FakeProductService `: IProductService`
+{
+    private readonly List<ProductDto.Detail> _products = new();
+
+    static FakeProductService()
+    {
+        // Constructor code from previous slide
+    }
+*   public Task<IEnumerable<ProductDto.Index>> GetIndexAsync()
+*   {
+*       return Task.FromResult(_products.AsEnumerable());
+*   }
+}
+```
+
+> If you're unfamilliar with async code, read <a target="_blank" href="https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md">the guidance provided by David Fowler</a>. A `ValueTask` might have even been better in this case. 
+
+---
+### Dependency Injection
+# Program.cs
+Let's add our `FakeProductService` to the DI Container of the client in `Program.cs`, each time we request the IProductService, the container will provide a `FakeProductService`
+```
+builder.Services.AddScoped<`IProductService`, `FakeProductService`>();
+```
+
+> You can read more about Dependency Injection in Blazor <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=webassembly" target="_blank">here</a>.
+>
+> Notice that the Lifetime of `Singleton` and `Scoped` are actually the same in Blazor WASM.
+
+---
+### Product Index
+# The page
+Inject the `IProductService` in the Products/Index.razor page, don't forget the using statement!
+```
+@page "/product"
+*@using Project.Shared.Products
+*@inject IProductService ProductService
+<h1>Products</h1>
+```
+
+> 📝 Commit: Add FakeProductService
+
+---
+### Product Index
+# The code behind 
+Let's create a code block or a code behind file to get the items `OnInitializedAsync`
+```
+// Code from last slide.
+@code {
+    private IEnumerable<ProductDto.Index> products;
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetIndexAsync();
+    }
+}
+```
+
+> It's advisable to read more about `Lifecycle` methods and when they're called <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0">here</a>.
+
+In the next slide, we'll use the `products` field to render some razor.
+
+
+---
+### Product Index - Razor
+```
+<h1>Products</h1>
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+            <tr>
+              <td><a href="/product/@product.Id">@product.Name</a></td>
+              <td>@product.Price.ToString("C")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+```
+
+---
+### Product Index
+# Finished
+It should now be possible to navigate to the /products page and get a list of 25 products provided by the FakeProductService which in turn uses Bogus to generate the products.
+
+Notice that we don't have to run the Server, the Client project is more than enough.
+
+> 📝 Commit: Implement Product Index Page
+
+---
+### Product Detail
+# ProductDto.Detail
+Let's add a new subclass to the `ProductDto` called `Detail`, which inherits from `Index`, with 2 extra properties.
+
+```
+public static class ProductDto
+{
+    public class Index
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+    }
+
+*   public class Detail : Index
+*   {
+*       public string Description { get; set; }
+*       public string Image { get; set; }
+*   }
+}
+```
+
+> 📝 Commit: Add ProductDto.Detail
+
+---
+### Product Detail
+# IProductService - GetDetailAsync
+Let's add a new call to the `IProductService` interface to make sure to only retrieve 1 `Product.Detail` using it's unique identifier(`Id`).
+
+```
+public interface IProductService
+{
+    Task<IEnumerable<ProductDto.Index>> GetIndexAsync();
+*   Task<ProductDto.Detail> GetDetailAsync(int productId);
+}
+```
+
+We're splitting these 2 use cases since a Index page should be fast and only load data related to what it actually needs. Sending more data than needed is called overfetching.
+
+> 📝 Commit: IProductService - GetDetailAsync
+
+---
+### Product Detail
+# FakeProductService
+Let's Fake these 2 new properties using Bogus
+```
+private static readonly List<ProductDto.`Detail`> _products = new();
+static FakeProductService()
+{
+    var productIds = 0;
+    var productFaker = new Faker<ProductDto.`Detail`>("`en`")
+    .UseSeed(1337) // Always return the same products
+    .RuleFor(x => x.Id, _ => ++productIds)
+    .RuleFor(x => x.Name, f => f.Commerce.ProductName())
+*   .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
+*   .RuleFor(x => x.Image, f => f.Internet.Avatar())
+    .RuleFor(x => x.Price, f => f.Random.Decimal(0, 250));
+    _products = productFaker.Generate(25);
+}
+```
+
+> You can even change the locale if you like (notice "en" instead of "nl"), which then uses English product names.
+
+> 📝 Commit: FakeProductService - Fake Details
+
+---
+### Product Detail
+# FakeProductService
+Re-implement the `GetIndexAsync` since it's currently broken due to the new cast.
+```
+public Task<IEnumerable<ProductDto.Index>> GetIndexAsync()
+{
+    return Task.FromResult(_products.Select(x => new ProductDto.Index
+    {
+        Id = x.Id,
+        Name = x.Name,
+        Price = x.Price
+    }));
+}
+```
+
+> 📝 Commit: FakeProductService - Stop and Fix overfetching
+
+---
+### Product Detail
+# FakeProductService
+Implement the `GetDetailAsync` to fetch only one `Product.Detail` DTO.
+```
+public Task<ProductDto.Detail> GetDetailAsync(int productId)
+{
+    return Task.FromResult(_products.Single(x => x.Id == productId));
+}
+```
+
+> 📝 Commit: FakeProductService - GetDetailAsync
+
+
+---
+### Product Detail
+# Navigation
+The index page renders a table with anchor elements to navigate to the `/product/id` page. Let's make sure we can navigate to it.
+```
+<td><a href="/product/@product.Id">@product.Name</a></td>
+```
+
+- Create a new razor component called `Detail.razor` in the `Client/Pages/Products` folder.
+
+```
+@page "/product/`{id:int}`"
+@using Project.Shared.Products
+
+@code {
+    `[Parameter] public int Id { get; set; }`
+}
+```
+
+> The parameter will be filled in and can be used in the `IProductService.GetDetalAsync(Id)`
+
+---
+### Product Detail
+# Code Behind
+```
+@page "/product/{id:int}"
+@using Project.Shared.Products
+*@inject IProductService ProductService
+
+// Markup will go here
+
+@code {
+*   private ProductDto.Detail product;
+
+    [Parameter] public int Id { get; set; }
+
+*   protected override async Task OnInitializedAsync()
+*   {
+*       product = await ProductService.GetDetailAsync(Id);
+*   }    
+}
+```
+
+> Fetching the details can now be done in the component, all we still have to do is add some markup.
+
+
+---
+### Product Detail
+# Page
+```
+// Using statements and directives here
+@if (product == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h3>@product.Name</h3>
+    <p>@nameof(product.Id):@product.Id</p>
+    <p>@nameof(product.Description):@product.Description</p>
+    <p>@nameof(product.Price):@product.Price.ToString("C")</p>
+    <img src="@product.Image" alt="Some product img" width="100"/>
+}
+// Code block here
+```
+
+---
+### Product Detail
+# Finished
+It should now be possible to navigate to the /products/1 page and see the details of a product.
+
+Notice that we don't have to run the Server, the Client project is still more than enough.
+
+> 📝 Commit: Implement Product Detail Page
+
+
+---
+class: dark middle
+
+# Fake it till you make it
+> Authentication
+
+---
+### Authentication
+# Faking Users and Roles
+Most Application have some form of authentication / authorization. However it should not be your primary concern. 
+Just as fake products we can fake logged-in users in certain roles. We can still later decide which auth provider we'd like to use for example:
+- <a href="https://auth0.com/blog/securing-blazor-webassembly-apps/" target="_blank">Auth0</a>
+- <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/security/webassembly/hosted-with-azure-active-directory?view=aspnetcore-5.0" target="_blank">Azure AD</a>
+- Storing in your own datastore
+- ...
+
+> In a later chapter we'll use one of these providers.
+
+---
+### Fake it till you make it
+# Usecases
+- **Product Index Page**
+    - Customer has to be logged in
+- **Product Detail Page**
+    - An administrator can delete a product, after deletion, show the list of products.
+
+We need the following roles:
+- Customer
+- Administrator
+- Anonymous (if we have public pages)
+
+
+---
+### Fake it till you make it
+# Infrastructure
+Add the following NuGet package to the Client project
+```
+Install-Package Microsoft.AspNetCore.Components.Authorization
+```
+
+Create a `FakeAuthenticationProvider` which implements `AuthenticationStateProvider` in the `Project.Client/Shared` folder.
+```
+public class FakeAuthenticationProvider : AuthenticationStateProvider
+{
+* public static ClaimsPrincipal Anonymous => new(new ClaimsIdentity());
+  public override Task<AuthenticationState> GetAuthenticationStateAsync()
+  {
+      return Task.FromResult(new AuthenticationState(`Anonymous`));
+  }
+}
+```
+When the app launches, you'll be logged in as `Anonymous`.
+
+---
+### Fake it till you make it
+# FakeAuthenticationProvider
+Add 2 extra constants to the `FakeAuthenticationProvider`, `Administrator` and `Customer` just like `Anonymous`
+```
+public static ClaimsPrincipal Anonymous => new(new ClaimsIdentity());
+*public static ClaimsPrincipal Administrator =>
+*    new(new ClaimsIdentity(new[]
+*    {
+*    new Claim(ClaimTypes.Name, "Fake Administrator"),
+*    new Claim(ClaimTypes.Email, "fake-administrator@gmail.com"),
+*    new Claim(ClaimTypes.Role, "Administrator"),
+*    }, "Fake Authentication"));
+*
+*public static ClaimsPrincipal Customer =>
+*    new(new ClaimsIdentity(new[]
+*    {
+*        new Claim(ClaimTypes.Name, "Fake Customer"),
+*        new Claim(ClaimTypes.Email, "fake-customer@gmail.com"),
+*        new Claim(ClaimTypes.Role, "Customer"),
+*    }, "Fake Authentication"));
+```
+
+---
+### Fake it till you make it
+# FakeAuthenticationProvider
+```
+// Constants are here
+public override Task<AuthenticationState> GetAuthenticationStateAsync()
+{
+    return Task.FromResult(new AuthenticationState(`Anonymous`));
+}
+```
+Here you can choose how you want to be logged-in once the Client launches, choose from:
+- Anonymous
+- Administrator
+- Customer
+- Or other constants you defined.
+
+---
+### Fake it till you make it
+# Dependency Injection
+Just as the `IProductService`, we'll add `FakeAuthenticationProvider` to the Dependency Injection container in `Program.cs` and some built-in auth classes.
+```
+namespace Project.Client
+{
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            builder.RootComponents.Add<App>("#app");
+*           builder.Services.AddAuthorizationCore();
+*           builder.Services.AddScoped<AuthenticationStateProvider, FakeAuthenticationProvider>();
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddScoped<IProductService, ProductService>();
+            await builder.Build().RunAsync();
+        }
+    }
+}
+```
+
+---
+### Fake it till you make it
+# _Imports.razor
+In the `_Imports.razor` file, add the following using statement:
+```
+@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.JSInterop
+@using Project.Client
+@using Project.Client.Shared
+*@using Microsoft.AspNetCore.Authorization
+```
+
+> 📝 Commit: FakeAuthorization Infrastructure
+
+---
+### Fake it till you make it
+# Product.Index
+Add the Authorize attribute in the Product/Index.razor page.
+
+```
+@page "/product"
+@using Project.Shared.Products
+@inject IProductService ProductService
+*@attribute [Authorize]
+```
+
+Launch the `Project.Client` and try to navigate to the `Product/Index.razor` page (`/product`) you should see "Not Authorized"
+
+> **Please note that we're only authorizing the Client side and not the back-end server atm.**
+
+---
+### Fake it till you make it
+# Product.Index
+In `FakeAuthenticationProvider` switch the fake user from `Anonymous` to `Customer`
+```
+public override Task<AuthenticationState> GetAuthenticationStateAsync()
+{
+    return Task.FromResult(new AuthenticationState(`Customer`));
+}
+```
+
+Launch the `Project.Client` and try to navigate to the `Product/Index.razor` page (`/product`) you should see the list of products.
 
 ---
 name:workshop
