@@ -6,7 +6,7 @@ body {
 }
 
 .remark-slide-content {
-    strong{
+    b, strong{
       color:$highlight;
     }
     @include layout($light);
@@ -91,4 +91,9 @@ th, td {
     display: block;
     margin-left: auto;
     margin-right: auto;
+
+    > * {
+        margin-left: auto;
+        margin-right: auto;  
+    }
   }
