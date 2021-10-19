@@ -70,7 +70,7 @@ class: dark middle
 ### What is REST?
 # Uniform interface
 
-> Everything is **Resource**
+> Everything is a **Resource**
 
 - fundamental concept of REST
 - has
@@ -179,10 +179,15 @@ This ensures **uniform interfaces** accross multiple REST APIs
 # HTTP status ranges in a nutshell
 
 - `1xx`: hold on
-- `2xx`: here you go
-- `3xx`: go away
-- `4xx`: you fucked up
-- `5xx`: I fucked up
+  - the request was received, continuing process
+- `2xx`: here you go, 
+  - the request was successfully received, understood, and accepted
+- `3xx`: redirection
+  - further action needs to be taken in order to complete the request
+- `4xx`: you made a boo boo
+  -  the request contains bad syntax or cannot be fulfilled
+- `5xx`: I made a boo boo up
+  - the server failed to fulfil an apparently valid request
 
 > <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">Read about all HTTP status codes yourself</a>
 
@@ -200,8 +205,11 @@ class: dark middle
 - OpenAPI = specification
 - Swagger = tools (for displaying OpenAPI specs, etc.)
 
+
 <br />
 <img src="./images/openapi-swagger.png" width="50%" class="center" />
+
+> **An API is only as good as you (yes, you) document it.**
 
 ---
 ### Document your API
@@ -214,7 +222,6 @@ class: dark middle
 - only specifies functionality
   - not which implementation
   - not what dataset
-  - ...
 - **OAS 3.0**: both people and machines can view, understand and interpret the functionality of a REST API
 - from documentation the client code can be generated
 
@@ -222,24 +229,9 @@ class: dark middle
 ### Document your API
 # swagger.json
 
-```{json}
-{
-  "swagger":"2.0",
-  "info":{
-    "description":"This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
-    "version":"1.0.5",
-    "title":"Swagger Petstore",
-    "termsOfService":"http://swagger.io/terms/",
-    "contact":{
-      "email":"apiteam@swagger.io"
-    }
-  },
-  "host":"petstore.swagger.io",
-  "basePath":"/v2",
-}
-```
+<iframe src="https://codebeautify.org/jsonviewer?url=https://petstore.swagger.io/v2/swagger.json" title="Swagger example Pet Store" width="100%" height="70%"></iframe>
 
-> <a href="https://petstore.swagger.io/v2/swagger.json" target="_blank">Take a look at a live example (you might need a JSON prettifier)</a>
+> <a href="https://codebeautify.org/jsonviewer?url=https://petstore.swagger.io/v2/swagger.json" target="_blank">Live View</a> of  https://petstore.swagger.io/v2/swagger.json
 
 ---
 ### Document your API
