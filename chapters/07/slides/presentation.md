@@ -243,6 +243,15 @@ class: dark middle
 <img src="./images/swagger-ui.png" width="90%" class="center" />
 
 ---
+### Document your API
+# Swagger UI
+In the default template of a WebAPI Swagger is automatically added.
+```
+dotnet new webapi
+dotnet watch run
+```
+
+---
 ### What is REST?
 # Consumer
 
@@ -252,6 +261,7 @@ Who can consume a REST API?
 - SPA application (Blazor, Angular, React, Vue...)
 - The Swagger UI
 - Postman app
+- .NET HTTP REPL
 - ...
 
 ---
@@ -262,26 +272,241 @@ class: dark middle
 > Building a REST API
 
 ---
-
 ### Ain't no REST for the wicked
 # Building a REST API
 
-Read through the following tutorial
+Complete the following tutorial
+[Create a web API with ASP.NET Core](https://docs.microsoft.com/en-us/learn/modules/build-web-api-aspnet-core/)
 
-- [Create a web API with ASP.NET Core](https://docs.microsoft.com/en-us/learn/modules/build-web-api-aspnet-core/)
+> The tutorial is great but has some flaws, which will tackle later.
 
----
-name: input-validation
-class: dark middle
-
-# Ain't no REST for the wicked
-> Input validation
+> Note that the tutorial is **mandatory** to go forward.
 
 ---
-### Input validation
-# What is input validation?
+### Ain't no REST for the wicked
+# .NET HTTP REPL
+Running the REPL is awesome but complex requests like POST or PUT can be quite tedious, we'd rather type in complex objects in a text editor we love (VS Code). Let's do something about that first.
 
-- **Testing the incoming data**
+- Connect to the REPL and set the default editor Visual Studio Code on Windows in this case (you only have to do this once)
+```
+httprepl http://localhost:5000
+pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
+pref set editor.command.default.arguments "-w"
+```
+
+> Linux and macOS are also supported by reading the <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/http-repl/?view=aspnetcore-5.0&tabs=macos#set-the-default-text-editor">docs</a>
+
+---
+### Ain't no REST for the wicked
+# .NET HTTP REPL
+- Start the REST API in the terminal
+```
+dotnet run
+```
+- In another terminal connect to the REPL or re-use the one you had before
+```
+httprepl http://localhost:5000
+```
+- POST Request in to the `PizzaController`
+```
+cd pizza
+post
+```
+- Edit the JSON file that popped-up in VS Code
+- Save the file and close (CTRL+S and CTRL+W)
+
+---
+### Ain't no REST for the wicked
+# .NET HTTP REPL
+<img src="images/REPL.gif" width="100%" class="center" />
+
+<a href="images/REPL.gif" target="_blank">Fullscreen</a>
+
+---
+### Ain't no REST for the wicked
+# Issues with the tutorial
+Let's say we want to add a property to the `Pizza` class.
+```
+public class Pizza
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public bool IsGlutenFree { get; set; }
+*   public DateTime Created { get; set; }
+}
+```
+- The `Pizza` model is used as a `DTO` and a `Domain` class.
+- **Overposting** is possible
+  - What if the client should not be able to set this property?
+- **Overfetching** is possible
+  - What if the `Pizza` has an entire Graph of properties and lists?
+- **No validation **
+  - What if the max size of the name should be 200 characters?
+
+---
+### Ain't no REST for the wicked
+# Overposting
+```
+public class Pizza
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public bool IsGlutenFree { get; set; }
+*   public DateTime Created { get; set; }
+}
+```
+- Run the following .NET HTTP REPL commamds and fill in
+
+```
+cd pizza
+post 
+```
+```
+{
+  "id": 0, // Why should a POST set the Id, database should do this
+  "name": "",
+  "isGlutenFree": true,
+  "created": "2021-10-19" // We should not be able to set this
+}
+```
+
+---
+### Ain't no REST for the wicked
+# Overfetching
+```
+public class Pizza
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public bool IsGlutenFree { get; set; }
+*   public List<Ingredient> Ingredients {get;set;} //Example
+*   public List<Person> OrderedBy {get;set;} //Example
+*   public DateTime Created { get; set; }
+}
+```
+- Should a client be able to see all the ingredients?
+  - `List` of pizza's is different then a `Detail` view
+- Should a client be able to see all the people who ordered this Pizza?
+  - Depends, who is the client and what can he/she see?
+- Should a customer know when we first introduced the pizza?
+  - Probably not
+
+> **It depends on the use case/client**
+
+---
+### Ain't no REST for the wicked
+# Versioning
+```
+public class Pizza
+{
+    public int Id { get; set; }
+    public string DisplayName { get; set; } // Renamed
+*   public bool IsGlutenFree { get; set; } // We'll remove this one
+}
+```
+- Let's rename `Name` to `DisplayName`
+- Remove `IsGlutenFree` because nobody cares anymore
+
+> You can no longer **update the Domain model** since you'll break clients that rely on it.
+
+---
+### Ain't no REST for the wicked
+# Versioning
+Are you the only one using your API and **are you in control** when the client and server are updated?
+- **Don't** version your API, there is no need to.
+
+For **all other reasons**, version your API.
+- Note that mobile clients aren't updated that easily. A user of the mobile app needs to update the app even if the new version is pushed.
+
+> We won't go into versioning in this course since <a target="_blank" href="https://www.infoworld.com/article/3562355/how-to-use-api-versioning-in-aspnet-core.html">this tutorial</a> explains everything you need to know.
+
+---
+### Ain't no REST for the wicked
+# **D**ata **T**ransfer **O**bjects
+Fixes the following issues:
+- Overposting
+- Overfetching
+- Updating Domain classes and not breaking clients
+- ~~No validation~~ (see later)
+
+Characteristics:
+- Don’t contain any business logic
+- Only contain data
+- Can be shared with (C#) clients
+
+---
+### **D**ata **T**ransfer **O**bjects
+# Example
+```
+public static class PizzaDto{
+  public class Index {
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+  }
+  public class Detail {
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public List<IngredientDto.Index> Price { get; set; }
+  }
+  public class Create {
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+  }
+  public class Edit : Create { // Caution with Inheritance
+    public int Id { get; set; }
+  }
+}
+```
+
+> Read more about DTO's <a target="_blank" href="https://www.infoworld.com/article/3562271/how-to-use-data-transfer-objects-in-aspnet-core-31.html">here</a>
+
+---
+### **D**ata **T**ransfer **O**bjects
+# DTO vs Domain
+Suffix or make it clear it's a DTO, can be in a /Shared folder or project
+```
+public static class PizzaDto{
+  public class Index {
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+  }
+}
+```
+Usually in the /Models folder or in a separate project called Domain
+```
+public class Pizza
+{
+    public int Id { get; set; }
+    public string DisplayName { get; set; } // Renamed
+    public bool IsGlutenFree { get; set; } // We'll remove this one
+}
+```
+
+> Read more about DTO vs Domain vs ValueObject <a target="_blank" href="https://enterprisecraftsmanship.com/posts/dto-vs-value-object-vs-poco/">here</a>.
+
+---
+### **D**ata **T**ransfer **O**bjects
+# Exercise
+- Make a /Shared folder in the `ContosoPizza` project
+- Add a `PizzaDto` class as you see fit.
+- Adjust the `PizzaController`
+  - Receives a DTO when needed
+  - Returns a DTO when needed.
+    - Map the Domain `Pizza` class to a DTO.
+
+---
+### **D**ata **T**ransfer **O**bjects
+# Solution
+It all depends on the use case, so there is no real solution here.
+
+---
+### Ain't no REST for the wicked
+# Input validation?
+
+- **Testing the incoming data** to make sure it's **valid**
 - User or application may send malicious/wrong data
 - **Prevents improperly formed data** from entering the system
 - Databases usually check data, but the earlier you check, the better
@@ -289,24 +514,18 @@ class: dark middle
     - SQL injection
     - XSS attacks
     - Buffer overflow
-    - ...
+    - Overposting
 
 ---
 ### Input validation
 # FluentValidation
 
-[FluentValidation](https://docs.fluentvalidation.net/en/latest/index.html) is one library to validate in .NET.
+<a target="_blank" href="https://docs.fluentvalidation.net/en/latest/index.html">FluentValidation</a> is one library to validate in .NET
 
 Installation using the dotnet CLI
 
 ```
 dotnet add package FluentValidation
-```
-
-Add the integration for Blazor
-
-```
-dotnet add package Blazored.FluentValidation
 ```
 
 ---
@@ -315,8 +534,8 @@ dotnet add package Blazored.FluentValidation
 
 Take the following class as an example
 
-```{cs}
-public class Customer {
+```
+public class CustomerDto {
   public int Id { get; set; }
   public string LastName { get; set; }
   public string FirstName { get; set; }
@@ -329,11 +548,11 @@ public class Customer {
 ### FluentValidation
 # How does it work?
 
-If we want to validate the given `Customer` class, we should create a validator
+If we want to validate the given `CustomerDto` class, we should create a validator
 class which inherits from `AbstractValidator`.
 
 ```{cs}
-public class CustomerValidator : `AbstractValidator<Customer>` { }
+public class CustomerDtoValidator : `AbstractValidator<CustomerDto>` { }
 ```
 
 ---
@@ -343,39 +562,41 @@ public class CustomerValidator : `AbstractValidator<Customer>` { }
 Within this class, define a constructor with all validation rules.
 
 ```{cs}
-public class CustomerValidator : AbstractValidator<Customer> {
+public class CustomerDtoValidator : AbstractValidator<CustomerDto> {
 
-  public CustomerValidator() {
-    `RuleFor(customer => customer.LastName).NotNull();`
+  public CustomerDtoValidator() {
+    `RuleFor(customer => customer.FirstName).NotNull();`
+    `RuleFor(customer => customer.Discount).GreaterThan(0).LessThan(1);`
   }
 }
 ```
+You should never validate domain models this way, since they should be valid from the point-of-creation.
+DTO's however, are different and can be validated this way. 
 
-> Obviously you only define validators for DTO's and not for domain objects
-
-
-> You may define the validator as a nested class in the DTO
+> Read more about Always valid vs not always valid <a href="https://enterprisecraftsmanship.com/posts/always-valid-domain-model/" target="_blank">here</a>.
 
 ---
 ### FluentValidation
-# How does it work?
+# As nested classes
 
-The complete validator might look something like this
-
-```{cs}
-using FluentValidation;
-
-public class CustomerValidator : AbstractValidator<Customer> {
-
-  public CustomerValidator() {
-    RuleFor(customer => customer.Id).GreaterThan(0);
-    RuleFor(customer => customer.LastName).NotNull();
+```
+public class CustomerDto {
+  public int Id { get; set; }
+  public string LastName { get; set; }
+  public string FirstName { get; set; }
+  public decimal Discount { get; set; }
+  public string Address { get; set; }
+  
+  public class Validator : AbstractValidator<CustomerDto> {
+    public Validator() {
     RuleFor(customer => customer.FirstName).NotNull();
     RuleFor(customer => customer.Discount).GreaterThan(0).LessThan(1);
-    RuleFor(customer => customer.Address).NotNull();
+    }
   }
 }
 ```
+
+> This can improve the readability and maintainability.
 
 ---
 ### Input validation
@@ -388,6 +609,71 @@ Read through these documentation sections
 - <a href="https://docs.fluentvalidation.net/en/latest/built-in-validators.html" target="_blank">Built-in Validators</a>
 - <a href="https://docs.fluentvalidation.net/en/latest/custom-validators.html" target="_blank">Custom Validators</a>
 
+---
+### Input validation
+# FluentValidation Middleware
+Middleware is triggered **before or after a request** to a controller comes in. You can use it to automagically validate the DTO's. Without having to worry if the request is valid.
+Change the `Create` method of the `PizzaController`
+```
+[HttpPost]
+public IActionResult Create(PizzaDto.Create dto)
+{    
+    var pizza = PizzaService.Add(new Pizza{Name = dto.Name,IsGlutenFree = dto.IsGlutenFree});
+    return CreatedAtAction(nameof(Create), new { id = pizza.Id });
+}
+```
+
+> Note that the `Pizza` is using a default constructor which is valid for a demo purpose. But not in production applications.
+
+---
+### Input validation
+# FluentValidation Middleware
+Change the `PizzaService.Add` to return a `Pizza` object
+```
+public static Pizza Add(Pizza pizza)
+{
+    pizza.Id = nextId++;
+    Pizzas.Add(pizza);
+    return pizza;
+}
+```
+
+Add FluentValidation as middleware in Startup.cs
+```
+services.AddControllers()
+        .AddFluentValidation(fv => {
+            fv.RegisterValidatorsFromAssemblyContaining<PizzaDto.Create.Validator>();
+            fv.ImplicitlyValidateChildProperties = true;
+        });
+```
+> Read more about middleware validation in ASP.NET <a href="https://docs.fluentvalidation.net/en/latest/aspnet.html" target="_blank">here</a>.
+
+---
+### Input validation
+# FluentValidation Middleware
+Run the REPL:
+```
+cd pizza
+post
+```
+
+```
+{ // Edit the file as follows:
+  "name": "",
+  "price": -15,
+  "isGlutenFree": true
+} // Save and close the file in vs code
+```
+Response:
+```
+{ // some stuff is left out here for brevity.
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "errors": {"Name": ["'Name' mag niet leeg zijn."],
+    "Price": ["'Price' moet groter zijn dan '0'."]
+  }
+}
+```
 ---
 ### Input validation
 # FluentValidation in Blazor
@@ -485,8 +771,10 @@ message HelloReply {
 # gRPC
 
 Read through the following tutorial:
+- <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/grpc/code-first?view=aspnetcore-5.0">Code-first gRPC services and clients with .NET</a>
 
-- [Code-first gRPC services and clients with .NET](https://docs.microsoft.com/en-us/aspnet/core/grpc/code-first?view=aspnetcore-5.0)
+Read the readme of the following repository to integrate with Blazor:
+- <a target="_blank" href="https://github.com/hakenr/BlazorGrpcWebCodeFirst">Blazor Grpc Web Code First</a>
 
 ---
 name: exercise
@@ -532,6 +820,8 @@ class: dark middle
   - Stateless
   - Cachable
   - Layered system
+- Documentation is really important when sharing your (Web) API
+- Don't use Domain objects as DTO's
 
 ---
 name: graphql
