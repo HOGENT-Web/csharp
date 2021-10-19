@@ -1,7 +1,7 @@
 class: dark middle
 
 # Enterprise Web Development C&#35;
-> Suit up, wear a fancy Blazor
+> Chapter 8 - Suit up, wear a fancy Blazor
 
 ---
 ### Suit up, wear a fancy Blazor
