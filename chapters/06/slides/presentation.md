@@ -655,7 +655,7 @@ We'd like to show:
 ---
 ### SnakeEyes - Client
 # Dice
-- Create a new solution folder
+- Create a new solution folder called `Components` in the `Client` project.
 - Add a Razor Component called `Dice`
 <img src="images/dice.gif" width="100%" class="center">
 
