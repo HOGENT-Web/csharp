@@ -1805,13 +1805,3 @@ public override Task<AuthenticationState> GetAuthenticationStateAsync()
 - In the next chapter, you'll learn how to use the Web API and see how easy it is to swap from Fakes to a real implementation.
 
 
----
-name:workshop
-### Suit up, wear a Blazor
-# Blazor Workshop
-
-Follow the following tutorial:
-- <a href="https://github.com/dotnet-presentations/blazor-workshop" target="_blank">Blazor Workshop</a>
-
-Note that
-- The tutorial uses `dotnet new blazorwasm --hosted` which contains a Web API which also serves the Client (WASM)
