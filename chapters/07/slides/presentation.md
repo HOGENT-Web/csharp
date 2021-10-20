@@ -278,7 +278,7 @@ class: dark middle
 Complete the following tutorial
 [Create a web API with ASP.NET Core](https://docs.microsoft.com/en-us/learn/modules/build-web-api-aspnet-core/)
 
-> The tutorial is great but has some flaws, which will tackle later.
+> The tutorial is great but has some flaws, which we will tackle later.
 
 > Note that the tutorial is **mandatory** to go forward.
 
@@ -286,6 +286,11 @@ Complete the following tutorial
 ### Ain't no REST for the wicked
 # .NET HTTP REPL
 Running the REPL is awesome but complex requests like POST or PUT can be quite tedious, we'd rather type in complex objects in a text editor we love (VS Code). Let's do something about that first.
+
+- Install REPL (if not already done)
+```
+dotnet tool install -g Microsoft.dotnet-httprepl
+```
 
 - Connect to the REPL and set the default editor Visual Studio Code on Windows in this case (you only have to do this once)
 ```
@@ -480,8 +485,8 @@ Usually in the /Models folder or in a separate project called Domain
 public class Pizza
 {
     public int Id { get; set; }
-    public string DisplayName { get; set; } // Renamed
-    public bool IsGlutenFree { get; set; } // We'll remove this one
+    public string DisplayName { get; set; }
+    public bool IsGlutenFree { get; set; }
 }
 ```
 
