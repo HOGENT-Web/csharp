@@ -288,11 +288,13 @@ Complete the following tutorial
 Running the REPL is awesome but complex requests like POST or PUT can be quite tedious, we'd rather type in complex objects in a text editor we love (VS Code). Let's do something about that first.
 
 - Install REPL (if not already done)
+
 ```
 dotnet tool install -g Microsoft.dotnet-httprepl
 ```
 
 - Connect to the REPL and set the default editor Visual Studio Code on Windows in this case (you only have to do this once)
+
 ```
 httprepl http://localhost:5000
 pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
