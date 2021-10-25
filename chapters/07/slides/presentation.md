@@ -794,7 +794,8 @@ class: dark middle
 ### Ain't no REST for the wicked
 # Exercise
 
-TODO: add SportStore exercise
+Complete the following exercises:
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1" target="_blank">SportStore Api</a>
 
 ---
 name: solution
@@ -807,7 +808,9 @@ class: dark middle
 ### Ain't no REST for the wicked
 # Solution
 
-TODO: add SportStore solution
+On the following links you can find the solutions for the exercises.
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1/tree/solution/src" target="_blank">Blackjack</a>
+
 
 ---
 name: summary
