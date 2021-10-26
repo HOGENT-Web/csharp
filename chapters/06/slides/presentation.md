@@ -1800,6 +1800,29 @@ public override Task<AuthenticationState> GetAuthenticationStateAsync()
 > <a href="images/delete-admin.gif" target="_blank">Fullscreen</a>
 
 ---
+name: workshop
+class: dark middle
+
+# Enterprise Web Development C&#35;
+> Blazor Workshop
+
+---
+### Suit up, wear a Blazor
+# Blazor Workshop
+
+Complete the following tutorial <a href="https://github.com/dotnet-presentations/blazor-workshop" target="_blank">Blazor Workshop</a> up until session 5.
+- You should stop at session 6, which is authentication, this will be covered in a later chapter.
+
+> **Remark**: the DTO's are used as domain classes, this is bad practice. Be sure to split
+> domain and DTO classes, domain does not belong in the Shared project.
+
+- If time left, you can always move on until the end.
+
+> This will give you a sneak peek at Chapter 10 - Try "Password123"
+
+- For session 10, you should deploy to GitHub pages (see instructions in the slides).
+
+---
 ### Suit up, wear a Blazor
 # Summary
 - In the next chapter, you'll learn how to use the Web API and see how easy it is to swap from Fakes to a real implementation.
