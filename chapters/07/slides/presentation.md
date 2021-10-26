@@ -783,6 +783,10 @@ Read through the following tutorial:
 Read the readme of the following repository to integrate with Blazor:
 - <a target="_blank" href="https://github.com/hakenr/BlazorGrpcWebCodeFirst">Blazor gRPC Web Code First</a>
 
+> If you want to try this, create a new hosted Blazor WASM project:
+>
+> `dotnet new blazorwasm --hosted -o gRPCDemo`
+
 ---
 name: exercise
 class: dark middle
@@ -809,7 +813,7 @@ class: dark middle
 # Solution
 
 On the following links you can find the solutions for the exercises.
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1/tree/solution/src" target="_blank">Blackjack</a>
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1/tree/solution/src" target="_blank">SportStore Api</a>
 
 
 ---
