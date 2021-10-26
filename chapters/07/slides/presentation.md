@@ -710,7 +710,7 @@ class: dark middle
 
 > <a href="https://grpc.io/docs" target="_blank">Read the official docs</a>
 
-TODO: probably add video about gRPC in .NET
+> Watch a conference talk: <a href="https://www.youtube.com/watch?v=RoXT_Rkg8LA" target="_blank">Intro to gRPC: A Modern Toolkit for Microservice Communication</a>
 
 ---
 ### gRPC
