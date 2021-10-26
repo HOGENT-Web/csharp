@@ -781,7 +781,7 @@ Read through the following tutorial:
 - <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/grpc/code-first?view=aspnetcore-5.0">Code-first gRPC services and clients with .NET</a>
 
 Read the readme of the following repository to integrate with Blazor:
-- <a target="_blank" href="https://github.com/hakenr/BlazorGrpcWebCodeFirst">Blazor Grpc Web Code First</a>
+- <a target="_blank" href="https://github.com/hakenr/BlazorGrpcWebCodeFirst">Blazor gRPC Web Code First</a>
 
 ---
 name: exercise
