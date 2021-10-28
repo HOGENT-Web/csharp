@@ -31,3 +31,5 @@ At last solve the [exercises](.../../../notebooks/exercises.ipynb), there is an 
 [solution](../notebooks/solutions.ipynb) provided.
 
 > **Note**: This is not the only solution, your queries might differ a little.
+
+<img src="./images/dapper.png" alt="Dapper Logo" width="20%" style="display: block; margin: 0 auto;" />
