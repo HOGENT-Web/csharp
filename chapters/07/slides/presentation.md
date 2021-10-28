@@ -644,6 +644,10 @@ public static Pizza Add(Pizza pizza)
     return pizza;
 }
 ```
+Add the ASP.NET Core package
+```
+dotnet add package FluentValidation.AspNetCore
+```
 
 Add FluentValidation as middleware in Startup.cs
 ```
