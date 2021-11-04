@@ -1744,7 +1744,7 @@ public class FakeProductService : IProductService
     // Other code from before
     public Task DeleteAsync(int productId)
     {
-        var p = _products.SingleOrDefault(x => x.Id == productId);
+        var productToDelete = _products.SingleOrDefault(x => x.Id == productId);
         _products.Remove(productToDelete);
         return Task.CompletedTask;
     }
