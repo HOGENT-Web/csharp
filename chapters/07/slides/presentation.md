@@ -510,6 +510,7 @@ public class Pizza
 It all depends on the use case, so there is no real solution here.
 
 ---
+name: input-validation
 ### Ain't no REST for the wicked
 # Input validation?
 
