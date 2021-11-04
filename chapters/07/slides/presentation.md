@@ -455,7 +455,7 @@ public static class PizzaDto{
     public int Id { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
-    public List<IngredientDto.Index> Price { get; set; }
+    public List<IngredientDto.Index> Ingredients { get; set; }
   }
   public class Create {
     public string Name { get; set; }
