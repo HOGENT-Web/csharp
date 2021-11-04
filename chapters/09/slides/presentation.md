@@ -13,6 +13,9 @@ class: dark middle
 - [Entity Framework Core](#ef-core)
 - [Working with EF Core](#tutorial-ef-core)
 - [Overriding conventions](#overriding-conventions)
+- [Exercises](#exercises)
+- [Solutions](#solutions)
+- [Summary](#summary)
 
 ---
 name: intro
@@ -190,3 +193,53 @@ Read through the following documentation sections:
 - <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects#persist-value-objects-as-owned-entity-types-in-ef-core-20-and-later" target="_blank">Persist value objects as owned entity types</a>
 
 <img src="./images/follow-the-rules.jpeg" alt="Follow the rules, ain't nobody got time for that" class="center" style="max-width: 50%;" />
+
+---
+name: exercises
+class: dark middle
+
+# Data, the new raw material
+> Exercises
+
+---
+### Data, the new raw material
+# Exercises
+
+1. [Dapper](.../../../notebooks/exercises.ipynb)
+2. TODO: add SportStore with EF Core
+
+---
+name: solutions
+class: dark middle
+
+# Data, the new raw material
+> Solutions
+
+---
+### Data, the new raw material
+# Solutions
+
+1. [Dapper](.../../../notebooks/solutions.ipynb)
+2. TODO: add SportStore with EF Core
+
+---
+name: summary
+class: dark middle
+
+# Data, the new raw material
+> Summary
+
+---
+### Data, the new raw material
+# Summary
+
+* There are many options for data access in .NET
+* **Choose the most appropriate**
+* **Dapper**:
+    * write your own queries
+    * maps data to models for free
+    * good for small projects
+* **Entity Framework Core**:
+    * writes queries itself
+    * maps data to models for free
+    * good for big projects with lots of tables
