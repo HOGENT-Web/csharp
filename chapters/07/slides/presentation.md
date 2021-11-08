@@ -860,6 +860,82 @@ tutorial on your own (not mandatory).
 
 > You should be able to register using your HOGENT account
 
+> The next slides contain some information about **outdated sections**
+
+---
+### GraphQL (extra)
+# Solution setup (1/2)
+
+This is how to create the initial project setup:
+
+
+```
+mkdir GraphQLDemo
+cd GraphQLDemo
+
+dotnet new webapi -o Server
+dotnet new classlib -o Orders
+dotnet new sln -o .
+
+dotnet sln .\GraphQLDemo.sln add .\Server\Server.csproj
+dotnet sln .\GraphQLDemo.sln add .\Orders\Orders.csproj
+
+cd Orders
+dotnet add package Bogus
+dotnet add package GraphQL
+dotnet add package Microsoft.Extensions.DependencyInjection
+```
+
+---
+### GraphQL (extra)
+# Solution setup (2/2)
+
+```
+cd ..\Servers
+# You don't need the Microsoft.AspNetCore.StaticFiles package
+dotnet add package GraphQL.Server.Transports.AspNetCore
+dotnet add package GraphQL.Server.Transports.Subscriptions.WebSockets
+dotnet add package GraphQL.Server.Transports.AspNetCore.SystemTextJson
+dotnet add package GraphQL.Server.Ui.Playground
+
+dotnet add .\Server.csproj reference ..\Orders\Orders.csproj
+```
+
+Now open the solution, remove the weather forecasts, REST stuff, Swagger and move on with the tutorial!
+
+> Use the GraphQL Playground instead of GraphiQL, it's easier to use
+
+---
+### GraphQL (extra)
+# Notes on the tutorial
+
+- The tutorial is a little outdated, use the [GitHub](https://github.com/graphql-dotnet/server#configure) and [documentation](https://graphql-dotnet.github.io/docs/getting-started/introduction) to check which packages and APIs to use.
+- You should not add the NuGet package resource
+- Don't use any static files, there is a package for [GraphiQL](https://graphql-dotnet.github.io/docs/getting-started/graphiql)
+- Use Bogus to fake data
+- You know the project and folder structure can be done better
+
+---
+### GraphQL (extra)
+# Notes on the tutorial
+
+- Inject and hold a reference to the `IWebHostEnvironment`
+- You also need this code in the `ConfigureServices` method
+
+```
+services.AddSingleton<IDocumentWriter, DocumentWriter>();
+// singletons hier
+services.AddGraphQL((options, provider) =>
+  {
+      options.EnableMetrics = Environment.IsDevelopment();
+      var logger = provider.GetRequiredService<ILogger<Startup>>();
+      options.UnhandledExceptionDelegate = ctx => logger.LogError("{Error} occurred", ctx.OriginalException.Message);
+  })
+  .AddSystemTextJson()
+  .AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = Environment.IsDevelopment())
+  .AddGraphTypes(typeof(OrdersSchema));
+```
+
 ---
 name: odata
 class: dark middle
