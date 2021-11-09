@@ -897,6 +897,7 @@ cd ..\Server
 dotnet add package GraphQL.Server.Transports.AspNetCore
 dotnet add package GraphQL.Server.Transports.Subscriptions.WebSockets
 dotnet add package GraphQL.Server.Transports.AspNetCore.SystemTextJson
+# Don't use GraphiQL, this playground is easier:
 dotnet add package GraphQL.Server.Ui.Playground
 
 dotnet add .\Server.csproj reference ..\Orders\Orders.csproj
@@ -906,9 +907,10 @@ rm -Recurse -Force .\Controllers
 rm WeatherForecast.cs
 ```
 
-Now open the solution remove the REST and Swagger stuff from the `Startup.cs` and move on with the tutorial!
+In the `launchSettings.json`, change the `launchUrl` to `ui/playground`. This assumes
+you have configured the GraphQL Playground instead of the GraphiQL playground.
 
-> Use the GraphQL Playground instead of GraphiQL, it's easier to use
+Now open the solution remove the REST and Swagger stuff from the `Startup.cs` and move on with the tutorial!
 
 ---
 ### GraphQL (extra)
