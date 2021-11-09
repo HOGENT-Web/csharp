@@ -881,6 +881,7 @@ dotnet sln .\GraphQLDemo.sln add .\Server\Server.csproj
 dotnet sln .\GraphQLDemo.sln add .\Orders\Orders.csproj
 
 cd Orders
+rm .\Class1.cs
 dotnet add package Bogus
 dotnet add package GraphQL
 dotnet add package Microsoft.Extensions.DependencyInjection
@@ -891,7 +892,7 @@ dotnet add package Microsoft.Extensions.DependencyInjection
 # Solution setup (2/2)
 
 ```
-cd ..\Servers
+cd ..\Server
 # You don't need the Microsoft.AspNetCore.StaticFiles package
 dotnet add package GraphQL.Server.Transports.AspNetCore
 dotnet add package GraphQL.Server.Transports.Subscriptions.WebSockets
@@ -899,9 +900,13 @@ dotnet add package GraphQL.Server.Transports.AspNetCore.SystemTextJson
 dotnet add package GraphQL.Server.Ui.Playground
 
 dotnet add .\Server.csproj reference ..\Orders\Orders.csproj
+
+dotnet remove package Swashbuckle.AspNetCore
+rm -Recurse -Force .\Controllers
+rm WeatherForecast.cs
 ```
 
-Now open the solution, remove the weather forecasts, REST stuff, Swagger and move on with the tutorial!
+Now open the solution remove the REST and Swagger stuff from the `Startup.cs` and move on with the tutorial!
 
 > Use the GraphQL Playground instead of GraphiQL, it's easier to use
 
