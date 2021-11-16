@@ -49,8 +49,8 @@ Please note that:
 
 However, some are worth mentioning:
 - <a target="_blank" href="https://github.com/Blazored">Blazored</a>, small but extenable
-- <a target="_blank" href="https://github.com/Blazored">MudBlazor</a>, full suite of components
-- <a target="_blank" href="https://github.com/Blazored">bUnit</a>, testing library
+- <a target="_blank" href="https://github.com/MudBlazor/MudBlazor">MudBlazor</a>, full suite of components
+- <a target="_blank" href="https://github.com/bUnit-dev/bUnit">bUnit</a>, testing library
 
 > You can always implement and package your own components if you don't like any.
 
