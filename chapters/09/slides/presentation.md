@@ -206,7 +206,7 @@ class: dark middle
 # Exercises
 
 1. [Dapper](.../../../notebooks/exercises.ipynb)
-2. TODO: add SportStore with EF Core
+2. <a href="https://github.com/HOGENT-Web/csharp-ch-9-exercise-1" target="_blank">SportStore with EF</a>
 
 ---
 name: solutions
@@ -220,7 +220,7 @@ class: dark middle
 # Solutions
 
 1. [Dapper](.../../../notebooks/solutions.ipynb)
-2. TODO: add SportStore with EF Core
+2. <a href="https://github.com/HOGENT-Web/csharp-ch-9-exercise-1/tree/solution" target="_blank">SportStore with EF</a>
 
 ---
 name: summary
