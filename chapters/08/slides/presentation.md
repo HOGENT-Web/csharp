@@ -188,7 +188,7 @@ class: dark middle
 ### Sportstore
 # Create Product (Sidepanel)
 Sometimes the user experience can be better when rendering a small sidepanel to show the form, so that we're not actually navigating away from the index page.
-- Investigate the <a target="_blank" href="https://github.com/Append-IT/Blazor.Sidepanel">Append.Blazor.Sidepanel</a> package on GitHub, especially <a target="_blank" href="https://blazor-sidepanel.append.be/forms">this functionality</a> on the documentation website.
+- Investigate the <a target="_blank" href="https://github.com/Append-IT/Blazor.Sidepanel">Append.Blazor.Sidepanel</a> package on GitHub, especially the Forms functionality on the documentation website.
 - Instead of navigating to the Product Create Page, use the Sidepanel component to show the form in.
    - Make sure to use version 1.0.1, since version 6.0.0 is for .NET 6.0
 
