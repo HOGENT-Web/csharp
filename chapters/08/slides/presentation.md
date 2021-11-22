@@ -9,7 +9,13 @@ class: dark middle
 - [Workshop](#workshop)
 - [Component Libraries](#component-libraries)
 - [Sportstore example](#sportstore-example)
-- [Exercises](#exercises)
+    - [Delete](#delete)
+    - [Create](#create)
+    - [Edit](#edit)
+    - [Filter](#filter)
+    - [Paging](#paging)
+    - [Upload Image](#upload-image)
+    - [Shopping Cart](#shopping-cart)
 
 ---
 name:workshop
@@ -145,6 +151,7 @@ class: dark middle
 > 📝 Commit: Add Project Files
 
 ---
+name:delete
 ### Sportstore
 # Delete Product
 Implement the Delete Functionality.
@@ -161,6 +168,7 @@ class: dark middle
 > 📝 Commit: Delete Confirmation
 
 ---
+name:create
 ### Sportstore
 # Create Product
 Implement the Create Functionality.
@@ -206,6 +214,7 @@ class: dark middle
 > 📝 Commit: Create Product Via Sidepanel
 
 ---
+name:edit
 ### Sportstore
 # Edit Product
 Implement the Edit Functionality.
@@ -231,6 +240,7 @@ class: dark middle
 > 📝 Commit: Edit Product Via Sidepanel
 
 ---
+name:filter
 ### Sportstore
 # Filter Products
 What we'll be building
@@ -255,8 +265,8 @@ In the Blazing Pizza tutorial you learned about <a target="_blank" href="https:/
 ### Sportstore
 # Filter Products
 Some guidance in implementing this feature:
-- The concept is that the filter is a separate class with all filterable properties, which binds to the input elements of the `ProductFilters`.
-- Each time a property is changed, the ProductFilter notifies the Index component that it did, therefore you need to have an event which the Index component can (un)subscribe to. Each time this happens, you'll have to fetch the products which are filtered based on all the properties that are passed as querystring parameters. The best part is, that it's filtered on the server-side and not on the client.
+- The concept is that the filter is a separate class with all filterable properties, which binds to the input elements of the `ProductFilters` component.
+- Each time a property is changed, the `ProductFilter` notifies the `Index` component that it did, therefore you need to have an event which the `Index` component can (un)subscribe to on the `ProductFilter`. Each time this happens, you'll have to fetch the products which are filtered based on all the properties that are passed as querystring parameters. The best part is, that it's filtered on the server-side and not on the client.
 
 ---
 ### Sportstore
@@ -333,13 +343,14 @@ public partial class Index : `IDisposable`
 *   }
 }
 ```
+> `Dispose` is called when the component is gone from the rendertree
 
 ---
 ### Sportstore
 # Passing the Parameter down
 Index.razor
 ```razor
-    <ProductFilters `Filter="filter"` />
+<ProductFilters `Filter="filter"` />
 ```
 
 ProductFilters.razor.cs
@@ -384,7 +395,6 @@ public static string GetQueryString(this object obj)
 }
 ```
 
-
 ---
 ### Sportstore
 # Back-end filtering
@@ -420,28 +430,266 @@ class: dark middle
 > 📝 Commit: Filter Products
 
 ---
-name:exercises
-class: dark middle
-# Suit up, wear a fancy Blazor
-> Exercises
-
----
-### Exercises
+name:paging
+### Exercise
 # Add Paging
-- Add a Previous and Next button on the Index.razor page (below the items), to make paging possible.
+- Add a Previous and Next button on the Index.razor page (below the filter), to make paging possible.
 - Make previous disabled if it's the first page
 - Make next disabled if there are no other pages.
+- When clicking on previous / next go to the previous or next page.
 
 > <a target="_blank" href="https://bulma.io/documentation/components/pagination/"> BULMA - Pagination</a> can help you for the layout.
 
 ---
-### Exercises
-# Add Shopping possibilities
+class: dark middle
+# Suit up, wear a fancy Blazor
+> 📝 Commit: Add Paging
+
+---
+name:image-uploading
+class: dark middle
+# Suit up, wear a fancy Blazor
+> Uploading images
+
+---
+### Image uploading
+# Best practises
+- **Don't store images in your database**, unless they're small
+    - A browser cannot **cache** the images
+    - Server takes a **big perf. hit** when requesting multiple files
+    - Usually a reference(**URI**) to where the image is stored is kept
+- Store your images somewhere they can be **backed-up**
+    - Usually a wwwroot folder is not backed-up by default
+- Binary Large Object(**BLOB**) storage is generally a good choice
+- Who can upload/download the images?
+    - Depending on the use-case
+    - Most of the time **only certain users can upload**
+    - Some images can be public and some should be private
+    - Think about Facebook, who can see these images?
+- Let your **client stream images** to a BLOB storage
+
+---
+### Image uploading
+# **B**inary **L**arge **Ob**ject Storage
+Blob storage is a feature in Microsoft Azure that lets developers store **unstructured data** in Microsoft's cloud platform. This data can be accessed from anywhere in the world and can include **audio, video and text**. Blobs are grouped into "**containers**" that are tied to user accounts. 
+
+Blob storage is designed for:
+
+- Serving images or documents directly to a browser.
+- Storing files for distributed access.
+- Streaming video and audio.
+- Writing to log files.
+- Storing data for backup and restore and archiving.
+
+> There are other solutions as well, but we'll use Microsoft's BLOB storage, read more about it <a target="_blank" href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction">here
+
+---
+### BLOB Storage
+# Resources
+Blob storage offers three types of resources:
+
+- The storage account
+- A container in the storage account
+- A blob in a container
+
+<img href="https://docs.microsoft.com/en-us/azure/storage/blobs/media/storage-blobs-introduction/blob1.png" width="75%" class="center" />
+
+---
+### BLOB Storage
+# Storage account
+A storage account provides a unique namespace in Azure for your data. Every object that you store in Azure Storage has an address that includes your unique account name. The combination of the account name and the Azure Storage blob endpoint forms the base address for the objects in your storage account.
+
+For example, if your storage account is named mystorageaccount, then the default endpoint for Blob storage is:
+
+```
+http://mystorageaccount.blob.core.windows.net
+```
+
+---
+### BLOB Storage
+# Containers
+A container organizes a set of blobs, similar to a directory in a file system. A storage account can include an unlimited number of containers, and a container can store an unlimited number of blobs. A container can be public or private, most of the time you want private Create or Write and public Read access.
+
+You can even have a hierarcical file structure in the container
+
+```
+- images
+|-- user1
+    |-- image1.jpg
+    |-- image2.jpg
+|-- user2
+    |-- image1.jpg
+```
+
+> TIP: It's best to use simple file names and lowercase for the Container / BLOBS
+
+---
+### BLOB Storage
+# Blobs
+
+Azure Storage supports three types of blobs:
+
+- **Block blobs** store text and binary data. Block blobs are made up of blocks of data that can be managed individually. Block blobs can store up to about 190.7 TiB. (we'll be using this)
+- **Append blob**s are made up of blocks like block blobs, but are optimized for append operations. Append blobs are ideal for scenarios such as logging data. (not using this)
+- **Page blobs** store random access files up to 8 TiB in size. Page blobs store virtual hard drive (VHD) files and serve as disks for Azure virtual machines. (not using this)
+
+> More information about the different types can be found <a target="_blank" href="https://docs.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs">here</a>
+
+---
+### BLOB Storage
+# Creating the account
+
+Follow the steps in the GIF, if you don't have a Free Azure Accounts yet, activate one first by going to <a target="_blank" href="https://azure.microsoft.com/nl-nl/free/">this link</a> first.
+
+<img src="images/blob-storage-account.gif" width="95%" class="center" />
+
+<a href="images/blob-storage-account.gif" target="_blank">Fullscreen</a>
+
+---
+### BLOB Storage
+# Creating the container
+
+<img src="images/blob-storage-container.gif" width="95%" class="center" />
+
+<a href="images/blob-storage-container.gif" target="_blank">Fullscreen</a>
+
+---
+### BLOB Storage
+# Upload an image (portal)
+
+<img src="images/blob-storage-image-upload.gif" width="95%" class="center" />
+
+<a href="images/blob-storage-image-upload.gif" target="_blank">Fullscreen</a>
+
+---
+### BLOB Storage
+# Uploading images
+- All images are public and can be viewed, creating or manipulating should be secured by a connectionstring.
+- Do NOT share the connectionstring with anyone, only use it on the server, where it's safe.
+- You can use Shared Access Signatures (SAS) to give someone a timeslot to upload or edit block blobs, without sharing your account information (it's a bit like a JWT)
+
+---
+### BLOB Storage
+# Shared Access Signatures (SAS)
+A shared access signature is a signed URI that points to one or more storage resources. The URI includes a token that contains a special set of query parameters. The token indicates how the resources may be accessed by the client. One of the query parameters, the signature, is constructed from the SAS parameters and signed with the key that was used to create the SAS. This signature is used by Azure Storage to authorize access to the storage resource.
+
+Using a SAS we can give the client access for a few minutes (not to long) to upload an image directly without streaming the image to our server and then to the Azure Storage Container. Therefore the load is never on our server but on the client and Azure itself. 
+
+---
+### Image uploading
+# Strategy
+<img src="images/upload-strategy.svg" width="100%" class="center" />
+
+---
+### Uploading via SAS and Postman
+# Storage account Connectionstring
+Grab the connectionstring of your storage account, don't share it!
+<img src="images/blob-storage-connectionstring.gif" width="95%" class="center" />
+
+<a href="images/blob-storage-connectionstring.gif" target="_blank">Fullscreen</a>
+
+---
+### Uploading via SAS and Postman
+# Console app for prototyping
+Create a new console app
+```
+dotnet new Hogent.Sas
+```
+
+On the next slide, copy-paste the code and replace YOUR_CONNECTION_STRING_HERE, with yours and run the console app.
+
+---
+### Uploading via SAS and Postman
+# Console app for prototyping
+```
+using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
+using System;
+
+const string connectionString = "YOUR_CONNECTION_STRING_HERE";
+const string containerName = "images";
+const string filename = "filename.gif";
+
+BlobServiceClient client = new BlobServiceClient(connectionString);
+var containerClient = client.GetBlobContainerClient(containerName);
+BlobClient blobClient = containerClient.GetBlobClient(filename);
+
+var blobSasBuilder = new BlobSasBuilder
+{
+    ExpiresOn = DateTime.UtcNow.AddMinutes(5),
+    BlobContainerName = containerName,
+    BlobName = filename,
+};
+blobSasBuilder.SetPermissions(BlobSasPermissions.Write | BlobSasPermissions.Create);
+
+var sas = blobClient.GenerateSasUri(blobSasBuilder);
+Console.WriteLine(sas);
+```
+
+---
+### Uploading via SAS and Postman
+# Console app for prototyping
+1. Copy the generated URI from the console window and copy-paste it into Postman
+2. Set the HTTP Method to `PUT`
+3. Click on the Body tab and select a random image file.
+4. Press Send
+5. View the image in the Azure Storage Container
+
+> GIF on next slide
+
+---
+### Uploading via SAS and Postman
+# Postman call and upload
+<img src="images/blob-storage-sas-token-upload-postman.gif" width="100%" class="center" />
+
+<a href="images/blob-storage-sas-token-upload-postman.gif" target="_blank">Fullscreen</a>
+
+---
+### Exercise
+# Upload on Create
+Implement the functionality to upload an image when creating a product. 
+
+- Let the `ProductResponse.Create` return a extra property `UploadUrl` using the code from the console app.
+- On the Client use a `<InputFile/>` component in the `Create` form and use the code on the next slide to upload to directly to BLOB storage using a HTTPClient. More documentation about the <InputFile/> component can be found <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/file-uploads?view=aspnetcore-5.0&pivots=webassembly" target="_blank">here</a>.
+
+---
+### Exercise
+# Upload on Create - Upload to blob
+Client/Infrastructure
+```
+public class StorageService
+{
+    private readonly HttpClient httpClient;
+    public const long maxFileSize = 1024 * 1024 * 5; // 5MB
+    public StorageService(HttpClient httpClient)
+    {
+        this.httpClient = httpClient;
+    }
+    public async Task UploadImageAsync(Uri sas, IBrowserFile file)
+    {
+        var content = new StreamContent(file.OpenReadStream(maxFileSize));
+        content.Headers.Add("x-ms-blob-type", "BlockBlob");
+        var response = await httpClient.PutAsync(sas, content);
+        response.EnsureSuccessStatusCode();
+    }
+}
+```
+
+---
+name:shopping-cart
+### Exercise
+# Shopping Cart
+Implement the Shopping Cart Functionality. 
+
 - Make it possible to add products in a Shopping Cart.
 - Make it possible to remove products from the  Shopping Cart.
 - Only client side functionalities are currently required.
-- What if the client on the same device and browser reloads, is the cart lost? Try using a LocalStorage package to keep state e.g. <a href="https://github.com/Blazored/LocalStorage" target="_blank">Blazored.LocalStorage</a>.
 
 Tips:
 - Render the Shoppingcart in the Sidepanel
-- Use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=webassembly" target="_blank">State Management article</a> to put the cart in a CartState class (memory) and in LocalStorage (browser storage).
+- Use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=webassembly" target="_blank">State Management article</a> to put the cart in a CartState class (memory).
+
+
+
+
+
