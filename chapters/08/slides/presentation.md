@@ -593,7 +593,10 @@ Grab the connectionstring of your storage account, don't share it!
 # Console app for prototyping
 Create a new console app
 ```
-dotnet new Hogent.Sas
+dotnet new console -o Hogent.Sas
+
+cd .\Hogent.Sas
+dotnet add package Azure.Storage.Blobs
 ```
 
 On the next slide, copy-paste the code and replace YOUR_CONNECTION_STRING_HERE, with yours and run the console app.
@@ -632,8 +635,9 @@ Console.WriteLine(sas);
 1. Copy the generated URI from the console window and copy-paste it into Postman
 2. Set the HTTP Method to `PUT`
 3. Click on the Body tab and select a random image file.
-4. Press Send
-5. View the image in the Azure Storage Container
+4. Set a header named `x-ms-blob-type` to `BlockBlob`
+5. Press Send
+6. View the image in the Azure Storage Container
 
 > GIF on next slide
 
