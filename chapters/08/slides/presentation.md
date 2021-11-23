@@ -649,6 +649,7 @@ Console.WriteLine(sas);
 <a href="images/blob-storage-sas-token-upload-postman.gif" target="_blank">Fullscreen</a>
 
 ---
+name:upload-image
 ### Exercise
 # Upload on Create
 Implement the functionality to upload an image when creating a product. 
@@ -915,8 +916,6 @@ Since we're in a Browser, due to CORS we cannot upload the image. Let's allow al
 
 <a href="images/blob-storage-create-with-image.gif" target="_blank">Fullscreen</a>
 
-
-
 ---
 class: dark middle
 # Suit up, wear a fancy Blazor
@@ -930,21 +929,70 @@ Fix the Edit Functionality.
 
 - Make it possible to edit the product's image, since we broke the functionaltity.
 
+Tips:
+- Notice that the browser will cache the images, a workaround for this is:
+    - If the image is changed (LoadImage is called) create a new Identifier for it (new GUID) 
+    - Save the changes to the database
+    - Delete the old Block Blob Image
+    - Return a new SAS token and let the client upload to BLOB
+
 ---
 name:shopping-cart
 ### Exercise
 # Shopping Cart
-Implement the Shopping Cart Functionality. 
+Implement the Shopping Cart Functionality, **only client side functionality**
 
-- Make it possible to add products in a Shopping Cart.
-- Make it possible to remove products from the  Shopping Cart.
-- Only client side functionalities are currently required.
+Make it possible to:
+- Add products in a Shopping Cart.
+- Remove products from the  Shopping Cart.
+- Increase / Decrease quantity.
+- Show the amount of items in the `Cart` in the `Header` component
 
 Tips:
 - Render the Shoppingcart in the Sidepanel
-- Use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=webassembly" target="_blank">State Management article</a> to put the cart in a CartState class (memory).
+- Use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=webassembly" target="_blank">State Management article (memory)</a> to put the Cart in DI .
 
+> See next slide for example
 
+---
+### Shopping Cart
+# Done.
+<img src="images/shopping-cart.gif" width="100%" class="center" />
 
+<a href="images/shopping-cart.gif" target="_blank">Fullscreen</a>
 
+---
+class: dark middle
+# Suit up, wear a fancy Blazor
+> 📝 Commit: Add Shopping Cart
 
+---
+class: dark middle
+# Suit up, wear a fancy Blazor
+> Switch to Blazor Server
+
+---
+### Switch to Blazor Server
+# Tutorial.
+Using the correct architecture you can (at this point) switch from Blazor WASM to Blazor Server. In a later stage the conversion becomes more difficult due to Authentication, Database access is not really a big problem. In most Blazor Server Apps, Cookies are used instead of JWT tokens.
+
+We won't go into too much detail and leave it as an exercise, since the process how you can convert to Blazor Server is a great way to see if you understood the material of this and previous modules.
+
+- Tips:
+    - Use <a target="_blank" href="https://www.appvnext.com/blog/2020/2/2/reuse-blazor-wasm-ui-in-blazor-server">this article</a> as a starting point.
+    - You won't be needing the Client's services anymore, the interfaces of the shared project will suffice.
+
+---
+### Suit up, wear a fancy Blazor
+# Summary
+
+In this module you learned:
+- The ins-and-outs of Blazor
+- It's pretty powerfull for native C# speakers
+- Keep State in State objects via Dependency Injection
+- Pass parameters and callbacks to other components
+- Be aware of the render tree
+- Uploading files to BLOB storage
+- Use the EditForm component for advanced validated forms
+- Connect client-to-server via REST
+- It's quite easy to switch from Blazor WASM to Blazor Server using the correct architecture
