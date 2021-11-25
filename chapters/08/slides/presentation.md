@@ -539,7 +539,7 @@ Azure Storage supports three types of blobs:
 ### BLOB Storage
 # Creating the account
 
-Follow the steps in the GIF, if you don't have a Free Azure Accounts yet, activate one first by going to <a target="_blank" href="https://azure.microsoft.com/nl-nl/free/">this link</a> first.
+Follow the steps in the GIF, if you don't have a Free Azure Accounts yet, activate one first by going to <a target="_blank" href="https://azure.microsoft.com/nl-nl/free/">this link</a>.
 
 <img src="images/blob-storage-account.gif" width="95%" class="center" />
 
@@ -564,7 +564,7 @@ Follow the steps in the GIF, if you don't have a Free Azure Accounts yet, activa
 ---
 ### BLOB Storage
 # Uploading images
-- All images are public and can be viewed, creating or manipulating should be secured by a connectionstring.
+- All images are public (since the container is public read in this case) and can be viewed, creating or manipulating should be secured by a connectionstring.
 - Do NOT share the connectionstring with anyone, only use it on the server, where it's safe.
 - You can use Shared Access Signatures (SAS) to give someone a timeslot to upload or edit block blobs, without sharing your account information (it's a bit like a JWT)
 
@@ -649,22 +649,34 @@ Console.WriteLine(sas);
 <a href="images/blob-storage-sas-token-upload-postman.gif" target="_blank">Fullscreen</a>
 
 ---
+name:upload-image
 ### Exercise
 # Upload on Create
 Implement the functionality to upload an image when creating a product. 
 
-- Let the `ProductResponse.Create` return a extra property `UploadUrl` using the code from the console app.
-- On the Client use a `<InputFile/>` component in the `Create` form and use the code on the next slide to upload to directly to BLOB storage using a HTTPClient. More documentation about the <InputFile/> component can be found <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/file-uploads?view=aspnetcore-5.0&pivots=webassembly" target="_blank">here</a>.
+- When creating a product it should be possible to upload an image after the product is created on the server side.
+- We'll use a `<InputFile/>` component and BULMA CSS' goodness to style it.
+
+> Result on next slide
 
 ---
-### Exercise
-# Upload on Create - Upload to blob
-Client/Infrastructure
+### Upload on Create
+# Final Outcome
+<img src="images/blob-storage-create-with-image.gif" width="100%" class="center" />
+
+<a href="images/blob-storage-create-with-image.gif" target="_blank">Fullscreen</a>
+
+---
+### Client
+# StorageService
+Using a normal HttpClient we can upload files to BLOB based on the SAS returned from the Server.
+
+Client/Infrastructure/StorageService.cs
 ```
 public class StorageService
 {
     private readonly HttpClient httpClient;
-    public const long maxFileSize = 1024 * 1024 * 5; // 5MB
+    public const long maxFileSize = 1024 * 1024 * 10; // 10MB
     public StorageService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
@@ -680,20 +692,307 @@ public class StorageService
 ```
 
 ---
+### Client
+# StorageService in DI
+Add a Typed HttpClient in Dependency Injection
+
+```
+dotnet add package Microsoft.Extensions.Http
+```
+
+Client/Program.cs
+```
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            builder.RootComponents.Add<App>("#app");
+
+            builder.Services.AddAuthorizationCore();
+            // Other services
+*           builder.Services.AddHttpClient<StorageService>();
+
+            await builder.Build().RunAsync();
+        }
+    }
+```
+
+---
+### Client
+# InputFile
+Client/Products/Create.razor
+```
+<div class="field">
+    <div class="file has-name is-boxed is-fullwidth">
+        <label class="file-label">
+            <InputFile class="file-input" OnChange="@LoadImage" accept="image/*"/>
+            <span class="file-cta">
+                <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label has-text-centered">
+                    Selecteer een afbeelding
+                </span>
+            </span>
+            @if (image is not null)
+            {
+                <span class="file-name">
+                    @image.Name
+                </span>
+            }
+        </label>
+    </div>
+</div>
+```
+
+---
+### Client
+# InputFile
+Client/Products/Create.razor.cs
+```
+public partial class Create
+{
+    private ProductDto.Mutate product = new();
+*   private IBrowserFile image;
+
+    [Inject] public IProductService ProductService { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
+*   [Inject] public StorageService StorageService { get; set; }
+
+    private async Task CreateProductAsync()
+    {
+        ProductRequest.Create request = new() {Product = product};
+        var response = await ProductService.CreateAsync(request);
+*       await StorageService.UploadImageAsync(response.UploadUri, image);
+        NavigationManager.NavigateTo($"product/{response.ProductId}");
+    }
+*   private void LoadImage(InputFileChangeEventArgs args)
+*   {
+*       image = args.File;
+*       product.HasImage = true;
+*   }
+}
+```
+
+---
+### Shared
+# ProductResponse
+Shared/Products/ProductResponse.cs
+
+Adding the UploadUri to the Create Response, so we can upload from the client.
+```
+    public static class ProductResponse
+    {
+        // Other responses
+        public class Create
+        {
+            public int ProductId { get; set; }
+*           public Uri UploadUri { get; set; }
+        }
+    }
+```
+
+---
+### Shared
+# ProductDto
+Shared/Products/ProductDto.cs
+```
+    public static class ProductDto
+    {
+        // Other DTO's
+        public class Mutate
+        {
+            public string Name { get; set; }
+            // Other properties
+*           public bool HasImage { get; set; }
+
+            public class Validator : AbstractValidator<Mutate>
+            {
+                public Validator()
+                {
+                    RuleFor(x => x.Name).NotEmpty().Length(1, 250);
+                    RuleFor(x => x.Price).InclusiveBetween(1, 250);
+                    RuleFor(x => x.Category).NotEmpty().Length(1, 250);
+*                   RuleFor(x => x.ImageAmount).NotEmpty();
+                    // Notice that this will break the Edit functionality
+                }
+            }
+        }
+    }
+```
+
+---
+### Services
+# IStorageService
+We'll use an interface here so we can easily switch from Azure BLOB to another storage provider.
+Notice the abstract name, we're not referring to Azure at all, since it doesn't matter.
+
+Services/Common/IStorageService.cs
+```
+public interface IStorageService
+{
+    string StorageBaseUri { get; }
+    Uri CreateUploadUri(string filename);
+}
+```
+
+---
+### Services
+# Add Azure and Configuration 
+
+Using the Azure SDK it makes our lives easier to use the built-in classes. However we'll still need the connectionString somewhere, it's best to use AppSettings.json for this.
+
+Services/Services.csproj
+```
+dotnet add package Azure.Storage.Blobs
+dotnet add package Microsoft.Extensions.Configuration.Abstractions
+```
+
+Server/AppSettings.json
+```
+  "ConnectionStrings": {
+    "Storage": "YOUR_CONNECTION_STRING_HERE"
+  },
+```
+
+> Adding ConnectionStrings to your repo is not the best practise in the world, make sure to take appropriate action, using environment secrets. Read more about <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows">Storing Secrets</a>
+
+---
+### Services
+# BlobStorageService 
+Services/Common/BlobStorageService.cs
+
+Code can be seen here, since it's too big for a slide, we need a new format for this...
+
+<a target="_blank" href="https://github.com/HOGENT-Web/csharp-ch-8-example-1/blob/2bf1ce5b8af673f2e8f83b453413bd67d6047ed6/src/Services/Common/BlobStorageService.cs#L1">BlobStorageService on GitHub</a>.
+
+---
+### Services/Products/FakeProductService.cs
+```
+public class FakeProductService : IProductService {
+*   private readonly IStorageService storageService;
+*   public FakeProductService(IStorageService storageService)
+*   {
+*       this.storageService = storageService;
+*   }
+    public async Task<ProductResponse.Create> CreateAsync(ProductRequest.Create request)
+    {
+        ProductResponse.Create response = new();
+        var model = request.Product;
+        var price = new Money(model.Price);
+        var category = new Category(model.Category);
+*       var imageFilename = Guid.NewGuid().ToString();
+*       var imagePath = $"{storageService.StorageBaseUri}{imageFilename}";
+        var product = new Product(model.Name, model.Description, price, model.InStock, imagePath, category)
+        {
+            Id = products.Max(x => x.Id) + 1
+        };
+
+        products.Add(product);
+*       var uploadUri = storageService.CreateUploadUri(imageFilename);
+        response.ProductId = product.Id;
+*       response.UploadUri = uploadUri;
+
+        return response;
+    }
+}
+```
+
+---
+### CORS
+# Allow CORS
+Since we're in a Browser, due to CORS we cannot upload the image. Let's allow all CORS for now, but in production you'll want to be more specific.
+
+<img src="images/cors.png" width="100%" class="center" />
+
+<a href="images/cors.png" target="_blank">Fullscreen</a>
+
+
+---
+### Upload on Create
+# Done.
+<img src="images/blob-storage-create-with-image.gif" width="100%" class="center" />
+
+<a href="images/blob-storage-create-with-image.gif" target="_blank">Fullscreen</a>
+
+---
+class: dark middle
+# Suit up, wear a fancy Blazor
+> 📝 Commit: Add Image Upload On Create
+
+---
+name:edit-image
+### Exercise
+# Edit Product with Image
+Fix the Edit Functionality. 
+
+- Make it possible to edit the product's image, since we broke the functionaltity.
+
+Tips:
+- Notice that the browser will cache the images, a workaround for this is:
+    - If the image is changed (LoadImage is called) create a new Identifier for it (new GUID) 
+    - Save the changes to the database
+    - Delete the old Block Blob Image
+    - Return a new SAS token and let the client upload to BLOB
+
+---
 name:shopping-cart
 ### Exercise
 # Shopping Cart
-Implement the Shopping Cart Functionality. 
+Implement the Shopping Cart Functionality, **only client side functionality**
 
-- Make it possible to add products in a Shopping Cart.
-- Make it possible to remove products from the  Shopping Cart.
-- Only client side functionalities are currently required.
+Make it possible to:
+- Add products in a Shopping Cart.
+- Remove products from the  Shopping Cart.
+- Increase / Decrease quantity.
+- Show the amount of items in the `Cart` in the `Header` component
 
 Tips:
 - Render the Shoppingcart in the Sidepanel
-- Use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=webassembly" target="_blank">State Management article</a> to put the cart in a CartState class (memory).
+- Use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=webassembly" target="_blank">State Management article (memory)</a> to put the Cart in DI .
 
+> See next slide for example
 
+---
+### Shopping Cart
+# Done.
+<img src="images/shopping-cart.gif" width="100%" class="center" />
 
+<a href="images/shopping-cart.gif" target="_blank">Fullscreen</a>
 
+---
+class: dark middle
+# Suit up, wear a fancy Blazor
+> 📝 Commit: Add Shopping Cart
 
+---
+class: dark middle
+# Suit up, wear a fancy Blazor
+> Switch to Blazor Server
+
+---
+### Switch to Blazor Server
+# Tutorial.
+Using the correct architecture you can (at this point) switch from Blazor WASM to Blazor Server. In a later stage the conversion becomes more difficult due to Authentication, Database access is not really a big problem. In most Blazor Server Apps, Cookies are used instead of JWT tokens.
+
+We won't go into too much detail and leave it as an exercise, since the process how you can convert to Blazor Server is a great way to see if you understood the material of this and previous modules.
+
+- Tips:
+    - Use <a target="_blank" href="https://www.appvnext.com/blog/2020/2/2/reuse-blazor-wasm-ui-in-blazor-server">this article</a> as a starting point.
+    - You won't be needing the Client's services anymore, the interfaces of the shared project will suffice.
+
+---
+### Suit up, wear a fancy Blazor
+# Summary
+
+In this module you learned:
+- The ins-and-outs of Blazor
+- It's pretty powerfull for native C# speakers
+- Keep State in State objects via Dependency Injection
+- Pass parameters and callbacks to other components
+- Be aware of the render tree
+- Uploading files to BLOB storage
+- Use the EditForm component for advanced validated forms
+- Connect client-to-server via REST
+- It's quite easy to switch from Blazor WASM to Blazor Server using the correct architecture
