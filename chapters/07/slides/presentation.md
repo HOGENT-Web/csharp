@@ -180,7 +180,7 @@ This ensures **uniform interfaces** accross multiple REST APIs
 
 - `1xx`: hold on
   - the request was received, continuing process
-- `2xx`: here you go, 
+- `2xx`: here you go
   - the request was successfully received, understood, and accepted
 - `3xx`: redirection
   - further action needs to be taken in order to complete the request
