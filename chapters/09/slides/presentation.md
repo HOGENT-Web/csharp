@@ -177,7 +177,7 @@ class: dark middle
 If you don't obey the conventions of EF Core, like for example the `Id` or `<Entity name>Id`
 convention, you need the <a href="https://www.learnentityframeworkcore.com/configuration/data-annotation-attributes" target="_blank">data annotations</a> or <a href="https://www.learnentityframeworkcore.com/configuration/fluent-api" target="_blank">EF Core Fluent API</a> to map you model to the database.
 
-Sometimes the Fluent API is easier to use and easier to maintain than the data annotations. Also **not everything is possible with data annoations**, you sometimes really need the Fluent API.
+Sometimes the Fluent API is easier to use and easier to maintain than the data annotations. Also **not everything is possible with data annotations**, you sometimes really need the Fluent API.
 
 <img src="./images/know-the-rules.jpg" alt="You know the rules and so do I" class="center"  style="max-width: 50%;" />
 
