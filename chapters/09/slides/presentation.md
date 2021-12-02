@@ -141,7 +141,7 @@ After installing EF Core, a typical workflow for the **code-first** approach is 
 2. Create or adapt the domain model
 3. Drop and create the database (or migrate)
 4. Customize mapping where necessary
-5. Repeat from step 3 until database is correct
+5. Repeat from step 2 until database is correct
 
 ---
 name: tutorial-ef-core
