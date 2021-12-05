@@ -6,27 +6,96 @@ class: dark middle
 ---
 ### Try "Password123"
 # Table of contents
-
-- [Overview](#overview)
+- [Introduction](#introduction)
 - [Auth0](#auth0)
-- [Azure AAD](#azure-aad)
-- [Azure AD B2C](#azure-ad-b2c)
-- [Identity Server](#identity-server)
+- [Exercises](#exercises)
+- [Solutions](#solutions)
+- Extra:
+    - [Azure AAD](#azure-aad)
+    - [Azure AD B2C](#azure-ad-b2c)
+    - [Identity Server](#identity-server)
 
 ---
 name:overview
 ### Try "Password123"
 # Overview
+
+This is not a security course, we're not even going to pretend it is. Learning all the aspects of security is a course all by itself.
+
+However in this module we'll show how to setup Authentication and Authorization using Blazor WASM in combination with Auth0. 
+
+There are multiple ways and identity providers you can use
+- [Auth0](#auth0)
+- [Azure AAD](#azure-aad)
+- [Azure AD B2C](#azure-ad-b2c)
+- [Identity Server](#identity-server)
+
+The problem is, these things change every year...
+
+---
+name:introduction
+### Try "Password123"
+# Introduction
+If you're unfamiliar with JWT's, Cookies, Access Tokens, Id Tokens, RBAC, ... We highly recommend you to watch the following webinar.
+
+<video controls="" src="//videos.ctfassets.net/2ntc334xpx65/58EF02DMi7g7MmfdW86pae/e24609566a25921060eaa9146e4360f6/Modern_Authentication_Demystified.mp4" width="100%" height="100%" class="sc-1t7m45w-0 ktSVqQ"></video>
+
+&nbsp;
+---
+### Try "Password123"
+# No Cookies for you
+
 The engineering design of Blazor WebAssembly is settled on OAuth and OIDC as the best option for authentication in Blazor WebAssembly apps.
-Token-based authentication based on JSON Web Tokens (JWTs) was chosen over cookie-based authentication for functional and security reasons:
+Token-based authentication based on JSON Web Tokens (JWTs) was chosen over cookie-based authentication for functional and security reasons.
 
-Follow the docs, since they change every year... <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/security/?view=aspnetcore-5.0">here</a> and <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/security/webassembly/?view=aspnetcore-5.0">here</a>.
+However Blazor Server still uses cookies, which makes sense since everything is rendered on the Server.
 
+> Read more about <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/security/webassembly/?view=aspnetcore-5.0">Securing Blazor Apps</a>.
 ---
 name:auth0
 ### Try "Password123"
 # Auth0
-To integrate with Auth0 you can follow the tutorial <a href="https://auth0.com/blog/securing-blazor-webassembly-apps/">here</a>.
+
+Auth0 is a identity provider which helps us to authenticate and authorize users in our apps. More information about Auth0 can be read on <a href="https://auth0.com/" target="_blank">their website</a>. 
+
+---
+### Auth0
+# Tutorial
+
+Follow the following articles (in the correct sequence)
+1. <a target="_blank" href="https://benjaminvertonghen.medium.com/role-based-acces-control-with-blazor-and-auth0-i-ffd9656e6f01?sk=b8c9e562c78f620d6856e737c62927aa">Blazor Authentication with Auth0</a>
+2. <a target="_blank" href="https://benjaminvertonghen.medium.com/blazor-authorization-with-auth0-rbac-d65cd14acab2?sk=1c7d500ef3c2c5e224f5040a0b03f54a">Blazor Authorization with Auth0</a>
+
+
+---
+name:exercises
+class: dark middle
+# Chapter 10 - Try "Password123"
+> Exercises
+
+---
+### Chapter 10 - Try "Password123"
+# Exercises
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-10-exercise-1" target="_blank">SportStore with Auth0</a>
+
+---
+name: solutions
+class: dark middle
+
+# Chapter 10 - Try "Password123"
+> Solutions
+
+---
+### Chapter 10 - Try "Password123"
+# Solutions
+
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-10-exercise-1/tree/solution" target="_blank">SportStore with Auth0</a>
+
+---
+class: dark middle
+# Chapter 10 - Try "Password123"
+> Additional providers
+
 
 ---
 name:azure-aad
