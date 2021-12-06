@@ -65,6 +65,7 @@ Auth0 is a identity provider which helps us to authenticate and authorize users 
 Follow the following articles (in the correct sequence)
 1. <a target="_blank" href="https://benjaminvertonghen.medium.com/role-based-acces-control-with-blazor-and-auth0-i-ffd9656e6f01?sk=b8c9e562c78f620d6856e737c62927aa">Blazor Authentication with Auth0</a>
 2. <a target="_blank" href="https://benjaminvertonghen.medium.com/blazor-authorization-with-auth0-rbac-d65cd14acab2?sk=1c7d500ef3c2c5e224f5040a0b03f54a">Blazor Authorization with Auth0</a>
+3. <a target="_blank" href="https://benjaminvertonghen.medium.com/blazor-with-auth0-using-the-management-api-23eda404dfef?sk=93888fb900875e01e7053ba53958445d">Blazor with Auth0, using the management API</a>
 
 
 ---
