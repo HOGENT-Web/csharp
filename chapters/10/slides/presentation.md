@@ -41,6 +41,15 @@ If you're unfamiliar with JWT's, Cookies, Access Tokens, Id Tokens, RBAC, ... We
 <video controls="" src="//videos.ctfassets.net/2ntc334xpx65/58EF02DMi7g7MmfdW86pae/e24609566a25921060eaa9146e4360f6/Modern_Authentication_Demystified.mp4" width="100%" height="100%" class="sc-1t7m45w-0 ktSVqQ"></video>
 
 &nbsp;
+
+---
+### Try "Password123"
+# Webinar
+
+You cannot google Identity without finding learning resources of Vittorio Bertocci. He is a Principal Architect for Auth0. Before Auth0, he had a lengthy career with Microsoft, where Vittorio worked with Fortune 100 and Global 100 companies, including working on Microsoft’s Azure Active Directory team as principal program manager focusing on the developer experience. In his series Learn Identity he explains Authentication and Authorization. It's really a go-to resource of you want to know more about Identity in general.
+
+<a target="_blank" href="https://auth0.com/docs/videos/learn-identity-series">Learn Identity By Vittorio Bertocci</a>
+
 ---
 ### Try "Password123"
 # No Cookies for you
