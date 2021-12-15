@@ -123,6 +123,35 @@ How far are you willing to go? What part of the application are you going to tes
 > We're going with 6. Testing the entire thing, however combinations can be used too and other approaches are not uncommon.
 
 ---
+name:naming
+### Headless testing
+# You are naming your tests wrong.
+
+Your tests **should** describe your system’s behavior in a way that’s understandable not only to programmers, but to **non-technical people too**.  Test against obersable behavior and not implementation detials.
+
+Using the name of the function or method, is not very descriptive. Also think about renaming the function, the test name will not be renamed automatically...
+
+```
+[MethodUnderTest]_[Scenario]_[ExpectedResult]
+```
+
+```
+[Fact]
+public void IsDeliveryValid_InvalidDate_ReturnsFalse()
+```
+
+You simply can’t fit a high-level description of a complex behavior into a narrow box of such a policy. You must allow freedom of expression.
+
+```
+[Fact]
+public void Delivery_with_a_past_date_is_invalid()
+```
+
+The latter version is clearly better. It reads like plain English and describes the use case under test using business terms. It conveys the system’s observable behavior.
+
+
+
+---
 class: dark middle
 name:playwright
 # Chapter 11 - Headless testing
@@ -151,54 +180,137 @@ Watch the short but descriptive video, using <a target="_blank" href="https://pl
 ---
 ### Playwright
 # Example
-Create a new folder called `csharp-ch-11-example`
+Add the Playwright CLI as a .NET global tool (only once)
 ```
-mkdir csharp-ch-11-example
+dotnet tool install --global Microsoft.Playwright.CLI
 ```
-Create a new `solution`
+Create a new `blazor wasm hosted` project 
 ```
-mkdir dotnet new sln
+dotnet new blazorwasm --hosted -o Example
 ```
-Create a new `source` folder
+Create a new `nUnit` project (xUnit is barely supported)
 ```
-mkdir src
+cd Example
+dotnet new nunit -o PlaywrightTests -n Example.PlaywrightTests
 ```
-Create a new `tests` folder
+Add the nUnit Test project to the solution
 ```
-mkdir tests
+dotnet sln add PlaywrightTests
 ```
-Add a `gitignore`
+
+<br/>
+> Continued on the next slide
+
+---
+### Playwright
+# Example
+Add package `Microsoft.Playwright.NUnit` to the test project 
 ```
-dotnet new gitignore
+cd playwrightTests
+dotnet add package Microsoft.Playwright.NUnit
+```
+Build the test project and install browsers
+``` 
+dotnet build
+playwright install
+```
+
+Open the solution `Example.sln`
+
+---
+### Playwright
+# CounterTests
+What we'll do is test that clicking on the Counter, actually increases the count.
+Replace the contents of `UnitTest1.cs` with the following:
+```
+[Parallelizable(ParallelScope.Self)]
+public class CounterTests : PageTest
+{
+    private const string ServerBaseUrl = "https://localhost:5001";
+
+    [Test]
+    public async Task Clicking_Counter_Updates_Count()
+    {
+        // Navigate to the counter page
+        await Page.GotoAsync($"{ServerBaseUrl}/counter");
+        // Wait until the counter page is really there.
+        await Page.WaitForSelectorAsync("h1");
+        // Click on counter
+        await Page.ClickAsync("text=Click Me");
+        // Assert
+        var content = await Page.TextContentAsync("p");
+        Assert.AreEqual("Current count: 1", content);
+    }
+}
 ```
 
 ---
-name:naming
+### Playwright
+# CounterTests
+1. Run the server project (in the correct folder) or use VS
+```
+dotnet run
+```
+2. Run the tests (in the correct folder) or use VS
+```
+dotnet test
+```
+
+---
+### Playwright
+# Exercise
+- Create a new file in the test project called `FetchDataTests`
+- Create a new test based on the `CounterTests` that checks if there are 5 items being rendered.
+
+Tips:
+- Use the documentation of <a target="_blank" href="https://playwright.dev/dotnet/docs/intro">Playwright.net</a>
+- Don't forget to wait for the page to be loaded
+
+
+---
+### Playwright
+# Flaky tests
+Using selectors as the following brings some issues with it...
+```
+await Page.ClickAsync("text=Click Me");
+```
+
+What if you localize your app or rename the contents of the button? It's better to use test-data specific selectors and add them to the HTML/razor document, for example:
+```
+<button data-test-id="counter-button" class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+```
+Then you can use the following to test:
+```
+await Page.ClickAsync("data-test-id=counter-button");
+```
+
+---
+### Playwright
+# Documentation
+Using the documentation you can get the hang of Playwright, some interesting ones:
+- <a target="_blank" href="https://playwright.dev/dotnet/docs/codegen">Auto generate tests using the codegen</a>
+- <a target="_blank" href="https://playwright.dev/dotnet/docs/debug">Debugging tools</a>
+- <a target="_blank" href="https://playwright.dev/dotnet/docs/input">Using forms</a>
+
+
+---
+class: dark middle
+name:exercises
+# Chapter 11 - Headless testing
+> Exercises
+
+---
+name:exercises
 ### Headless testing
-# You are naming your tests wrong.
+# Exercises
+Complete the following exercise:
+1. <a target="_blank" href="https://github.com/HOGENT-Web/csharp-ch-11-exercise-1">Integration Tests for the SportStore</a>
 
-Your tests **should** describe your system’s behavior in a way that’s understandable not only to programmers, but to **non-technical people too**.  Test against obersable behavior and not implementation detials.
-
-Using the name of the function or method, is not very descriptive. Also think about renaming the function, the test name will not be renamed automatically...
-
-```
-[MethodUnderTest]_[Scenario]_[ExpectedResult]
-```
-
-```
-[Fact]
-public void IsDeliveryValid_InvalidDate_ReturnsFalse()
-```
-
-You simply can’t fit a high-level description of a complex behavior into a narrow box of such a policy. You must allow freedom of expression.
-
-```
-[Fact]
-public void Delivery_with_a_past_date_is_invalid()
-```
-
-The latter version is clearly better. It reads like plain English and describes the use case under test using business terms. It conveys the system’s observable behavior.
-
+---
+name:solutions
+### Headless testing
+# Solutions
+1. <a target="_blank" href="https://github.com/HOGENT-Web/csharp-ch-11-exercise-1/tree/solution">Integration Tests for the SportStore</a>
 
 ---
 class: dark middle
