@@ -133,7 +133,7 @@ name:naming
 ### Headless testing
 # You are naming your tests wrong
 
-Your tests **should** describe your system’s behavior in a way that’s understandable not only to programmers, but to **non-technical people too**.  Test against obersable behavior and not implementation detials.
+Your tests **should** describe your system’s behavior in a way that’s understandable not only to programmers, but to **non-technical people too**.  Test against observable behavior and not implementation details.
 
 Using the name of the function or method, is not very descriptive. Also think about renaming the function, the test name will not be renamed automatically...
 
