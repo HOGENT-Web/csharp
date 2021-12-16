@@ -50,7 +50,7 @@ When testing, it's all about confidence and the time you spent on writing tests.
 
 The test suite you write needs a descent architecture, when tests are too hard to write, nobody will write any, when they're brittle (a.k.a. flaky tests) it takes a lot of time to fix the suite when introducing new features.
 
-<img src="https://i0.wp.com/www.e4-services.com/wp-content/uploads/2017/08/Testing.png?w=900&ssl=1" class="center" width="75%"/>
+<img src="https://i0.wp.com/www.e4-services.com/wp-content/uploads/2017/08/Testing.png?w=900&ssl=1" class="center" width="55%"/>
 
 ---
 ### Headless testing
@@ -92,9 +92,9 @@ Some developers are fond of abstracting away the database, however one of the mo
 .Include(x => x.NavigationProperty)
 ``` 
 
-These bugs cannot be found or tested using a In Memmory Database, since there are no JOINS. So the bug cannot be replicated...
+These bugs cannot be found or tested using a In Memory Database, since there are no JOINS. So the bug cannot be replicated...
 
-While writing integration tests, you want to replicate a production environnment. Changing database providers in your integration test suite is *most of the time*... **lying to yourself**.
+While writing integration tests, you want to replicate a production environment. Changing database providers in your integration test suite is *most of the time*... **lying to yourself**.
 
 ---
 name:levels-of-testing
@@ -102,34 +102,44 @@ name:levels-of-testing
 # Levels of testing
 How far are you willing to go? What part of the application are you going to test keeping in mind that integration tests take longer to run, which can be "Ok" for a handfull of tests but knowing that test suites of 1k - 10k tests are not uncommon in larger projects.
 
-1. Domain Layer 
-    - Can easily be united tested
-2. Service Layer
-    - Can be unit- and integration tested
+- Domain Layer 
+    - Can easily be unit tested
+- Service Layer
+    - Can be unit and integration tested
     - Does not test the request-response pipeline
-3. Persistence Layer
+- Persistence Layer
     - Meh, you don't own Entity Framework
-4. Server Layer
-    - Can be unit- and integration tested
-    - You can test the endpoints in your controllers and in fact the service layer and the domain layer in one go.
-5. Client Layer
-    - Can be unit- and integration tested
+
+
+---
+### Headless testing
+# Levels of testing
+
+- Server Layer
+    - Can be unit and integration tested
+    - You can test the endpoints in your controllers and in fact the service layer and the domain layer in one go
+- Client Layer
+    - Can be unit and integration tested
     - Unit testing components can be done with <a target="_blank" href="https://bunit.dev">bUnit</a>
-6. Client - Server - Service - Persistence - Domain Layer
-    - Test the entire thing.
+- Client - Server - Service - Persistence - Domain Layer
+    - Test the entire thing
     - It takes longer to run the tests
     - Gives most confidence but can be brittle
 
-> We're going with 6. Testing the entire thing, however combinations can be used too and other approaches are not uncommon.
+> We're going with the last one. Testing the entire thing, however combinations can be used too and other approaches are not uncommon.
 
 ---
 name:naming
 ### Headless testing
-# You are naming your tests wrong.
+# You are naming your tests wrong
 
 Your tests **should** describe your system’s behavior in a way that’s understandable not only to programmers, but to **non-technical people too**.  Test against obersable behavior and not implementation detials.
 
 Using the name of the function or method, is not very descriptive. Also think about renaming the function, the test name will not be renamed automatically...
+
+---
+### Headless testing
+# You are naming your tests wrong
 
 ```
 [MethodUnderTest]_[Scenario]_[ExpectedResult]
@@ -148,7 +158,6 @@ public void Delivery_with_a_past_date_is_invalid()
 ```
 
 The latter version is clearly better. It reads like plain English and describes the use case under test using business terms. It conveys the system’s observable behavior.
-
 
 
 ---
@@ -175,7 +184,7 @@ Some key features:
 # Introduction
 Watch the short but descriptive video, using <a target="_blank" href="https://playwright.dev">Playwright</a>
 
-<iframe width="100%" height="75%" src="https://www.youtube.com/embed/jUnSNPxaOo0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="80%" height="60%" class="center" src="https://www.youtube.com/embed/jUnSNPxaOo0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ---
 ### Playwright
@@ -198,7 +207,6 @@ Add the nUnit Test project to the solution
 dotnet sln add PlaywrightTests
 ```
 
-<br/>
 > Continued on the next slide
 
 ---
@@ -206,7 +214,7 @@ dotnet sln add PlaywrightTests
 # Example
 Add package `Microsoft.Playwright.NUnit` to the test project 
 ```
-cd playwrightTests
+cd PlaywrightTests
 dotnet add package Microsoft.Playwright.NUnit
 ```
 Build the test project and install browsers
