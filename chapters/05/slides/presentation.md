@@ -492,4 +492,4 @@ Each project has clear responsibilities:
 
 > [Clean Architecture: The Bad Parts](https://www.jamesmichaelhickey.com/clean-architecture/) 
 >
-> [Should you abstract away your database?](https://www.getdrip.com/deliveries/svet4bh5wlreqicdlf5i?view_in_browser=true&__s=v4g93rxwb5klb8iv97jj) 
+> [Should you abstract away your database?](https://enterprisecraftsmanship.com/posts/should-you-abstract-database/) 
