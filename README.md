@@ -49,3 +49,8 @@ Portal can be found [here](https://hogent-web.github.io/csharp/)
 ### Tutorials
 - [.NET Tutorial - Your First Microservice](https://dotnet.microsoft.com/learn/aspnet/microservice-tutorial/intro)
 - [Blazor (Blazing Pizza)](https://github.com/dotnet-presentations/blazor-workshop/)
+
+
+### Skillset Overview
+![ASP NET 2022](https://user-images.githubusercontent.com/10981553/169042904-88d8b709-4a74-4ca0-9cd9-58970df511aa.jpeg)
+
