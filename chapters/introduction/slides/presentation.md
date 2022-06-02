@@ -334,7 +334,7 @@ Classes of the problem domain might be:
 - Invoice
 - ...
 
-These classes should always reside in a separate **Class Library** so they're sharable between multiple applications and can be distributed via NuGet.
+These classes should always reside in a separate **Class Library** so they're shareable between multiple applications and can be distributed via NuGet.
 
 > Class Libraries cannot run by themselves they need to be referenced by a runnable project (e.g. Console App). 
 ---
