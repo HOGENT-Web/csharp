@@ -637,17 +637,26 @@ Open the solution in Visual Studio (Code).
 ---
 ### Create a new solution & project
 
-<img src="./images/create-vs-console-app.gif" width="100%" />
+<video controls width="100%" >
+  <source src="images/create-vs-console-app.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 ---
 ### Create an empty `BankAccount` class
 
-<img src="./images/create-bankaccount-class.gif" width="100%" />
+<video controls width="100%" >
+  <source src="images/create-bankaccount-class.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 ---
 ### Pushing your changes to GitHub
 
-<img src="./images/commit-and-push.gif" width="100%" />
+<video controls width="100%" >
+  <source src="images/commit-and-push.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 > Or use GitKraken or the git CLI, whatever you like
 
@@ -1480,7 +1489,10 @@ Remove the class `UnitTest1.cs` and create a new class named `BankAccountTest` i
 ---
 ### Create a new test project
 
-<img src="./images/create-test-project.gif" width="100%" />
+<video controls width="100%" >
+  <source src="images/create-test-project.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 > Or use the CLI
 
@@ -1500,7 +1512,10 @@ Create the following tests for **`BankAccount`** (use `"123-4567890-02"` as acco
 ---
 ### Run the tests
 
-<img src="./images/run-tests.gif" width="100%" />
+<video controls width="100%" >
+  <source src="images/run-tests.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 ---
 ### Unit Testing
