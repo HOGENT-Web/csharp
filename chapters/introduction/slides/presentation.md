@@ -422,7 +422,10 @@ bike.Brake(); // Using the method
 
 ---
 ### Referencing a Class Library
-<img src="images/class-library-bicycle.gif" width="100%">
+<video controls width="100%">
+  <source src="images/class-library-bicycle.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 > Same as the slide before.
 ---
 class: dark middle
@@ -469,11 +472,17 @@ Build artefacts are generated files by certain dotnet commands for example `dotn
 ---
 ### GIT
 # Source Control for .NET
-<img src="images/git-ignore.gif" width="100%">
+<video controls width="100%">
+  <source src="images/git-ignore.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 ---
 ### Visual Studio Community 2019 Solution Setup
-<img src="images/create-solution-structure-vs.gif" width="110%"/>
+<video controls width="110%">
+  <source src="images/create-solution-structure-vs.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 [Click here to see the GIF in fullscreen](images/create-solution-structure-vs.gif)
 
 ---

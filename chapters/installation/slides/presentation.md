@@ -48,7 +48,10 @@ A fullblown source code editor to manipulate code **with a local database**
 
 ---
 ### Visual Studio 2019 Community - Installation workflow
-<img src="./images/visual-studio-install.gif" width="100%"/>
+<video controls width="100%">
+  <source src="images/visual-studio-install.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 > Your version could be a little bit different.
 
 ---
@@ -74,7 +77,10 @@ A lightweight source code editor to manipulate code.
 
 ---
 ### Visual Studio Code - Installation workflow
-<img src="./images/visual-studio-code-install.gif" width="85%" class="center"/>
+<video controls width="85%" class="center">
+  <source src="images/visual-studio-code-install.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 > Your version could be a little bit different.
 
 ---
@@ -138,7 +144,10 @@ A lightweight data editor to manipulate the database.
 
 ---
 ### Azure Data Studio - Installation workflow
-<img src="./images/azure-data-studio-install.gif" width="85%" class="center"/>
+<video controls width="85%" class="center">
+  <source src="images/azure-data-studio-install.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 > Your version could be a little bit different.
 
 ---
@@ -168,7 +177,10 @@ Source control for your code.
 
 ---
 ### GIT - Installation workflow
-<img src="images/git-install.gif" width="85%" class="center"/>
+<video controls width="85%" class="center">
+  <source src="images/git-install.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 > Your version could be a little bit different.
 
 ---

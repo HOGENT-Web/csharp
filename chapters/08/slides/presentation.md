@@ -109,9 +109,12 @@ In the following example we combined both applicaties so that:
 
 ---
 ### Sportstore - As is
-<img src="images/sportstore-as-is.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/sportstore-as-is.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/sportstore-as-is.gif" target="_blank">Fullscreen</a>
+<a href="images/sportstore-as-is.mp4" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle
@@ -132,9 +135,12 @@ We'll implement the following:
 ---
 ### Sportstore
 # What we're building
-<img src="images/sportstore-final-result.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/sportstore-final-result.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/sportstore-final-result.gif" target="_blank">Fullscreen</a>
+<a href="images/sportstore-final-result.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Sportstore
@@ -204,9 +210,12 @@ Sometimes the user experience can be better when rendering a small sidepanel to 
 
 ---
 ### Sportstore - Create via Sidepanel
-<img src="images/sportstore-create-sidepanel.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/sportstore-create-sidepanel.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/sportstore-create-sidepanel.gif" target="_blank">Fullscreen</a>
+<a href="images/sportstore-create-sidepanel.mp4" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle
@@ -230,9 +239,12 @@ This time you're on your own, on the details page it should be possible to open 
 
 ---
 ### Sportstore - Edit via Sidepanel
-<img src="images/sportstore-edit-sidepanel.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/sportstore-edit-sidepanel.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/sportstore-edit-sidepanel.gif" target="_blank">Fullscreen</a>
+<a href="images/sportstore-edit-sidepanel.mp4" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle
@@ -245,9 +257,12 @@ name:filter
 # Filter Products
 What we'll be building
 
-<img src="images/sportstore-filter.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/sportstore-filter.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/sportstore-filter.gif" target="_blank">Fullscreen</a>
+<a href="images/sportstore-filter.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Sportstore
@@ -541,25 +556,34 @@ Azure Storage supports three types of blobs:
 
 Follow the steps in the GIF, if you don't have a Free Azure Accounts yet, activate one first by going to <a target="_blank" href="https://azure.microsoft.com/nl-nl/free/">this link</a>.
 
-<img src="images/blob-storage-account.gif" width="95%" class="center" />
+<video controls width="95%" class="center" >
+  <source src="images/blob-storage-account.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/blob-storage-account.gif" target="_blank">Fullscreen</a>
+<a href="images/blob-storage-account.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### BLOB Storage
 # Creating the container
 
-<img src="images/blob-storage-container.gif" width="95%" class="center" />
+<video controls width="95%" class="center" >
+  <source src="images/blob-storage-container.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/blob-storage-container.gif" target="_blank">Fullscreen</a>
+<a href="images/blob-storage-container.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### BLOB Storage
 # Upload an image (portal)
 
-<img src="images/blob-storage-image-upload.gif" width="95%" class="center" />
+<video controls width="95%" class="center" >
+  <source src="images/blob-storage-image-upload.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/blob-storage-image-upload.gif" target="_blank">Fullscreen</a>
+<a href="images/blob-storage-image-upload.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### BLOB Storage
@@ -584,9 +608,12 @@ Using a SAS we can give the client access for a few minutes (not to long) to upl
 ### Uploading via SAS and Postman
 # Storage account Connectionstring
 Grab the connectionstring of your storage account, don't share it!
-<img src="images/blob-storage-connectionstring.gif" width="95%" class="center" />
+<video controls width="95%" class="center" >
+  <source src="images/blob-storage-connectionstring.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/blob-storage-connectionstring.gif" target="_blank">Fullscreen</a>
+<a href="images/blob-storage-connectionstring.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Uploading via SAS and Postman
@@ -644,9 +671,12 @@ Console.WriteLine(sas);
 ---
 ### Uploading via SAS and Postman
 # Postman call and upload
-<img src="images/blob-storage-sas-token-upload-postman.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/blob-storage-sas-token-upload-postman.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/blob-storage-sas-token-upload-postman.gif" target="_blank">Fullscreen</a>
+<a href="images/blob-storage-sas-token-upload-postman.mp4" target="_blank">Fullscreen</a>
 
 ---
 name:upload-image
@@ -662,9 +692,12 @@ Implement the functionality to upload an image when creating a product.
 ---
 ### Upload on Create
 # Final Outcome
-<img src="images/blob-storage-create-with-image.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/blob-storage-create-with-image.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/blob-storage-create-with-image.gif" target="_blank">Fullscreen</a>
+<a href="images/blob-storage-create-with-image.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Client
@@ -912,9 +945,12 @@ Since we're in a Browser, due to CORS we cannot upload the image. Let's allow al
 ---
 ### Upload on Create
 # Done.
-<img src="images/blob-storage-create-with-image.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/blob-storage-create-with-image.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/blob-storage-create-with-image.gif" target="_blank">Fullscreen</a>
+<a href="images/blob-storage-create-with-image.mp4" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle
@@ -957,9 +993,12 @@ Tips:
 ---
 ### Shopping Cart
 # Done.
-<img src="images/shopping-cart.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/shopping-cart.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/shopping-cart.gif" target="_blank">Fullscreen</a>
+<a href="images/shopping-cart.mp4" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle

@@ -138,9 +138,12 @@ dotnet add Client/Client.csproj reference Domain/Domain.csproj
 ### Linking the Solution
 Open the Solution in Visual Studio and follow along
 
-<img src="images/snake-eyes-project-setup.gif" width="100%" class="center">
+<video controls width="100%" class="center">
+  <source src="images/snake-eyes-project-setup.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/snake-eyes-project-setup.gif" target="_blank">Fullscreen</a>
+> <a href="images/snake-eyes-project-setup.mp4" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle
@@ -153,9 +156,12 @@ class: dark middle
 # Run the app
 You should see the following:
 
-<img src="images/run-wasm.gif" width="100%" class="center">
+<video controls width="100%" class="center">
+  <source src="images/run-wasm.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/run-wasm.gif" target="_blank">Fullscreen</a>
+> <a href="images/run-wasm.mp4" target="_blank">Fullscreen</a>
 
 
 
@@ -642,7 +648,10 @@ class: dark middle
 ---
 ### SnakeEyes - Client
 # Components
-<img src="images/snake-eyes-game.gif" width="50%" class="center">
+<video controls width="50%" class="center">
+  <source src="images/snake-eyes-game.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 We'd like to show:
 - 2 `Dice`s 🎲
@@ -657,9 +666,12 @@ We'd like to show:
 # Dice
 - Create a new solution folder called `Components` in the `Client` project.
 - Add a Razor Component called `Dice`
-<img src="images/dice.gif" width="100%" class="center">
+<video controls width="100%" class="center">
+  <source src="images/dice.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/dice.gif" target="_blank">Fullscreen</a>
+> <a href="images/dice.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### SnakeEyes - Client
@@ -696,9 +708,12 @@ span{
 ---
 ### SnakeEyes - Client
 # Dice.razor.css
-<img src="images/dice-file-nesting.gif" width="100%" class="center">
+<video controls width="100%" class="center">
+  <source src="images/dice-file-nesting.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/dice-file-nesting.gif" target="_blank">Fullscreen</a>
+> <a href="images/dice-file-nesting.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### SnakeEyes - Client
@@ -951,17 +966,23 @@ name:github-pages
 - Create a workflow file, copy the contents of <a target="_blank" href="https://raw.githubusercontent.com/HOGENT-Web/csharp-ch-6-example-1/main/.github/workflows/deployment.yml">this file</a>
 - Replace "csharp-ch-6-example-1" with your repository name
 
-<img src="images/deployment-1.gif" width="80%" class="center">
+<video controls width="80%" class="center">
+  <source src="images/deployment-1.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/deployment-1.gif" target="_blank">Fullscreen</a>
+> <a href="images/deployment-1.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Deployment
 # GitHub Pages
 - Set the deployment branch to gh-pages once the action ran successfully
-<img src="images/deployment-2.gif" width="80%" class="center">
+<video controls width="80%" class="center">
+  <source src="images/deployment-2.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/deployment-2.gif" target="_blank">Fullscreen</a>
+> <a href="images/deployment-2.mp4" target="_blank">Fullscreen</a>
 
 ---
 <br/>
@@ -1018,17 +1039,23 @@ The biggest difference is that now, we use the REST API to serve data to the cli
 ### > dotnet new blazorwasm --hosted
 # First run (Client)
 When you run the client (alone), no data will be accessible, since the server cannot serve data since it's offline.
-<img src="images/client-solo-run.gif" width="100%" class="center">
+<video controls width="100%" class="center">
+  <source src="images/client-solo-run.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/client-solo-run.gif" target="_blank">Fullscreen</a>
+> <a href="images/client-solo-run.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### > dotnet new blazorwasm --hosted
 # First run (Server + Client)
 When you run the server, the data is accessible.
-<img src="images/server-run.gif" width="100%" class="center">
+<video controls width="100%" class="center">
+  <source src="images/server-run.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/server-run.gif" target="_blank">Fullscreen</a>
+> <a href="images/server-run.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### > dotnet new blazorwasm --hosted
@@ -1795,9 +1822,12 @@ public override Task<AuthenticationState> GetAuthenticationStateAsync()
 
 ---
 ### Final result
-<img src="images/delete-admin.gif" width="100%" class="center">
+<video controls width="100%" class="center">
+  <source src="images/delete-admin.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-> <a href="images/delete-admin.gif" target="_blank">Fullscreen</a>
+> <a href="images/delete-admin.mp4" target="_blank">Fullscreen</a>
 
 ---
 name: workshop

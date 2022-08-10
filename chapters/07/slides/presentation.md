@@ -325,9 +325,12 @@ post
 ---
 ### Ain't no REST for the wicked
 # .NET HTTP REPL
-<img src="images/REPL.gif" width="100%" class="center" />
+<video controls width="100%" class="center" >
+  <source src="images/REPL.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-<a href="images/REPL.gif" target="_blank">Fullscreen</a>
+<a href="images/REPL.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Ain't no REST for the wicked
