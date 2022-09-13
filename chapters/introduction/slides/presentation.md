@@ -276,7 +276,7 @@ namespace App // Namespace of the module
     }
 }
 ```
-> **You right now**: *"Bweik... all that boilerplate for a simple print and I never unsterstood the `Main()` method in Java anyway..."*
+> **You right now**: *"Bweik... all that boilerplate for a simple print and I never understood the `Main()` method in Java anyway..."*
 
 Let's do something about that...
 
