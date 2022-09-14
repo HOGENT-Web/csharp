@@ -35,6 +35,12 @@ class: dark middle
 
 ---
 ### .NET Explained
+# Why.NET?
+<br/>
+<img src="./images/dotnet-performance.png" width="100%"/>
+
+---
+### .NET Explained
 # .NET The Ecosystem
 - Languages
  - C&#35;
@@ -93,7 +99,7 @@ class: dark middle
 
 dotnet **C**ommand **L**ine **I**nterface
 - dotnet new&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| project templates
-- dotnet watch run | dev time compile, watch for changes and run
+- dotnet watch | dev time compile, watch for changes and run
 - dotnet publish&nbsp;&nbsp;&nbsp;| ready for deployment
 
 ---
@@ -175,22 +181,24 @@ Shipping a **NuGet package** and want compatibility with .NET Framework?
 - .NET Standard
 
 All other stuff:
-- .NET5
+- .NET6
 > **You are here**
 
 ---
 ### .NET Explained
 # Versioning
 
-.NET uses semantic versioning, example:
+.NET uses semantic versioning, example for .net5:
 - .NET 5.1.3
   - Major Version: 5
   - Minor Version: 1
   - Fix Version: 3
 - Major release every year in november
+  - Which is annoying for a curriculum but hey...
 - **L**ong **T**erm **S**upport release a few months after major release.
   - Major release: 5.0
   - LTS release: 5.1
+  - So they have time to fix bugs etc.
 
 ---
 class: dark middle
@@ -210,11 +218,15 @@ dotnet --info
 ```
 3. Get a list of all possible starter templates
 ```
-dotnet new
+dotnet new list
 ```
 4. Create a new console application.
 ```
-dotnet new console
+dotnet new console -o App -f net6.0 --use-program-main -
+```
+5. Checkout what these arguments mean
+```
+dotnet new console -h
 ```
 
 > Continued on next slide...
@@ -225,8 +237,11 @@ dotnet new console
 
 Open the folder with VS Code and look at the contents
 ```
+cd app
 code .
 ```
+> For macOS checkout [this youtube video](https://www.youtube.com/watch?v=CYU07mlXZ5Y) for the `code` command
+
 In the folder you'll find the following files/folders:
 - `App.csproj`
     - Remember, .NET is **project based**. 
@@ -234,9 +249,9 @@ In the folder you'll find the following files/folders:
         - Which `LangVersion`
         - Which `TargetFramework`
 - `Program.cs`
-    - Entry point of the application `static void Main(string[] args)`
+    - Entry point `static void Main(string[] args)`
 - `obj`
-    - Some temp. artifact files
+    - Some temporarily artifact files
 
 ---
 ### `> Hello World!`
@@ -265,14 +280,12 @@ dotnet run
 ```
 using System; // Using the BCL
 
-namespace App // Namespace of the module
+namespace App; // Namespace of the module (file scoped)
+class Program 
 {
-    class Program 
+    static void Main(string[] args) // Entry Point
     {
-        static void Main(string[] args) // Entry Point
-        {
-            Console.WriteLine("Hello World!") // Print statement
-        }
+        Console.WriteLine("Hello World!") // Print statement
     }
 }
 ```
@@ -283,8 +296,8 @@ Let's do something about that...
 ---
 ### `> Hello World!`
 # Getting rid of the boilerplate
-Due to the new [top-level-statements](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/program-structure/top-level-statements) feature of C&#35;9 we can create a one-liner.
-
+Due to [top-level-statements](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/program-structure/top-level-statements) introduced in C&#35;9 we can create a one-liner.
+> Note that we use C&#35;10 which is the default for .NET6.0 apps.
 
 1. Delete all code in `Program.cs` and replace it with the following one-liner:
 ```
@@ -308,12 +321,12 @@ name:tutorials
 ### Tutorial
 # Microsoft Learn
 Complete the following interactive tutorials provided by Microsoft Learn:
-1. <a target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/hello-world">Hello World</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 30 Mins. 
-2. <a target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/numbers-in-csharp">Numbers in C#</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 30 Mins.
-3. <a target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/branches-and-loops">Branches and Loops</a> | 45 Mins.
-4. <a target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/list-collection">List Collections</a>&nbsp;&nbsp;&nbsp;| 30 Mins.
+1. <a target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/hello-world">Hello World</a><small>(30 Mins.) </small>
+2. <a target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/numbers-in-csharp">Numbers in C#</a><small>(30 Mins.) </small>
+3. <a target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/branches-and-loops">Branches and Loops</a><small>(45 Mins.) </small>
+4. <a target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/list-collection">List Collections</a><small>(30 Mins.) </small>
 
-> Even if you're familiar with C&#35;, **follow them**.
+> Even if you're familiar with C&#35;, **follow them** and do **not** copy-paste the code, write it yourself. 
 
 ---
 class: dark middle
@@ -334,7 +347,7 @@ Classes of the problem domain might be:
 - Invoice
 - ...
 
-These classes should always reside in a separate **Class Library** so they're shareable between multiple applications and can be distributed via NuGet.
+These classes should always reside in a separate **Class Library** so they're shareable between multiple applications and **can** be distributed via NuGet.
 
 > Class Libraries cannot run by themselves they need to be referenced by a runnable project (e.g. Console App). 
 ---
@@ -384,6 +397,7 @@ dotnet new classlib -o Domain
 ---
 ### Class Libraries
 # Linking a Class Library
+We want to use `Class`es from the `Domain` project in the `App` project so:
 1. Execute the following command in the `src` folder to link the Domain Class Library to the Application.
 ```console
 dotnet add App/App.csproj reference Domain/Domain.csproj
@@ -392,7 +406,7 @@ dotnet add App/App.csproj reference Domain/Domain.csproj
 2. Open the `App.csproj` file and see what's added by the command.
 ```
 <ItemGroup>
-       <ProjectReference Include="..\Domain\Domain.csproj"/>
+      <ProjectReference Include="..\Domain\Domain.csproj"/>
 </ItemGroup>
 ```
 
@@ -403,12 +417,15 @@ dotnet add App/App.csproj reference Domain/Domain.csproj
 # Referencing a Class Library
 1. Open the root folder `hello-class-libraries` in vs code
 2. Rename `Class1.cs` to `Bicycle.cs` and implement it:
-```
-    public class Bicycle { // Public is mandatory, (see later)
-        private int gear = 5; // Field
-        public void Brake() { // Function
-            System.Console.WriteLine("I'm braking in gear:" + gear);
-        }
+```cs
+namespace Domain;
+public class Bicycle // Public is mandatory, (see later)
+{ 
+      private int gear = 5; // Field
+      public void Brake() // Function
+      { 
+          System.Console.WriteLine("I'm braking in gear:" + gear);
+      }
 }
 ```
 3. Use it in the `Program.cs` from the App package.
@@ -417,7 +434,6 @@ using Domain; // Importing the namespace
 var bike = new Bicycle(); // Instantiating a new Bicycle Object
 bike.Brake(); // Using the method
 ```
-> Remember top-level-statements? all the boilerplate can go!
 4. Open a terminal and run the App. (**GIF on next slide**)
 
 ---
@@ -426,7 +442,7 @@ bike.Brake(); // Using the method
   <source src="images/class-library-bicycle.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-> Same as the slide before.
+> Same as the slide before, without file-scoped namespace. Notice that you might have less indents.
 ---
 class: dark middle
 name:git
@@ -479,12 +495,12 @@ Your browser does not support the video tag.
 
 ---
 ### Visual Studio Community 2019 Solution Setup
-<video controls width="110%">
+<br/>
+<video controls width="100%">
   <source src="images/create-solution-structure-vs.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-[Click here to see the GIF in fullscreen](images/create-solution-structure-vs.gif)
-
+> Altough it's 2019 it should look very similar to 2022, notice that file scoped namespaces and top-level statements are not used. Which can occur more in the course. 
 ---
 class: dark middle
 # Introducting the .NET ecosystem
