@@ -8,7 +8,7 @@ class: dark middle
 # Table of contents
 
 Code Editors (IDE)
-- [Visual Studio Community 2019](#visual-studio)<sup> **Kinda Cross-platform**</sup>
+- [Visual Studio 2022](#visual-studio)<sup> **Kinda Cross-platform**</sup>
 - [Visual Studio Code](#visual-studio-code)<sup> **Cross-platform**</sup>
   - With various extensions
 
@@ -28,12 +28,12 @@ class: dark middle
 ---
 name:visual-studio
 ### Installation Guide
-# Visual Studio 2019 Community 
+# Visual Studio 2022 Community 
 A fullblown source code editor to manipulate code **with a local database**
 
-1. Download Visual Studio Community 2019
-  - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16" target="_blank">Download for Windows</a>
-  - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio-mac/?sku=communitymac&rel=16" target="_blank">Download for Apple</a>
+1. Download Visual Studio 2022
+  - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false" target="_blank">Download for Windows</a>
+  - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio-mac/?sku=communitymac&rel=17" target="_blank">Download for Apple</a>
   - Linux: Visual Studio Code + dotnet CLI is sufficient
 
 2. Install* (for Windows)
@@ -47,12 +47,12 @@ A fullblown source code editor to manipulate code **with a local database**
 > *GIF provided in the next slide.
 
 ---
-### Visual Studio 2019 Community - Installation workflow
+### Visual Studio 2022 Community - Installation workflow
 <video controls width="100%">
   <source src="images/visual-studio-install.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-> Your version could be a little bit different.
+> Your version could be a little bit different, since it's 2019 in the gif.
 
 ---
 name:visual-studio-code
@@ -205,6 +205,6 @@ A lightweight **G**raphical **U**ser **I**nterface for GIT
 # Success!
 You're now ready to follow the classes in this course! #yay
 
-<img src="../../../images/pieter.jpg" width="40%" class="center">
+<img src="https://media.giphy.com/media/a0h7sAqON67nO/giphy.gif" width="90%" class="center">
 
 
