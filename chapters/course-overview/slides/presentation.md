@@ -44,16 +44,16 @@ name:technologies
 # Technologies
 
 **Programming Languages**
-- C&#35; 9
+- C&#35; 10
 - HTML in combination with Razor
 - CSS in combination with BULMA
 
 **Frameworks** 
-- Server: (ASP).NET 5
+- Server: (ASP).NET 6
 - Client: Blazor
 
 **Packages**
-- Entity Framework 5 | Dapper
+- Entity Framework 6 | Dapper
 - FluentValidation 
 - a bunch of others to make our lives easier
 
@@ -70,7 +70,7 @@ name:technologies
      - [NuGet Gallery](https://marketplace.visualstudio.com/items?itemName=patcx.vscode-nuget-gallery) (optional)
      - [Azure Static Web Apps](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps) (optional)
      - [ASP.NET Core Switcher](https://marketplace.visualstudio.com/items?itemName=adrianwilczynski.asp-net-core-switcher) (optional)
-- Visual Studio Community 2019
+- Visual Studio Community 2022
 
 **Database access**
 - Azure Data Studio
@@ -88,8 +88,6 @@ name:learning-materials
  - Real life example implementing a web store
 - Demos
  - Each class we'll use `.NET Interactive` or the web store example.
-- Recordings (EN)
- - Every class will be recorded by one of the lecturers.
 - Summary 
  - There is a [portal](../../../index.html) with links to all the learning materials.
 
@@ -102,6 +100,7 @@ name:classes
 5 hours per week
  - 2 hours
  - 3 hours
+> There is always a part theory and practicum.
 
 **Practise-first approach**
  - Essential theory explained with slides and demo's followed by exercises in each class.
@@ -137,4 +136,4 @@ name:examination
 # Help
 We don't provide help **after** class. Unless you created a [Stackoverflow](https://stackoverflow.com/) post to describe the issue and tried to copy-paste code like a real developer.
 
-<img src="./images/copy-paste.jpg" width="35%" class="center" /> 
+<img src="https://media-exp1.licdn.com/dms/image/C5612AQEjXRhO--cWxA/article-cover_image-shrink_423_752/0/1632944004487?e=1668643200&v=beta&t=3fPrVIrY4A4uMfcJ_q-HD4Ps9bvcHJ_puflgYxKmsX4" width="90%" class="center" /> 
