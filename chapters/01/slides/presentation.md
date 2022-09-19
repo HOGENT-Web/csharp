@@ -512,8 +512,8 @@ name:exercises
 # Exercises
 Complete the following exercises:
 1. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-1" target="_blank">You</a>
-2. <a href="https://github.com/HOGENT-Web/csharp-ch-1-exercise-2" target="_blank">Fibonacci</a>
-3. <a href="https://www.w3resource.com/csharp-exercises/basic/index.php" target="_blank">92 Drill exercises if you're feeling keen!</a>
+2. <a href="https://www.w3resource.com/csharp-exercises/basic/index.php" target="_blank">92 Drill exercises if you're feeling keen!</a>
+
 
 ---
 name:solutions
