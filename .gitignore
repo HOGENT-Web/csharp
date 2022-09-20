@@ -1,2 +1,5 @@
 # Visual Studio Code settings and stuff
 .vscode
+
+# Mac Generated Files
+.DS_Store
