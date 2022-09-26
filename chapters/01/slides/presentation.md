@@ -222,7 +222,7 @@ dotnet new list
 ```
 4. Create a new console application.
 ```
-dotnet new console -o App -f net6.0 --use-program-main -
+dotnet new console -o App -f net6.0 --use-program-main
 ```
 5. Checkout what these arguments mean
 ```
