@@ -48,6 +48,9 @@ A fullblown source code editor to manipulate code **with a local database**
 
 ---
 ### Visual Studio 2022 Community - Installation workflow
+
+<br/>
+<br/>
 <video controls width="100%">
   <source src="images/visual-studio-install.mp4" type="video/mp4">
 Your browser does not support the video tag.
