@@ -38,7 +38,7 @@ A fullblown source code editor to manipulate code **with a local database**
 
 2. Install* (for Windows)
   - Double click the installer
-  - Select `.NET cross-platform development` workload
+  - Select `ASP.NET and web development` workload
   - Select the tab `Individual components`
   - Search for `Class Designer`
   - Select `Class Designer`
@@ -49,10 +49,9 @@ A fullblown source code editor to manipulate code **with a local database**
 ---
 ### Visual Studio 2022 Community - Installation workflow
 <video controls width="100%">
-  <source src="images/visual-studio-install.mp4" type="video/mp4">
+  <source src="images/visual-studio-install.mkv" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-> Your version could be a little bit different, since it's 2019 in the gif.
 
 ---
 name:visual-studio-code
