@@ -143,8 +143,6 @@ Open the Solution in Visual Studio and follow along
 Your browser does not support the video tag.
 </video>
 
-> <a href="images/snake-eyes-project-setup.mp4" target="_blank">Fullscreen</a>
-
 ---
 class: dark middle
 
@@ -160,10 +158,6 @@ You should see the following:
   <source src="images/run-wasm.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-> <a href="images/run-wasm.mp4" target="_blank">Fullscreen</a>
-
-
 
 ---
 ### SnakeEyes
@@ -671,8 +665,6 @@ We'd like to show:
 Your browser does not support the video tag.
 </video>
 
-> <a href="images/dice.mp4" target="_blank">Fullscreen</a>
-
 ---
 ### SnakeEyes - Client
 # Dice.razor
@@ -712,8 +704,6 @@ span{
   <source src="images/dice-file-nesting.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-> <a href="images/dice-file-nesting.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### SnakeEyes - Client
@@ -756,8 +746,6 @@ Let's use our `Dice` component in the `Index.razor` file and pass constant value
 # Dice
 You should see the following when you run the app
 <img src="images/snake-eyes-dice.png" width="100%" class="center">
-
-> <a href="images/snake-eyes-dice.png" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle
@@ -971,8 +959,6 @@ name:github-pages
 Your browser does not support the video tag.
 </video>
 
-> <a href="images/deployment-1.mp4" target="_blank">Fullscreen</a>
-
 ---
 ### Deployment
 # GitHub Pages
@@ -981,8 +967,6 @@ Your browser does not support the video tag.
   <source src="images/deployment-2.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-> <a href="images/deployment-2.mp4" target="_blank">Fullscreen</a>
 
 ---
 <br/>
@@ -1044,8 +1028,6 @@ When you run the client (alone), no data will be accessible, since the server ca
 Your browser does not support the video tag.
 </video>
 
-> <a href="images/client-solo-run.mp4" target="_blank">Fullscreen</a>
-
 ---
 ### > dotnet new blazorwasm --hosted
 # First run (Server + Client)
@@ -1054,8 +1036,6 @@ When you run the server, the data is accessible.
   <source src="images/server-run.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-> <a href="images/server-run.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### > dotnet new blazorwasm --hosted
@@ -1826,8 +1806,6 @@ public override Task<AuthenticationState> GetAuthenticationStateAsync()
   <source src="images/delete-admin.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-> <a href="images/delete-admin.mp4" target="_blank">Fullscreen</a>
 
 ---
 name: workshop

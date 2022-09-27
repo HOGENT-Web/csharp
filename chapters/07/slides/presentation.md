@@ -330,8 +330,6 @@ post
 Your browser does not support the video tag.
 </video>
 
-<a href="images/REPL.mp4" target="_blank">Fullscreen</a>
-
 ---
 ### Ain't no REST for the wicked
 # Issues with the tutorial

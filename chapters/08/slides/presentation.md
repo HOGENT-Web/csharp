@@ -114,8 +114,6 @@ In the following example we combined both applicaties so that:
 Your browser does not support the video tag.
 </video>
 
-<a href="images/sportstore-as-is.mp4" target="_blank">Fullscreen</a>
-
 ---
 class: dark middle
 # Suit up, wear a fancy Blazor
@@ -139,8 +137,6 @@ We'll implement the following:
   <source src="images/sportstore-final-result.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-<a href="images/sportstore-final-result.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Sportstore
@@ -215,8 +211,6 @@ Sometimes the user experience can be better when rendering a small sidepanel to 
 Your browser does not support the video tag.
 </video>
 
-<a href="images/sportstore-create-sidepanel.mp4" target="_blank">Fullscreen</a>
-
 ---
 class: dark middle
 # Suit up, wear a fancy Blazor
@@ -244,8 +238,6 @@ This time you're on your own, on the details page it should be possible to open 
 Your browser does not support the video tag.
 </video>
 
-<a href="images/sportstore-edit-sidepanel.mp4" target="_blank">Fullscreen</a>
-
 ---
 class: dark middle
 # Suit up, wear a fancy Blazor
@@ -261,8 +253,6 @@ What we'll be building
   <source src="images/sportstore-filter.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-<a href="images/sportstore-filter.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Sportstore
@@ -561,8 +551,6 @@ Follow the steps in the GIF, if you don't have a Free Azure Accounts yet, activa
 Your browser does not support the video tag.
 </video>
 
-<a href="images/blob-storage-account.mp4" target="_blank">Fullscreen</a>
-
 ---
 ### BLOB Storage
 # Creating the container
@@ -572,8 +560,6 @@ Your browser does not support the video tag.
 Your browser does not support the video tag.
 </video>
 
-<a href="images/blob-storage-container.mp4" target="_blank">Fullscreen</a>
-
 ---
 ### BLOB Storage
 # Upload an image (portal)
@@ -582,8 +568,6 @@ Your browser does not support the video tag.
   <source src="images/blob-storage-image-upload.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-<a href="images/blob-storage-image-upload.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### BLOB Storage
@@ -612,8 +596,6 @@ Grab the connectionstring of your storage account, don't share it!
   <source src="images/blob-storage-connectionstring.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-<a href="images/blob-storage-connectionstring.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Uploading via SAS and Postman
@@ -676,8 +658,6 @@ Console.WriteLine(sas);
 Your browser does not support the video tag.
 </video>
 
-<a href="images/blob-storage-sas-token-upload-postman.mp4" target="_blank">Fullscreen</a>
-
 ---
 name:upload-image
 ### Exercise
@@ -696,8 +676,6 @@ Implement the functionality to upload an image when creating a product.
   <source src="images/blob-storage-create-with-image.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-<a href="images/blob-storage-create-with-image.mp4" target="_blank">Fullscreen</a>
 
 ---
 ### Client
@@ -950,8 +928,6 @@ Since we're in a Browser, due to CORS we cannot upload the image. Let's allow al
 Your browser does not support the video tag.
 </video>
 
-<a href="images/blob-storage-create-with-image.mp4" target="_blank">Fullscreen</a>
-
 ---
 class: dark middle
 # Suit up, wear a fancy Blazor
@@ -997,8 +973,6 @@ Tips:
   <source src="images/shopping-cart.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
-<a href="images/shopping-cart.mp4" target="_blank">Fullscreen</a>
 
 ---
 class: dark middle
