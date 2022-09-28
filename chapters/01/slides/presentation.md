@@ -337,7 +337,7 @@ name:class-Libraries
 ---
 ### Class Libraries
 # Problem Domain
-Real projects resolve around a **problem domain** or multiple domains.
+Real projects revolve around a **problem domain** or multiple domains.
 Classes of the problem domain might be:
 - Customer
 - Product
