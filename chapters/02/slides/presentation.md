@@ -29,5 +29,3 @@ To start learning this chapter:
 ```
 - Open the `chapters/02/notebooks` folder
 - Read them through and play with the code.
-
----

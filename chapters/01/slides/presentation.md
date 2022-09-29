@@ -536,7 +536,7 @@ name:summary
 In this chapter you learned:
 - The ins- and outs of the .NET Ecosystem.
 - Basic C# syntax
-- dotnet **C**ommnad **L**ine **I**nterface
+- dotnet **C**ommand **L**ine **I**nterface
 - Creating a simple console application
 - The problem domain goes into it's own class library
 - Linking a class library to a console application
