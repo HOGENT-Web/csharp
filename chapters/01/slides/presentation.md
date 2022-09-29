@@ -458,14 +458,14 @@ Standard folder structure:
 - ProjectName (repository)
 - .gitignore (notice it's in the root folder)
 - readme.md (information about the repository)
-  - src
-        - project1
-            - Files for project1
-        - classlibrary1
-            - Files for classlibrary1
-        - ...
-  - tests
-        - Same as src but for tests
+- src
+      - project1
+          - Files for project1
+      - classlibrary1
+          - Files for classlibrary1
+      - ...
+- tests
+      - Same as src but for tests
 
 ---
 ### GIT
