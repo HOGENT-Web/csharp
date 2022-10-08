@@ -16,7 +16,10 @@ class: dark middle
 - [Abstract class](#abstract-class)
 - [Interface](#interface)
 - [Static members](#static-members)
-- [Delegates &amp; Events](#events)
+- [Delegates](#delegates)
+- [Events](#events)
+- [Domain Driven Design](#ddd)
+- [Primitive obsession](#primitive-obsession)
 - [Unit Testing](#unit-testing)
 
 ---
@@ -803,12 +806,25 @@ class: dark middle
 ### Solving The Problem Domain
 # Inheritance
 
-* Mechanism to **reuse code**
+* **Every class** in C# implicitly **inherits from `System.Object`**
+  * No need to write this
+* You get these methods for free with this behaviour
+  * `ToString()`: returns the class name
+  * `Equals(Object)`: returns true
+      * if two reference variables reference the same object or
+      * if two value variables have the same value
+  * `GetHashCode()`: used in hash-based collections (e.g. `Dictionary`)
+
+---
+### Solving The Problem Domain
+# Inheritance
+
 * **Superclass** contains shared properties and methods
 * **Subclass inherits all** `public` and `protected` members
   * `private` members are not accessible/inherited
 * **Subclass extends or specialises** the superclass' behavior
 * **"Is a"** relation between sub- and superclass
+
 
 ---
 ### Inheritance
@@ -919,23 +935,9 @@ account2.Withdraw(100M); // method from SavingsAccount
 
 ---
 ### Inheritance
-# Object class
-
-* **Every object** in C# implicitly **inherits from `System.Object`**
-  * No need to write this
-* You get these methods for free with this behaviour
-  * `ToString()`: returns the class name
-  * `Equals(Object)`: returns true
-      * if two reference variables reference the same object or
-      * if two value variables have the same value
-  * `GetHashCode()`: used in hash-based collections (e.g. `Dictionary`)
-* In most cases, one wants to override these methods
-
----
-### Inheritance
 # Example
 
-Now implement the `SavingsAccount` class! Also add a `ToString`, `Equals` and `GetHashCode` to the class `BankAccount`.
+Now implement the `SavingsAccount` class!
 
 <img src="./images/DCD_part4.svg" width="100%" class="center" />
 
@@ -1092,183 +1094,403 @@ double result = Math.Cos(45);
 ```
 
 ---
+name: delegates
+class: dark middle
+
+# Solving The Problem Domain
+> Delegates
+
+<small>When in doubt, mumble; when in trouble, delegate</small>
+
+---
+### Solving The Problem Domain
+# Delegates
+
+* Are reference types
+* Holds a **reference to a method**
+* **Declares signature** of the method: return type and parameters
+  * Can only hold references to methods with an **exact match**
+  * **Type-safe function pointer** (as in C++ for example) or a callback (JavaScript)
+* Use the delegates `Action` or `Func<T>`
+  * `Action` has no return type (`void`)
+  * `Func<T>` can specify a return type
+
+```cs
+private void LogSomething()
+{
+    Console.WriteLine("Hello World");
+}
+
+Action action = LogSomething; // Pointer.
+
+action(); // Invokation
+action.Invoke(); // Or Invoke this way.
+```
+
+---
+### Delegates
+# Practical example
+
+```cs
+public class Button
+{
+    public string Text { get; set; }
+*   public Action OnClicked { get; set; }
+    public Button(string text, `Action onClicked`)
+    {
+        Text = text;
+*       OnClicked = onClicked;
+    }
+    public void Click()
+    {
+        Console.WriteLine("Button clicked");
+*       OnClicked?.Invoke(); // Watch out for null with '?'
+    }
+}
+```
+
+```cs
+var button = new Button("Click me!",`LogSomething`);
+void LogSomething()
+{
+   Console.WriteLine("Logging something after the button click");
+}
+// The caller has control `which` function is invoked, `not when`.
+button.Click();
+```
+
+
+---
+### `Action`
+# Parameters
+Passing parameters is possible by using type parameters in the declaration
+
+1 Parameter
+```cs
+private void DoSomething(`int a`){
+    Console.WriteLine(a);
+}
+Action<`int`> action = DoSomething;
+
+action(`1`)
+```
+
+2 Parameters
+```cs
+private void DoSomething2(`int a`,` string b`){
+    Console.WriteLine($"Param A:`{a}`, Param B:`{b}`");
+}
+Action<int,string> action2 = DoSomething;
+
+action(`1`, `"Hello"`);
+```
+
+`N` amount of  parameters where X is a type and `N` <= 16:
+
+Action&lt;x<sub>1</sub>,x<sub>2</sub>,x<sub>3</sub>x<sub>...</sub>,x<sub>n</sub>&gt;
+
+---
+### `Func<TResult>`
+# Return Type
+* `Action` cannot return anything, it always returns `void`.
+* Use `Func<TResult>` when you need to return something.
+
+```cs
+private `string` ReturnSomething(){
+    return "Something";
+}
+Func<`string`> action = ReturnSomething;
+
+*string something = action();
+Console.WriteLine(something); // Something
+```
+
+---
+### `Func<TParameter,TResult>`
+# TResult and a parameter
+
+Add parameters, before the return type.
+```cs
+private string ReturnSomething(`int a`){
+    return $"Something, parameter a:{a}";
+}
+
+Func<`int`,string> action = ReturnSomething;
+// int is the parameter, string is the return type or TResult
+
+string something = action(`1`);
+Console.WriteLine(something); // Something, parameter a:1
+```
+
+---
+### `Func<TParameter1,TParameter2,...,TResult>`
+# TResult and multiple parameters
+Func&lt;x<sub>1</sub>,x<sub>2</sub>,x<sub>3</sub>x<sub>...</sub>,x<sub>n</sub>,TResult&gt;
+* `N` amount of  parameters where X is a type and `N` <= 15:
+* `TResult` is always the last generic type 
+  
+```cs
+private string ReturnSomething(`int a, decimal b`){
+    return $"Something, parameter a:{`a`}, parameter b:{`b`}";
+}
+Func<`int,decimal`,string> action = ReturnSomething;
+
+string something = action(`1`,`50M`);
+Console.WriteLine(something); 
+// Something, parameter a:1, parameter b:50
+```
+
+---
 name: events
 class: dark middle
 
 # Solving The Problem Domain
-> Delegates &amp; Events
+> Events
 
 ---
-### Delegates &amp; Events
+### Solving The Problem Domain
 # Events
 
-* **Something that happened** during the execution of a program
-* **Inform others** about it (i.e. some other piece of code)
+* **Something that happened**
+* **Inform others** about it
 * Examples:
   * a new user was created
   * a product was added to a cart
   * some user changed something
   * someone scored a certain amount of points
   * ...
-
----
-### Delegates &amp; Events
-# Events
-
 * Based on the **delegate model**
 * Follows the [observer design pattern](https://refactoring.guru/design-patterns/observer).
-* Type of message sent by an object to signal the occurence of an action
-* Typically a member of the event sender
-* Event sender doesn't know which object or method will receive (or handle) his events
 
-???
-### Observer
-With this pattern you enable subscriber to register with and receive notifications from a provider. The event sender (= provider) pushes a notification after an event occured, the event receiver (= subscriber) receives it and does something with it.
+---
+### Events
+# Observer Design Pattern
+
+With this pattern you enable `subscribers` to register and receive notifications from a `publisher`. The event sender (= `publisher`) pushes a notification after an event occured, the event receiver (= subscriber) receives it and does something with it.
+
+<img src="https://refactoring.guru/images/patterns/diagrams/observer/solution2-en.png?id=fcea7791ac77b6ecb6fea2c2b4128d4a" class="center"/>
 
 ---
 ### Events
 # Definition
 
-Simply add the `event` keyword before the declaration of an `EventHandler`.
+Add the `event` keyword before the declaration of a `delegate`.
 
-```{cs}
-class Counter {
-  `event EventHandler ThresholdReached;`
-}
-```
-
-The EventHandler can also get a type parameter: `EventHandler<TEventArgs>`.
-
----
-### Events
-# Emitting an event
-
-Define a `protected` and `virtual` method following the name convention **On*EventName***. This method always has **one parameter** of type **`EventArgs`** which contain the event data, if present.
-
-```{cs}
-class Counter {
-  event EventHandler ThresholdReached;
-
-  `protected virtual void OnThresholdReached(EventArgs e) {`
-    `ThresholdReached?.Invoke(this, e);`
-  `}`
-}
-```
-
----
-### Events
-# Event arguments
-
-* Every event can have arguments (not required!)
-* Create a **subclass of `EventArgs`**
-  * Has a static property **`Empty`**
-  * Used for events without arguments
-  * Pass `EventArgs.Empty` to the second parameter of the handler
-* Add the arguments as **properties** in this new class
-
-```{cs}
-public class ThresholdReachedEventArgs : EventArgs
+```cs
+public class Publisher 
 {
-  public int Threshold { get; set; }
-  public DateTime TimeReached { get; set; }
-}
-```
+  public `event` Action `OnSomethingChanged`; // `don't` use `get;set;`
 
----
-### Events
-# Event arguments
-
-Example of empty event arguments
-
-```{cs}
-public class Counter
-{
-  private int threshold;
-  private int total;
-  public event EventHandler ThresholdReached;
-
-  public Counter(int passedThreshold) { /* ... */ }
-
-  public void Add(int x)
+  public void DoSomething()
   {
-    total += x;
-    if (total >= threshold)
-      `OnThresholdReached(EventArgs.Empty);`
+    // Other usefull code.
+    OnSomethingChanged?.Invoke(); // Emitting an event
   }
+}
+```
 
-  protected virtual void OnThresholdReached(EventArgs e) { /* ... */ }
+```cs
+public class Subscriber
+{
+  public Subscriber(Publisher publisher)
+  {
+    publisher.OnSomethingChanged `+=` ActOnSomething;
+  }
+  public void ActOnSomething()
+  {
+    Console.WriteLine("Act after event occured");
+  }
 }
 ```
 
 ---
 ### Events
+# Definition
+Clean-up | unregister by implementing the `IDisposable` interface.
+
+```cs
+public class Subscriber `: IDisposable`
+{
+  public Subscriber(Publisher publisher)
+  {
+    publisher.OnSomethingChanged `+=` ActOnSomething;
+  }
+  public void Dispose()
+  {
+    publisher.OnSomethingChanged `-=` ActOnSomething;
+  }
+  public void ActOnSomething()
+  {
+    Console.WriteLine("Act after event occured");
+  }
+}
+```
+
+If you do not do this, you'll get memory leaks since the Garbage Collector cannot clean-up referenced objects
+> TIP: Instantly implement `IDisposable` when registering.
+
+---
+### Events
 # Event arguments
+
+* Every event **can** have arguments, just like delegates
+
+```cs
+public class Publisher 
+{
+  public event Action<`int`> OnSomethingChanged;
+  public void DoSomething()
+  {
+     OnSomethingChanged?.Invoke(`1`); // Emitting with parameter '1'
+  }
+}
+```
+
+```cs
+public class Subscriber : IDisposable
+{
+  public Subscriber(Publisher publisher)
+  {
+    publisher.OnSomethingChanged `+=` ActOnSomething;
+  }
+  public void ActOnSomething(`int a`)
+  {
+    Console.WriteLine($"Act after event with parameter a:{`a`}");
+  }
+  // ... Other methods and Dispose
+}
+```
+
+---
+### Events
+# Custom event arguments
+
+Example of custom event arguments
+```cs
+public class Publisher 
+{
+public event Action<`OnSomethingChangedEventArgs`> OnSomethingChanged;
+public void DoSomething()
+{
+  // Insert usefull code here
+    OnSomethingChangedEventArgs args = new();
+    args.Parameter1 = "Hello";
+    OnSomethingChanged?.Invoke(this,args);
+}
+}
+```
+
+```cs
+public class OnSomethingChangedEventArgs 
+{
+  public string Parameter1 {get;set;}
+  public object Parameter2 {get;set;}
+}
+```
+
+> Continued on next slide...
+
+---
+### Events
+# Custom event arguments
 
 Example of custom event arguments
 
-```{cs}
-public class Counter
+```cs
+public class Subscriber : IDisposable
 {
-  private int threshold;
-  private int total;
-  public event EventHandler ThresholdReached;
-
-  public Counter(int passedThreshold) { /* ... */ }
-
-  public void Add(int x)
+  public Subscriber(Publisher publisher)
   {
-    total += x;
-    if (total >= threshold)
-      `OnThresholdReached(new ThresholdReachedEventArgs() {`
-        `Threshold = threshold, TimeReached = DateTime.Now });`
+    publisher.OnSomething += ActOnSomething;
   }
-
-  protected virtual void OnThresholdReached(EventArgs e) { /* ... */ }
+  public void ActOnSomething(`OnSomethingChangedEventArgs args`)
+  {
+    Console.WriteLine($"Act after event with :{`args.Parameter1`}");
+  }
+  // ... Other methods and Dispose
 }
 ```
 
 ---
-### Delegates &amp; Events
-# Delegates
+### Events
+# Naming conventions
 
-* Reference type
-* Holds a **reference to a method**
-* **Declares signature** of the method: return type and parameters
-  * Can only hold references to methods with an exact match
-  * Type-safe function pointer (as in C++ for example) or a callback (JavaScript)
-* **Intermediary** between event source and code that handles it
-* **Multicast**: can hold more than one reference
-* `EventHandler` itself is a delegate: look at the [documentation](https://docs.microsoft.com/en-us/dotnet/api/system.eventhandler?view=net-5.0).
-* Can also be **used to emit events**, it's easier to define the arguments.
-  * No inheritance of `EventArgs` needed
+Events
+* Start with **On**SomethingChanged
+* Ends with a past tense OnSomething**Changed**
 
----
-### Delegates
-# Definition
+CustomEventArgs
+* Name of the class `OnSomethingChanged`**EventArgs**
+  * Name of the event in combination with EventArgs
 
-Define a `public` `void` method using the **keyword `delegate`** and declaring the parameters.
+Examples:
+* OnThresholdReached
+* OnTransactionCreated
+* OnCustomerChanged
 
-```{cs}
-public `delegate` void ThresholdReachedEventHandler(object sender,
-  ThresholdReachedEventArgs e);
-```
 
-Or even with custom arguments
-
-```{cs}
-public delegate void OnThresholdReached(`int threshold`);
-```
+* OnThresholdReachedEventArgs
+* OnTransactionCreatedEventArgs
+* OnCustomerChangedEventArgs
 
 ---
-### Delegates &amp; Events
+### Events
 # Example
+
+Use the events [notebook](https://github.com/HOGENT-Web/csharp/tree/main/chapters/03/notebooks/events.ipynb)
+
+In the example you'll see how events can help to sent notifications to different components.
+
+* 2 subscribers
+  * `NotifierComponent`
+  * `ListComponent`
+* Publisher
+  * `State`
+* 1 activator which triggers the notification
+  * `AddComponent`
+
+---
+### Events
+# Exercise
 
 Add an event to a BankAccount which emits a transaction when one is added.
 
-> Why do we need a setter for `TransactionAdded`?
-
-
 <img src="./images/DCD_part6.svg" width="90%" class="center" />
+
+---
+name: primitive-obsession
+class: dark middle
+
+# Solving The Problem Domain
+> Primitive obsession
+
+---
+### Solving The Problem Domain
+# Primitive obsession
+
+Read the following article about Primitive Obsession and why it can be a code smell.
+
+[Functional C#: Primitive obsession](https://enterprisecraftsmanship.com/posts/functional-c-primitive-obsession/)
+
+Re-evaluate the Domain, which classes can be introduced to get rid of primitive obsession?
+
+---
+name: ddd
+class: dark middle
+
+# Solving The Problem Domain
+> Domain Driven Design
+
+---
+### Domain Driven Design
+# Best practises
+
+There are some concepts worth grasping when designing your domain. Read through the following articles:
+
+* [Entity Base Class](https://enterprisecraftsmanship.com/posts/entity-base-class/)
+* [Value Objects](https://enterprisecraftsmanship.com/posts/value-objects-explained/)
+* [Entity vs Value Object](https://enterprisecraftsmanship.com/posts/entity-vs-value-object-the-ultimate-list-of-differences/)
+* [Value object a better implementation](https://enterprisecraftsmanship.com/posts/value-object-better-implementation/)
 
 ---
 name: unit-testing
