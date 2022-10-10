@@ -77,7 +77,7 @@ Use a SPA when:
 However:
 - SPA frameworks require greater architectural and security expertise.
 
-> Read more [here](https://docs.microsoft.com/nl-be/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-apps) or [here](https://docs.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui?view=aspnetcore-5.0)
+> Read more [here](https://docs.microsoft.com/nl-be/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-apps) or [here](https://docs.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui?view=aspnetcore-6.0)
 
 ---
 name:hosting-models
@@ -112,14 +112,14 @@ name:razor-pages
 ### Razor Pages
 # > dotnet new razor
 Complete the following tutorial series:
-1. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/?view=aspnetcore-5.0">Create a Razor Pages web app</a>
-2. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/model?view=aspnetcore-5.0">Add a model to a Razor Pages app</a>
-3. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/page?view=aspnetcore-5.0">Scaffold (generate) Razor pages</a>
-4. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/sql?view=aspnetcore-5.0">Work with a database</a>
-5. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/da1?view=aspnetcore-5.0">Update Razor Pages </a>
-6. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/search?view=aspnetcore-5.0">Add Search</a>
-7. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/new-field?view=aspnetcore-5.0">Add a new field</a>
-8. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/validation?view=aspnetcore-5.0">Add validation</a>
+1. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/?view=aspnetcore-6.0">Create a Razor Pages web app</a>
+2. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/model?view=aspnetcore-6.0">Add a model to a Razor Pages app</a>
+3. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/page?view=aspnetcore-6.0">Scaffold (generate) Razor pages</a>
+4. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/sql?view=aspnetcore-6.0">Work with a database</a>
+5. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/da1?view=aspnetcore-6.0">Update Razor Pages </a>
+6. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/search?view=aspnetcore-6.0">Add Search</a>
+7. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/new-field?view=aspnetcore-6.0">Add a new field</a>
+8. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/validation?view=aspnetcore-6.0">Add validation</a>
 
 ---
 class: dark middle
@@ -144,16 +144,16 @@ name:mvc
 ### Model View Controller (MVC)
 # > dotnet new webapp
 Complete the following tutorial series:
-1. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-5.0">Get started with ASP.NET</a>
-2. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-controller?view=aspnetcore-5.0">Add a controller</a>
-3. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-view?view=aspnetcore-5.0">Add a view</a>
-4. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-model?view=aspnetcore-5.0">Add a model</a>
-5. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/working-with-sql?view=aspnetcore-5.0">Work with a database</a>
-6. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/controller-methods-views?view=aspnetcore-5.0">Controller actions and views</a>
-7. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/search?view=aspnetcore-5.0">Add search</a>
-8. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/new-field?view=aspnetcore-5.0">Add a new field</a>
-9. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/validation?view=aspnetcore-5.0">Add validation</a>
-10. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/details?view=aspnetcore-5.0">Examine Details and Delete</a>
+1. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-6.0">Get started with ASP.NET</a>
+2. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-controller?view=aspnetcore-6.0">Add a controller</a>
+3. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-view?view=aspnetcore-6.0">Add a view</a>
+4. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-model?view=aspnetcore-6.0">Add a model</a>
+5. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/working-with-sql?view=aspnetcore-6.0">Work with a database</a>
+6. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/controller-methods-views?view=aspnetcore-6.0">Controller actions and views</a>
+7. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/search?view=aspnetcore-6.0">Add search</a>
+8. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/new-field?view=aspnetcore-6.0">Add a new field</a>
+9. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/validation?view=aspnetcore-6.0">Add validation</a>
+10. <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/details?view=aspnetcore-6.0">Examine Details and Delete</a>
 
 
 ---
@@ -228,7 +228,7 @@ name:blazor-server
 - Cannot run without an active internet connection.
 - Interactions are send to the server and a HTML diff is send back to the client.
 
-> More information can be found [here](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-5.0)
+> More information can be found [here](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-6.0)
 >
 > We won't be creating a Blazor Server application in this course, we'll use the WASM version.
 ---
