@@ -1503,7 +1503,7 @@ class: dark middle
 ### Solving The Problem Domain
 # Unit Testing 
 
-Always write tests, use a **Test Driven Development (TDD)** approach
+Write tests that make sense, use a **Test Driven Development (TDD)** approach
 
 <img src="./images/test-in-production.jpg" width="80%" class="center" />
 
@@ -1590,21 +1590,57 @@ Some useful methods of **Assert**
 # What should be tested?
 
 * Be **creative**
-* Get inspiration from use cases (if you have any)
-* **Test every possible outcome**
-  * one normal case
-  * every possible error
-  * edge case(s)
-* Name convention:
-  * test class: **`ClassNameTest`**
-  * method: **`MethodName_TestCase_Outcome`**
-  * constructor: **`NewClassName_TestCase_Outcome`**
+* Get inspiration from use cases
+* Test different outcomes
+  * one normal case / happy flow
+  * every possible error e.g. NULL
+  * edge case(s) 
+
+---
+### Unit Testing
+# Naming conventions
+Technical way
+* test class: **`ClassNameTest`**
+* method: **`MethodName_TestCase_Outcome`**
+* constructor: **`NewClassName_TestCase_Outcome`**
+
+Business way
+* test class: **`ClassName_Should`**
+* method (invalid): **`Throw_when_invalid_parameters`**
+* method (happy): **`Withdraw_when_balance_is_greater_than`**
+* constructor: **`Not_exist_when_...`**
+
+> In the business way if doing things, it's more from a business point-of-view, but allow freedom of expression.
+
+---
+### Unit Testing
+# Something to think about
+Technical way
+```cs
+[Fact]
+public void IsDeliveryValid_InvalidDate_ReturnsFalse() {}
+```
+
+Business way
+```cs
+[Fact]
+public void Delivery_with_a_past_date_is_invalid() { }
+```
+
+Guidelines
+* Name the tests as if you were describing the scenario in it to a non-programmer.
+* Separate words in the test name by underscores.
+* Don’t include the name of the method under test in the test name.
+* Allow freedom of expression
+
+Check out the [article from Vladimir Khorikov](https://enterprisecraftsmanship.com/posts/you-naming-tests-wrong/)
 
 ---
 ### Unit Testing
 # Show me the code
 
-* **One test class per class**
+* **One test class per unit**
+  * a unit can be multiple classes, it has to make sense
 * Every test is a **`public void` method** with one of these annotations
   * **`[Fact]`**: test with same data (one case)
   * **`[Theory]`**: data driven test (multiple cases at once)
@@ -1636,7 +1672,7 @@ public class BankAccountTest
 
 ---
 ### Show me the code
-# Theory
+# Theory InlineData
 
 ```{cs}
 public class BankAccountTest
@@ -1657,7 +1693,7 @@ public class BankAccountTest
 
 ---
 ### Show me the code
-# Theory
+# Theory MemberData
 
 ```{cs}
 public class BankAccountTest
@@ -1682,6 +1718,26 @@ public class BankAccountTest
 }
 ```
 
+---
+### Show me the better code
+# Shouldly
+Shouldly is an assertion framework which focuses on giving great error messages when the assertion fails while being simple and terse.
+
+This is the old / standard *Assert* way: 
+```cs
+Assert.That(contestant.Points, Is.EqualTo(1337));
+```
+You get this message, when it fails:
+> Expected 1337 but was 0
+
+How it **Should** be:
+```cs
+contestant.Points.ShouldBe(1337);
+```
+Which is just syntax, so far, but check out the message when it fails:
+> contestant.Points should be 1337 but was 0
+
+Read more about Shouldly and its features in the [docs](https://docs.shouldly.org/).
 ---
 ### Example
 # Create a new test project
@@ -1729,12 +1785,13 @@ Create the following tests for **`BankAccount`** (use `"123-4567890-02"` as acco
 | NewAccount_BalanceZero       | Balance is `0.00`                   |
 | NewAccount_SetsAccountNumber | AccountNumber is `"123-4567890-02"` |
 
-> **Hint:** create regions for each method you test
-
 ---
 ### Run the tests
 
-<video controls width="100%" >
+<br/>
+<br/>
+
+<video controls width="100%" class="center" >
   <source src="images/run-tests.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
