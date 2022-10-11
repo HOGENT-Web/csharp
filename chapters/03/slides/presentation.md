@@ -74,7 +74,7 @@ class: dark middle
 ### The sample application
 # Domain Class Diagram
 
-<img src="./images/DCD_part7.svg" width="100%" />
+<img src="./images/DCD_part6.svg" width="100%" />
 
 ---
 name: classes
