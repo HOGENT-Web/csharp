@@ -1172,7 +1172,7 @@ private void DoSomething(`int a`){
 }
 Action<`int`> action = DoSomething;
 
-action(`1`)
+action(`1`);
 ```
 
 2 Parameters
@@ -1180,9 +1180,9 @@ action(`1`)
 private void DoSomething2(`int a`,` string b`){
     Console.WriteLine($"Param A:`{a}`, Param B:`{b}`");
 }
-Action<int,string> action2 = DoSomething;
+Action<int,string> action2 = DoSomething2;
 
-action(`1`, `"Hello"`);
+action2(`1`, `"Hello"`);
 ```
 
 `N` amount of  parameters where X is a type and `N` <= 16:
@@ -1211,11 +1211,11 @@ Console.WriteLine(something); // Something
 
 Add parameters, before the return type.
 ```cs
-private string ReturnSomething(`int a`){
+private string ReturnSomething2(`int a`){
     return $"Something, parameter a:{a}";
 }
 
-Func<`int`,string> action = ReturnSomething;
+Func<`int`,string> action = ReturnSomething2;
 // int is the parameter, string is the return type or TResult
 
 string something = action(`1`);
@@ -1230,10 +1230,10 @@ Func&lt;x<sub>1</sub>,x<sub>2</sub>,x<sub>3</sub>x<sub>...</sub>,x<sub>n</sub>,T
 * `TResult` is always the last generic type 
   
 ```cs
-private string ReturnSomething(`int a, decimal b`){
+private string ReturnSomething3(`int a, decimal b`){
     return $"Something, parameter a:{`a`}, parameter b:{`b`}";
 }
-Func<`int,decimal`,string> action = ReturnSomething;
+Func<`int,decimal`,string> action = ReturnSomething3;
 
 string something = action(`1`,`50M`);
 Console.WriteLine(something); 
@@ -1277,13 +1277,11 @@ With this pattern you enable `subscribers` to register and receive notifications
 Add the `event` keyword before the declaration of a `delegate`.
 
 ```cs
-public class Publisher 
+public class  Publisher 
 {
   public `event` Action `OnSomethingChanged`; // `don't` use `get;set;`
-
   public void DoSomething()
-  {
-    // Other usefull code.
+  {// Other usefull code.
     OnSomethingChanged?.Invoke(); // Emitting an event
   }
 }
@@ -1292,9 +1290,11 @@ public class Publisher
 ```cs
 public class Subscriber
 {
+  private readonly Publisher _publisher;
   public Subscriber(Publisher publisher)
   {
-    publisher.OnSomethingChanged `+=` ActOnSomething;
+    _publisher = publisher;
+    _publisher.OnSomethingChanged `+=` ActOnSomething;
   }
   public void ActOnSomething()
   {
@@ -1311,14 +1311,16 @@ Clean-up | unregister by implementing the `IDisposable` interface.
 ```cs
 public class Subscriber `: IDisposable`
 {
+  private readonly Publisher _publisher;
   public Subscriber(Publisher publisher)
   {
-    publisher.OnSomethingChanged `+=` ActOnSomething;
+    _publisher = publisher;
+    _publisher.OnSomethingChanged `+=` ActOnSomething;
   }
-  public void Dispose()
-  {
-    publisher.OnSomethingChanged `-=` ActOnSomething;
-  }
+* public void Dispose()
+* {
+*   _publisher.OnSomethingChanged `-=` ActOnSomething;
+* }
   public void ActOnSomething()
   {
     Console.WriteLine("Act after event occured");
@@ -1349,8 +1351,10 @@ public class Publisher
 ```cs
 public class Subscriber : IDisposable
 {
+  private readonly Pubslisher _publisher;
   public Subscriber(Publisher publisher)
   {
+    _publisher = publisher
     publisher.OnSomethingChanged `+=` ActOnSomething;
   }
   public void ActOnSomething(`int a`)
@@ -1399,9 +1403,11 @@ Example of custom event arguments
 ```cs
 public class Subscriber : IDisposable
 {
+  private readonly Pubslisher _publisher;
   public Subscriber(Publisher publisher)
   {
-    publisher.OnSomething += ActOnSomething;
+    _publisher = publisher
+    publisher.OnSomethingChanged += ActOnSomething;
   }
   public void ActOnSomething(`OnSomethingChangedEventArgs args`)
   {
