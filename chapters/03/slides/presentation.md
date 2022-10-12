@@ -1655,7 +1655,9 @@ Check out the [article from Vladimir Khorikov](https://enterprisecraftsmanship.c
       * use **`[InlineData(/* ... */)]`** or
       * **`[MemberData(nameof(/* field */))]`**
 * **Set up** code goes in the constructor
+  * Runs **before** every test function in the same class
 * **Tear down** code goes in the `Dispose` method
+  * Runs **after** every test function in the same class
   * Inherit from `IDisposable`
 
 ---
@@ -1723,6 +1725,34 @@ public class BankAccountTest
   `[MemberData(nameof(TestData))]`
   public void GetTransactions_ReturnsTransactions(`DateTime? from,`
     `DateTime? till, int expected`) { /* ... */ }
+}
+```
+
+---
+### Show me the code
+# Initialize and Teardown
+
+```cs
+public class UnitTest1 : IDisposable
+{
+    public UnitTest1()
+    { // Before every testfunction
+        Console.WriteLine("Initialize");
+    }
+    public void Dispose()
+    { // After every testfunction
+        Console.WriteLine("Teardown");
+    }
+    [Fact]
+    public void Test1()
+    { // Actual test
+        Console.WriteLine("Test1");
+    }
+    [Fact]
+    public void Test2()
+    { // Actual other test
+        Console.WriteLine("Test2");
+    }
 }
 ```
 
