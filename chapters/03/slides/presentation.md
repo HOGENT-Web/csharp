@@ -1123,7 +1123,7 @@ private void LogSomething()
 
 Action action = LogSomething; // Pointer.
 
-action(); // Invokation
+action(); // Invocation
 action.Invoke(); // Or Invoke this way.
 ```
 
@@ -1266,7 +1266,7 @@ class: dark middle
 ### Events
 # Observer Design Pattern
 
-With this pattern you enable `subscribers` to register and receive notifications from a `publisher`. The event sender (= `publisher`) pushes a notification after an event occured, the event receiver (= subscriber) receives it and does something with it.
+With this pattern you enable `subscribers` to register and receive notifications from a `publisher`. The event sender (= `publisher`) pushes a notification after an event occurred, the event receiver (= subscriber) receives it and does something with it.
 
 <img src="https://refactoring.guru/images/patterns/diagrams/observer/solution2-en.png?id=fcea7791ac77b6ecb6fea2c2b4128d4a" class="center"/>
 
@@ -1281,7 +1281,7 @@ public class  Publisher
 {
   public `event` Action `OnSomethingChanged`; // `don't` use `get;set;`
   public void DoSomething()
-  {// Other usefull code.
+  {// Other useful code.
     OnSomethingChanged?.Invoke(); // Emitting an event
   }
 }
@@ -1298,7 +1298,7 @@ public class Subscriber
   }
   public void ActOnSomething()
   {
-    Console.WriteLine("Act after event occured");
+    Console.WriteLine("Act after event occurred");
   }
 }
 ```
@@ -1323,7 +1323,7 @@ public class Subscriber `: IDisposable`
 * }
   public void ActOnSomething()
   {
-    Console.WriteLine("Act after event occured");
+    Console.WriteLine("Act after event occurred");
   }
 }
 ```
@@ -1376,7 +1376,7 @@ public class Publisher
 public event Action<`OnSomethingChangedEventArgs`> OnSomethingChanged;
 public void DoSomething()
 {
-  // Insert usefull code here
+  // Insert useful code here
     OnSomethingChangedEventArgs args = new();
     args.Parameter1 = "Hello";
     OnSomethingChanged?.Invoke(this,args);
@@ -1543,7 +1543,7 @@ The idea of TDD:
 7. Run the tests -> they pass
 8. Refactor the code
 7. Run the tests -> they should still pass
-9. Repeat steps 3-9 untill the entire class is implemented
+9. Repeat steps 3-9 until the entire class is implemented
 
 ---
 ### Unit Testing
