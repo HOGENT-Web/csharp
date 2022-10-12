@@ -15,6 +15,13 @@ class: dark middle
 - [Fake it till you make it](#faking)
 - [Workshop](#workshop)
 
+
+---
+### Suit up, wear a Blazor
+# Caution
+
+There are a lot of external links to Microsoft's official documentation in this slide deck. The links are part of the educational material and **should** be read by you.
+
 ---
 name:introduction
 ### Suit up, wear a Blazor
@@ -135,8 +142,26 @@ dotnet add Client/Client.csproj reference Domain/Domain.csproj
 ```
 
 ---
+### SnakeEyes
+# Linking the .csproj and .sln
+Go to the folder where the file `SnakeEyes.sln` is located.
+```
+cd ..
+```
+
+Add the `Client.csproj` to the solution in the `src` folder
+```
+dotnet sln add src/Client/Client.csproj --solution-folder src 
+```
+
+Add the `Domain.csproj` to the solution in the `src` folder
+```
+dotnet sln add src/Domain/Domain.csproj --solution-folder src 
+```
+
+---
 ### Linking the Solution
-Open the Solution in Visual Studio and follow along
+If you don't like the CLI, use Visual Studio
 
 <video controls width="100%" class="center">
   <source src="images/snake-eyes-project-setup.mp4" type="video/mp4">
@@ -170,15 +195,14 @@ Imagine, you want to re-use this super kewl game in a
 
 Then we can re-use the `Domain.csproj` with all it's fluffy goodness and just implement the presentation layer.
 
-> TBH: You would probably never do this for this small app, but for bigger apps it might be a good idea.
-
+> Note: Sharing the `Domain` should **not be done** once we implement the Web API in a later chapter `Ain't no REST for the wicked`.
 ---
 ### SnakeEyes
 # Domain
 Let's implement the following Domain
 <img src="images/snake-eyes-domain.png" width="75%" class="center">
 
-> For now all the methods can `throw new NotImplementedException()`
+> For now all the methods can `throw NotImplementedException()`
 
 ---
 ### SnakeEyes - Domain
@@ -187,15 +211,14 @@ Implement the following:
 - `Constructor`
     - Set's the default value of `Dots` which is `6`.
 - `Roll()`
-    - Uses the `_randomizer` to set the `Dots` to a value between `1` and `6`
-    > Google is your friend for this one...
+    - Uses the `_randomizer` to set the `Dots` to a value between `1` and `6` find out how to [here](https://letmegooglethat.com/?q=C%23+Randomize+value+between+1+and+6).
 
 ---
 ### SnakeEyes - Domain
 # Game
 Implement the following:
 - `Eye1 | Eye2`
-    - Return the `Dots` (which should be private) of `_dice1` and `_dice2`.
+    - Return the `Dots` (which should be private but could not be modelled in the class Diagram) of `_dice1` and `_dice2`.
 - `Constructor` and `Restart()`
     - Use the `Initialize()` method
 - `Initialize()`
@@ -205,7 +228,6 @@ Implement the following:
     - Checks if the game is finished (HasSnakeEyes)
     - If so :Adds the `Total` to the `_highscores` and resets the `Total`.
     - If not: Adds the sum of the 2 Eyes / Dices to the `Total`.
-
 
 ---
 class: dark middle
@@ -249,7 +271,7 @@ Program.cs
 - Is only used on the local development machine.
 - Contains profile settings.
 
-> Read more about profils <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-5.0#development-and-launchsettingsjson-1">here</a>
+> Read more about profiles <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-5.0#development-and-launchsettingsjson-1">here</a>
 
 ---
 ### Unboxing the Client
@@ -302,6 +324,7 @@ index.html               // Entry point of the client.
 # Index.razor
 ```
 *@page "/"
+*<PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
 
@@ -313,6 +336,10 @@ Welcome to your new app.
 - Navigate to **`/`** and you'll see this page.
 - Uses HTML + C# (Razor)
 - Renders a component called `SurveyPrompt`
+- The name of the Page is called `Title` which is taken care of by the `PageTitle` component. This can be seen in the browser tab, since it manipules the `<head>` content of the `<html>`.
+
+> Read more about controlling `<head>` content <a target="_blank" href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/control-head-content?view=aspnetcore-6.0">here</a>.
+
 
 ---
 ### Unboxing the Client
@@ -330,21 +357,24 @@ Welcome to your new app.
     and tell us what you think.
 </div>
 
-*@code {
-*    [Parameter] public string Title { get; set; }
-*}
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter] public string? Title { get; set; }
+}
 ```
-- Is not a page but a component, since there is no `@page` directive
+
+- Is not a page but a component, since there is no `@page` directive.
+- A component's name must start with an uppercase character.
 - Has a `[Parameter]` called `Title` that can be passed by the `Parent`
 
-> Read more about components <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0"> here</a>
+> Read more about components <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-6.0"> here</a>
 
 ---
 ### Unboxing the Client
 # Counter.razor
 ```
 @page "/counter" 
-
+<PageTitle>Counter</PageTitle>
 <h1>Counter</h1>
 <p>Current count: `@currentCount`</p>
 <button class="btn btn-primary" `@onclick="IncrementCount"`>Click</button>
@@ -361,7 +391,7 @@ Welcome to your new app.
 - The event handler `@onclick` takes in a delegate.
     - Called the same as HTML ones but don't forget `@`
 
-> Read more about event handling <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0"> here</a>
+> Read more about event handling <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-6.0"> here</a>
 
 ---
 ### Unboxing the Client
@@ -388,9 +418,7 @@ Welcome to your new app.
 ```
 - Code behind can be separated into it's own file (recommended)
 
-> Read more about code-behind and partial class support <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#partial-class-support-1"> here</a>
-
-
+> Read more about code-behind and partial class support <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-6.0#partial-class-support-1"> here</a>
 
 ---
 ### Unboxing the Client
@@ -401,43 +429,44 @@ Welcome to your new app.
     <div class="sidebar">
         `<NavMenu />`
     </div>
-    <div class="main">
+    <main>
         <div class="top-row px-4">
             <a href="/" target="_blank" class="ml-md-auto">About</a>
         </div>
-        <div class="content px-4">
+
+        <article class="content px-4">
             `@Body`
-        </div>
-    </div>
+        </article>
+    </main>
 </div>
 ```
 - MainLayout page for the Application, but can be changed / nested.
 - `NavMenu` is a component with navigation links (left side)
 - Renders pages inside the `@Body` 
 
-> Read more about layouts <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/layouts?view=aspnetcore-5.0"> here</a>
+> Read more about layouts <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/layouts?view=aspnetcore-6.0"> here</a>
 
 ---
 ### Unboxing the Client
 # NavMenu.razor
 ```
-<ul class="nav flex-column">
-    <li class="nav-item px-3">
-*     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-*         <span class="oi oi-home" aria-hidden="true"></span> Home
-*     </NavLink>
-    </li>
-    <li class="nav-item px-3">
-      <NavLink class="nav-link" href="counter">
-          <span class="oi oi-plus" aria-hidden="true"></span> Counter
-      </NavLink>
-    </li>
-    <li class="nav-item px-3">
-      <NavLink class="nav-link" href="fetchdata">
-          <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch
-      </NavLink>
-    </li>
-</ul>
+<nav class="flex-column">
+    <div class="nav-item px-3">
+*           <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+*               <span class="oi oi-home" aria-hidden="true"></span> Home
+*           </NavLink>
+    </div>
+    <div class="nav-item px-3">
+        <NavLink class="nav-link" href="counter">
+            <span class="oi oi-plus" aria-hidden="true"></span> Counter
+        </NavLink>
+    </div>
+    <div class="nav-item px-3">
+        <NavLink class="nav-link" href="fetchdata">
+            <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+        </NavLink>
+    </div>
+</nav>
 ```
 - Take a look at the source code for <a target="_blank" href="https://github.com/dotnet/aspnetcore/blob/8b30d862de6c9146f466061d51aa3f1414ee2337/src/Components/Web/src/Routing/NavLink.cs">NavLink</a>
 
@@ -468,58 +497,57 @@ h1 {
 ### Unboxing the Client
 # App.razor
 ```html
-<Router AppAssembly="@typeof(Program).Assembly" 
-        PreferExactMatches="@true">
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" 
                    DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
+        <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-            <p>Sorry, there is nothing at this address.</p>
+            <p>Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>
 </Router>
+
 ```
 - Loaded in the index.**html**, bootstraps the App
 - Layouts are defined
 - 404 page is available, due to the `<Router>` component
+- `FocusOnNavigate` focusses the first `h1` element (can be changed) in the `@Body` after a navigation event.
 
 > Read more about routing <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0"> here</a>
 
 ---
 ### Unboxing the Client
 # Program.cs
-```
-namespace Client
-{
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            //Link to index.html and App.razor
-            builder.RootComponents.Add<App>("#app"); 
-            // Possibility to add Dependency Injection
-            // HttpClient in this case, refers to it's own wwwroot folder
-            builder.Services.AddScoped(sp => new HttpClient 
-            { 
-               BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
-            });
+```cs
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Client;
 
-            await builder.Build().RunAsync();
-        }
-    }
-}
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+//Link to index.html and App.razor
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
+// Possibility to add Dependency Injection
+// HttpClient in this case, refers to it's own wwwroot folder
+builder.Services.AddScoped(sp => new HttpClient 
+{
+    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
+});
+
+await builder.Build().RunAsync();
 ```
-> Read more about Dependency Injection <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=webassembly"> here</a>
+> Read more about Dependency Injection <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-6.0&pivots=webassembly"> here</a>
 
 ---
 ### Unboxing the Client
 # FetchData.razor (1)
 ```
 @code {
-    private WeatherForecast[] forecasts;
+    private WeatherForecast[]? forecasts;
 *   protected override async Task OnInitializedAsync()
     {
 *       forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>
@@ -538,7 +566,7 @@ namespace Client
 }
 ```
 
-> Read more about `OnInitializedAsync` and component lifecycles <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=webassembly"> here</a>
+> Read more about `OnInitializedAsync` and component lifecycles <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-6.0&pivots=webassembly"> here</a>
 
 ---
 ### FetchData.razor (2)
@@ -567,11 +595,12 @@ else
 ```
 > Rendering Razor which is a combination of C# and HTML.
 
+> TIP: Check <a target="_blank" href="https://aspnet.github.io/quickgridsamples/sample">QuickGrid</a> for a more sophisticated standard implementation.
+
 ---
 ### Unboxing the Client
 # _Imports.razor
 ```
-@code {
 @using System.Net.Http
 @using System.Net.Http.Json
 @using Microsoft.AspNetCore.Components.Forms
@@ -585,7 +614,7 @@ else
 ```
 Every folder of an app can optionally contain a template file named `_Imports.razor`. The compiler includes the directives specified in the imports file in all of the Razor templates in the same folder and recursively in all of its subfolders.
 
-> Read more about `_Imports.razor` <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/layouts?view=aspnetcore-5.0#apply-a-layout-to-a-folder-of-components-1"> here</a>
+> Read more about `_Imports.razor` <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/layouts?view=aspnetcore-6.0#apply-a-layout-to-a-folder-of-components-1"> here</a>
 
 ---
 ### SnakeEyes - Client
@@ -612,6 +641,7 @@ Replace the contents of the `Index.razor` with following:
 
 ```
 @page "/"
+<PageTitle>Snake Eyes</PageTitle>
 
 <h1>Snake Eyes</h1>
 ```
@@ -619,18 +649,20 @@ Replace the contents of the `Index.razor` with following:
 ---
 ### SnakeEyes - Client
 # Clean-up - NavMenu.razor
-Remove the unused `NavLink` elements and their parent `<li>` elements, keep the rest of the file.
+Remove the unused `NavLink` elements and their parent `<div>` elements, keep the rest of the file.
+
+Remove the following:
 ```
-<li class="nav-item px-3">
-   <NavLink class="nav-link" href="`counter`">
-      <span class="oi oi-plus" aria-hidden="true"></span> Counter
-   </NavLink>
-</li>
-<li class="nav-item px-3">
-   <NavLink class="nav-link" href="`fetchdata`">
-      <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-   </NavLink>
-</li>
+<div class="nav-item px-3">
+    <NavLink class="nav-link" href="counter">
+        <span class="oi oi-plus" aria-hidden="true"></span> Counter
+    </NavLink>
+</div>
+<div class="nav-item px-3">
+    <NavLink class="nav-link" href="fetchdata">
+        <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+    </NavLink>
+</div>
 ```
 
 ---
@@ -642,7 +674,7 @@ class: dark middle
 ---
 ### SnakeEyes - Client
 # Components
-<video controls width="50%" class="center">
+<video controls width="70%" class="center">
   <source src="images/snake-eyes-game.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
@@ -700,10 +732,13 @@ span{
 ---
 ### SnakeEyes - Client
 # Dice.razor.css
+- The file should be named `Dice.razor.css` exactly, then we can use file-nesting. Which will show the file in the solution explorer beneath the `Dice.razor` file.
+
 <video controls width="100%" class="center">
   <source src="images/dice-file-nesting.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
+
 
 ---
 ### SnakeEyes - Client
@@ -712,17 +747,18 @@ Let's use our `Dice` component in the `Index.razor` file and pass constant value
 
 ```
 @page "/"
-@using Client.Components // namespace of the Dice component
+*@using Client.Components // namespace of the Dice component
 
+<PageTitle>Snake Eyes</PageTitle>
 <h1>Snake Eyes</h1>
-<div>
-   `<Dice Pips="4" />`
-   `<Dice Pips="6" />`
-</div>
+*<div>
+*    <Dice Pips="4" />
+*    <Dice Pips="6" />
+*</div>
 ```
 
 - The using statement can be removed if you add it to the `_Imports.razor` file.
-- Remove the `@using Client.Components` and add it to `_Imports.razor`
+- Notice that the namespace is based on the folder structure.
 
 ---
 ### SnakeEyes - Client
@@ -755,7 +791,7 @@ class: dark middle
 
 ---
 ### SnakeEyes - Client
-# Game
+# Index.razor
 - Let's introduce the `Game` domain object and initialize it.
 
 ```
@@ -770,9 +806,6 @@ class: dark middle
 *    private Game _game = new Game();
 *}
 ```
-
-> 📝 Commit: Introduce Game
-
 ---
 ### SnakeEyes - Client
 # Game
@@ -791,8 +824,6 @@ class: dark middle
     private Game _game = new Game();
 }
 ```
-
-> 📝 Commit: Show Score Label
 
 ---
 ### SnakeEyes - Client
@@ -813,7 +844,6 @@ class: dark middle
 }
 ```
 
-> 📝 Commit: Pass Parameters to Dice
 ---
 ### SnakeEyes - Client
 # Game
@@ -835,7 +865,7 @@ class: dark middle
 }
 ```
 
-> 📝 Commit: Introduce Play Button
+> 📝 Commit: Introduce Game
 
 ---
 ### SnakeEyes - Client
@@ -879,10 +909,12 @@ It should look something like this:
 ### SnakeEyes - Client
 # Alert - Exercise 
 - Show an alert when you lose the game use the following:
-    - `HasSnakeEyes`
+    - `_game.HasSnakeEyes`
     - <a target="_blank" href="https://getbootstrap.com/docs/4.0/components/alerts/"> Bootstrap alert</a>
     - an `if` statement
     - a `button` with a click handler to `Restart()` the `Game`
+
+> TIP: Look at the <a target="_blank" href="https://hogent-web.github.io/csharp-ch-6-example-1/">live example</a> for a preview.
 
 ---
 ### SnakeEyes - Client
