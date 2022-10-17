@@ -1074,22 +1074,23 @@ Your browser does not support the video tag.
 # Retrieve data on the Client
 How is the JSON data being retrieved on the client?
 
-**Program.cs**
+**Client/Program.cs**
 ```
 builder.Services.AddScoped(sp => new HttpClient {
     BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
 });
 ```
 
-**FetchData.razor**
+**Client/Pages/FetchData.razor**
 ```
 @inject HttpClient Http
 // ... Other code
+private WeatherForecast[]? forecasts;
 protected override async Task OnInitializedAsync()
 {
     forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>
     (
-        "WeatherForecast"
+        "WeatherForecast" // Web API endpoint name 
     );
 }
 ```
@@ -1098,22 +1099,27 @@ protected override async Task OnInitializedAsync()
 ### A more realistic example
 # Send data from the Server
 How is the JSON data being sent to the client?
-```
+```cs
 [ApiController] 
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase {
+public class `WeatherForecast`Controller : ControllerBase {
 //... Other code 
-    [HttpGet]
-    public IEnumerable<WeatherForecast> Get()
+private static readonly string[] Summaries = new[]
+{
+    "Freezing", "Bracing", "Chilly", // Other
+};
+
+[HttpGet]
+public `IEnumerable<WeatherForecast> Get()`
+{
+    return Enumerable.Range(1, 5)
+                     .Select(index => new WeatherForecast
     {
-        var rng = new Random();
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = rng.Next(-20, 55),
-            Summary = Summaries[rng.Next(Summaries.Length)]
-        }).ToArray();
-    }
+        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+        TemperatureC = Random.Shared.Next(-20, 55),
+        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+    })
+    .ToArray();
 }
 ```
 
@@ -1196,14 +1202,15 @@ From this point onwards, we'll create an application which is hosted <a href="ht
 - When we navigate to `/product` we want to see the page so add a `@page "/product"` directive.
 ```
 @page "/product"
+<PageTitle>Products</PageTitle>
 <h1>Products</h1>
 ```
 It's pretty silly to have pages where you cannot navigate to, add a `<NavLink/>` in the `<NavMenu>` component. 
 ```
 <li class="nav-item px-3">
-      <NavLink class="nav-link" href="`product`">
-         <span class="oi oi-list-rich" aria-hidden="true"></span> `Products`
-      </NavLink>
+        <NavLink class="nav-link" href="`product`">
+            <span class="oi oi-list-rich"></span> `Products`
+        </NavLink>
 </li>
 ```
 
@@ -1214,7 +1221,7 @@ It's pretty silly to have pages where you cannot navigate to, add a `<NavLink/>`
 # ProductDto
 - Create a new folder in de `Shared project` called `Products`
 > The Shared project is meant for classes and contracts, shared by the `Client` and `Server`, it's not meant for `Domain` classes.
-- Add a `ProductDto` class to the folder, with a `Index` subclass
+- Add a static `ProductDto` class to the folder, with an `Index` subclass
 ```
     public static class ProductDto
     {
@@ -1258,6 +1265,8 @@ In this example we'll use some fake data generator called `Bogus`, read how to u
 ```
 Install-Package Bogus
 ```
+
+> Note that showing this data to a customer is not always desired, create realistic fakes in a demo.
 ---
 ### `FakeProductService`
 ```
@@ -1301,12 +1310,12 @@ public class FakeProductService `: IProductService`
 }
 ```
 
-> If you're unfamilliar with async code, read <a target="_blank" href="https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md">the guidance provided by David Fowler</a>. A `ValueTask` might have even been better in this case. 
+> If you're unfamilliar with async code, read <a target="_blank" href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/">the docs</a> and <a target="_blank" href="https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md">guidance provided by David Fowler</a>.
 
 ---
 ### Dependency Injection
 # Program.cs
-Let's add our `FakeProductService` to the DI Container of the client in `Program.cs`, each time we request the IProductService, the container will provide a `FakeProductService`
+Let's add our `FakeProductService` to the DI Container of the client in `Program.cs`, each time we request the `IProductService`, the container will provide a `FakeProductService`.
 ```
 builder.Services.AddScoped<`IProductService`, `FakeProductService`>();
 ```
@@ -1314,6 +1323,8 @@ builder.Services.AddScoped<`IProductService`, `FakeProductService`>();
 > You can read more about Dependency Injection in Blazor <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=webassembly" target="_blank">here</a>.
 >
 > Notice that the Lifetime of `Singleton` and `Scoped` are actually the same in Blazor WASM.
+
+> 📝 Commit: Add FakeProductService
 
 ---
 ### Product Index
@@ -1326,7 +1337,6 @@ Inject the `IProductService` in the Products/Index.razor page, don't forget the 
 <h1>Products</h1>
 ```
 
-> 📝 Commit: Add FakeProductService
 
 ---
 ### Product Index
@@ -1346,7 +1356,6 @@ Let's create a code block or a code behind file to get the items `OnInitializedA
 > It's advisable to read more about `Lifecycle` methods and when they're called <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0">here</a>.
 
 In the next slide, we'll use the `products` field to render some razor.
-
 
 ---
 ### Product Index - Razor
@@ -1425,7 +1434,7 @@ public interface IProductService
 }
 ```
 
-We're splitting these 2 use cases since a Index page should be fast and only load data related to what it actually needs. Sending more data than needed is called overfetching.
+We're splitting these 2 use cases since a Index page should be fast and only load data related to what it actually needs. Sending more data than needed is called overfetching and should be avoided.
 
 > 📝 Commit: IProductService - GetDetailAsync
 
@@ -1451,7 +1460,6 @@ static FakeProductService()
 
 > You can even change the locale if you like (notice "en" instead of "nl"), which then uses English product names.
 
-> 📝 Commit: FakeProductService - Fake Details
 
 ---
 ### Product Detail
@@ -1469,7 +1477,7 @@ public Task<IEnumerable<ProductDto.Index>> GetIndexAsync()
 }
 ```
 
-> 📝 Commit: FakeProductService - Stop and Fix overfetching
+> 📝 Commit: FakeProductService - Fake Details & Stop Overfetching
 
 ---
 ### Product Detail
@@ -1517,7 +1525,7 @@ The index page renders a table with anchor elements to navigate to the `product/
 // Markup will go here
 
 @code {
-*   private ProductDto.Detail product;
+*   private ProductDto.Detail? product;
 
     [Parameter] public int Id { get; set; }
 
@@ -1591,7 +1599,6 @@ We need the following roles:
 - Customer
 - Administrator
 - Anonymous (if we have public pages)
-
 
 ---
 ### Fake it till you make it
@@ -1833,11 +1840,19 @@ public override Task<AuthenticationState> GetAuthenticationStateAsync()
 ```
 
 ---
-### Final result
+### Delete as Admin
 <video controls width="100%" class="center">
   <source src="images/delete-admin.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
+
+
+---
+### Fake it till you make it
+# Change auth at runtime
+Currently we can only set the `ClaimsPrincipal` (authenticated user) on compile time. What if you want to let the customer choose how they're logged-in on runtime for demo purposes?
+
+> 📝 Commit: Checkout the commit: <a target="_blank" href="https://github.com/HOGENT-Web/csharp-ch-6-example-2/commit/25153f5c046bc4e0bf9366426ea798b480e15011">Add FakeAuth on Runtime</a>
 
 ---
 name: workshop
