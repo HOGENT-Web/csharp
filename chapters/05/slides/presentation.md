@@ -204,15 +204,6 @@ name:blazor-wasm
 - Combined with a Web API, the client can fetch data from the server. 
 
 ---
-### Blazor **W**eb **As**se**m**bly
-# > dotnet new blazorwasm
-Complete the following tutorial:
-1. <a target="_blank" href="https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro">Build your first Blazor app. (10 mins.)</a>
-> The tutorial is meant to give you a sneak peek at 
->
-> Chapter 6 - Suit up wear a Blazor.
-
----
 class: dark middle
 name:blazor-server
 # Hosting Models
