@@ -1273,9 +1273,9 @@ Install-Package Bogus
 *using Bogus;
 public class FakeProductService
 {
-    private static readonly List<ProductDto.Index> _products = new();
+    private readonly List<ProductDto.Index> _products = new();
 
-    `static` FakeProductService()
+    public FakeProductService()
     {
         var productIds = 0;
 
@@ -1290,7 +1290,6 @@ public class FakeProductService
 }
 ```
 - When the class is constructed for the first time, it creates a list of 25 dummy products specified by the `RuleFor()` calls.
-- Notice that we're using a <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/static-constructors" target="_blank">static constructor</a> here.
 
 ---
 ### `FakeProductService` implementing `IProductService`
@@ -1299,7 +1298,7 @@ public class FakeProductService `: IProductService`
 {
     private readonly List<ProductDto.Detail> _products = new();
 
-    static FakeProductService()
+    public FakeProductService()
     {
         // Constructor code from previous slide
     }
@@ -1315,7 +1314,7 @@ public class FakeProductService `: IProductService`
 ---
 ### Dependency Injection
 # Program.cs
-Let's add our `FakeProductService` to the DI Container of the client in `Program.cs`, each time we request the `IProductService`, the container will provide a `FakeProductService`.
+Let's add our `FakeProductService` to the DI Container of the client in `Program.cs`, each time we request the `IProductService`, the container will provide the scoped `FakeProductService`.
 ```
 builder.Services.AddScoped<`IProductService`, `FakeProductService`>();
 ```
@@ -1443,8 +1442,8 @@ We're splitting these 2 use cases since a Index page should be fast and only loa
 # FakeProductService
 Let's Fake these 2 new properties using Bogus
 ```
-private static readonly List<ProductDto.`Detail`> _products = new();
-static FakeProductService()
+private readonly List<ProductDto.`Detail`> _products = new();
+public FakeProductService()
 {
     var productIds = 0;
     var productFaker = new Faker<ProductDto.`Detail`>("`en`")
