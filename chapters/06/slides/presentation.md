@@ -1664,22 +1664,28 @@ Here you can choose how you want to be logged-in once the Client launches, choos
 # Dependency Injection
 Just as the `IProductService`, we'll add `FakeAuthenticationProvider` to the Dependency Injection container in `Program.cs` and some built-in auth classes.
 ```
-namespace Project.Client
-{
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
-*           builder.Services.AddAuthorizationCore();
-*           builder.Services.AddScoped<AuthenticationStateProvider, FakeAuthenticationProvider>();
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddScoped<IProductService, ProductService>();
-            await builder.Build().RunAsync();
-        }
-    }
-}
+*using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Project.Client;
+*using Project.Client.Shared;
+using Project.Shared.Products;
+
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
+
+builder.Services.AddScoped(sp => new HttpClient 
+{ 
+    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
+});
+builder.Services.AddScoped<IProductService, FakeProductService>();
+*builder.Services.AddAuthorizationCore();
+*builder.Services.AddScoped<AuthenticationStateProvider,
+*                          FakeAuthenticationProvider>();
+
+await builder.Build().RunAsync();
+
 ```
 
 ---
