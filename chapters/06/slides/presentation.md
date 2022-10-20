@@ -1681,7 +1681,7 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 builder.Services.AddScoped<IProductService, FakeProductService>();
 *builder.Services.AddAuthorizationCore();
-*builder.Services.AddScoped<AuthenticationStateProvider,
+*builder.Services.AddSingleton<AuthenticationStateProvider,
 *                          FakeAuthenticationProvider>();
 
 await builder.Build().RunAsync();
