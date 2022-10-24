@@ -13,10 +13,10 @@ class: dark middle
 - [Document your API](#documentation)
 - [Building a REST API](#building-rest-api)
 - [Input validation](#input-validation)
-- [gRPC](#grpc)
 - [Summary](#summary)
-- [GraphQL (extra)](#graphql)
-- [OData (extra)](#odata)
+- Extra
+  - [gRPC](#grpc)
+  - [OData (extra)](#odata)
 
 ---
 name: api
@@ -248,7 +248,7 @@ class: dark middle
 In the default template of a WebAPI Swagger is automatically added.
 ```
 dotnet new webapi
-dotnet watch run
+dotnet run
 ```
 
 ---
@@ -275,8 +275,7 @@ class: dark middle
 ### Ain't no REST for the wicked
 # Building a REST API
 
-Complete the following tutorial
-[Create a web API with ASP.NET Core](https://docs.microsoft.com/en-us/learn/modules/build-web-api-aspnet-core/)
+Complete the following tutorial (1h) <a target="_blank" href="https://docs.microsoft.com/en-us/learn/modules/build-web-api-aspnet-core/">Create a web API with ASP.NET Core</a>
 
 > The tutorial is great but has some flaws, which we will tackle later.
 
@@ -287,21 +286,22 @@ Complete the following tutorial
 # .NET HTTP REPL
 Running the REPL is awesome but complex requests like POST or PUT can be quite tedious, we'd rather type in complex objects in a text editor we love (VS Code). Let's do something about that first.
 
-- Install REPL (if not already done)
+- Connect to the REPL and set the default editor Visual Studio Code (only the first time)
 
-```
-dotnet tool install -g Microsoft.dotnet-httprepl
-```
-
-- Connect to the REPL and set the default editor Visual Studio Code on Windows in this case (you only have to do this once)
-
+**Windows**
 ```
 httprepl http://localhost:5000
 pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
 pref set editor.command.default.arguments "-w"
 ```
 
-> Linux and macOS are also supported by reading the <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/http-repl/?view=aspnetcore-5.0&tabs=macos#set-the-default-text-editor">docs</a>
+**macOS**
+```
+httprepl http://localhost:5000
+pref set editor.command.default "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+pref set editor.command.default.arguments "--disable-extensions --new-window —-wait”
+```
+> More information can be found <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/web-api/http-repl/?view=aspnetcore-6.0&tabs=macos#set-the-default-text-editor">here</a>
 
 ---
 ### Ain't no REST for the wicked
@@ -345,9 +345,10 @@ public class Pizza
 ```
 - The `Pizza` model is used as a `DTO` and a `Domain` class.
 - **Overposting** is possible
-  - What if the client should not be able to set this property?
+  - Should the `Created` property not be set by the server?
 - **Overfetching** is possible
   - What if the `Pizza` has an entire Graph of properties and lists?
+  - Do we always need these properties (e.g. showing a list of pizza's)
 - **No validation **
   - What if the max size of the name should be 200 characters?
 
@@ -424,9 +425,9 @@ Are you the only one using your API and **are you in control** when the client a
 - **Don't** version your API, there is no need to.
 
 For **all other reasons**, version your API.
-- Note that mobile clients aren't updated that easily. A user of the mobile app needs to update the app even if the new version is pushed.
+- Note that mobile/PWA clients aren't updated that easily. A user of the mobile app needs to update the app even if the new version is pushed.
 
-> We won't go into versioning in this course since <a target="_blank" href="https://www.infoworld.com/article/3562355/how-to-use-api-versioning-in-aspnet-core.html">this tutorial</a> explains everything you need to know.
+> We won't go into versioning in this course more information can be found in <a target="_blank" href="https://www.infoworld.com/article/3562355/how-to-use-api-versioning-in-aspnet-core.html">this tutorial</a> or <a href="https://briancaos.wordpress.com/2022/04/04/c-net-core-api-versioning-with-microsoft-aspnetcore-mvc-versioning/" target="_blank">this tutorial</a>.
 
 ---
 ### Ain't no REST for the wicked
@@ -473,6 +474,8 @@ public static class PizzaDto{
 ---
 ### **D**ata **T**ransfer **O**bjects
 # DTO vs Domain
+**DTO**
+
 Suffix or make it clear it's a DTO, can be in a /Shared folder or project
 ```
 public static class PizzaDto{
@@ -483,6 +486,8 @@ public static class PizzaDto{
   }
 }
 ```
+**Domain**
+
 Usually in the /Models folder or in a separate project called Domain
 ```
 public class Pizza
@@ -499,7 +504,7 @@ public class Pizza
 ### **D**ata **T**ransfer **O**bjects
 # Exercise
 - Make a /Shared folder in the `ContosoPizza` project
-- Add a `PizzaDto` class as you see fit.
+- Add  `PizzaDto`s classes as you see fit.
 - Adjust the `PizzaController`
   - Receives a DTO when needed
   - Returns a DTO when needed.
@@ -518,7 +523,7 @@ name: input-validation
 - **Testing the incoming data** to make sure it's **valid**
 - User or application may send malicious/wrong data
 - **Prevents improperly formed data** from entering the system
-- Databases usually check data, but the earlier you check, the better
+- Databases usually check data, but the earlier you check, the better since database errors are hard to validate
 - Prevents input validation attacks:
     - SQL injection
     - XSS attacks
@@ -549,7 +554,6 @@ public class CustomerDto {
   public string LastName { get; set; }
   public string FirstName { get; set; }
   public decimal Discount { get; set; }
-  public string Address { get; set; }
 }
 ```
 
@@ -561,7 +565,8 @@ If we want to validate the given `CustomerDto` class, we should create a validat
 class which inherits from `AbstractValidator`.
 
 ```{cs}
-public class CustomerDtoValidator : `AbstractValidator<CustomerDto>` { }
+public class CustomerDtoValidator 
+     : `AbstractValidator<CustomerDto>` { }
 ```
 
 ---
@@ -571,11 +576,12 @@ public class CustomerDtoValidator : `AbstractValidator<CustomerDto>` { }
 Within this class, define a constructor with all validation rules.
 
 ```{cs}
-public class CustomerDtoValidator : AbstractValidator<CustomerDto> {
-
-  public CustomerDtoValidator() {
-    `RuleFor(customer => customer.FirstName).NotNull();`
-    `RuleFor(customer => customer.Discount).GreaterThan(0).LessThan(1);`
+public class CustomerDtoValidator : AbstractValidator<CustomerDto> 
+{
+  public CustomerDtoValidator() // Constructor
+  {
+*    RuleFor(c => c.FirstName).NotEmpty();
+*    RuleFor(c => c.Discount).GreaterThan(0).LessThan(1);
   }
 }
 ```
@@ -594,12 +600,13 @@ public class CustomerDto {
   public string LastName { get; set; }
   public string FirstName { get; set; }
   public decimal Discount { get; set; }
-  public string Address { get; set; }
   
   public class Validator : AbstractValidator<CustomerDto> {
-    public Validator() {
-    RuleFor(customer => customer.FirstName).NotNull();
-    RuleFor(customer => customer.Discount).GreaterThan(0).LessThan(1);
+    
+    public Validator() 
+    {
+        RuleFor(c => c.FirstName).NotNull();
+        RuleFor(c => c.Discount).GreaterThan(0).LessThan(1);
     }
   }
 }
@@ -615,6 +622,7 @@ Read through these documentation sections
 
 - <a href="https://docs.fluentvalidation.net/en/latest/configuring.html" target="_blank">Overriding the Message</a>
 - <a href="https://docs.fluentvalidation.net/en/latest/conditions.html" target="_blank">Conditions</a>
+- <a href="https://docs.fluentvalidation.net/en/latest/start.html#complex-properties" target="_blank">Complex Properties / Graphs</a>
 - <a href="https://docs.fluentvalidation.net/en/latest/built-in-validators.html" target="_blank">Built-in Validators</a>
 - <a href="https://docs.fluentvalidation.net/en/latest/custom-validators.html" target="_blank">Custom Validators</a>
 
@@ -651,15 +659,15 @@ Add the ASP.NET Core package
 dotnet add package FluentValidation.AspNetCore
 ```
 
-Add FluentValidation as middleware in Startup.cs
+Add FluentValidation as middleware in Program.cs
 ```
-services.AddControllers()
-        .AddFluentValidation(fv => {
-            fv.RegisterValidatorsFromAssemblyContaining<PizzaDto.Create.Validator>();
-            fv.ImplicitlyValidateChildProperties = true;
-        });
+builder.Services
+.AddValidatorsFromAssemblyContaining<PizzaDto.Create.Validator>()
+.AddFluentValidationAutoValidation();
 ```
-> Read more about middleware validation in ASP.NET <a href="https://docs.fluentvalidation.net/en/latest/aspnet.html" target="_blank">here</a>.
+> Read more about automatic validation in ASP.NET <a href="https://docs.fluentvalidation.net/en/latest/aspnet.html" target="_blank">here</a>.
+
+> Note: Manual validation might be better in some cases.
 
 ---
 ### Input validation
@@ -691,15 +699,75 @@ Response:
 ### Input validation
 # FluentValidation in Blazor
 
-Read through the <a href="https://github.com/Blazored/FluentValidation" target="_blank">GitHub's README</a>
-of the Blazor integration for FluentValidation.
+In most cases, you'd like client side validation to improve performance and user experience. Read through the <a href="https://github.com/Blazored/FluentValidation" target="_blank">GitHub's README</a>
+of the Blazor integration for FluentValidation. 
+
+However it should be noted that server-side validation is a **must** because you never know which client is using the web API.
+
+---
+name: exercise
+class: dark middle
+
+# Ain't no REST for the wicked
+> Exercise
+
+---
+### Ain't no REST for the wicked
+# Exercise
+
+Complete the following exercises:
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1" target="_blank">SportStore Api</a>
+
+---
+name: solution
+class: dark middle
+
+# Ain't no REST for the wicked
+> Solution
+
+---
+### Ain't no REST for the wicked
+# Solution
+
+On the following links you can find the solutions for the exercises.
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1/tree/solution/src" target="_blank">SportStore Api</a>
+
+---
+name: summary
+class: dark middle
+
+# Ain't no REST for the wicked
+> Summary
+
+---
+### Ain't no REST for the wicked
+# Summary
+
+- REST
+- set of **5 constraints** to call an API **RESTful**
+  - Uniform interface
+  - Client-server separated
+  - Stateless
+  - Cachable
+  - Layered system
+- **Documentation** is really important when sharing your (Web) API
+- **Don't** use Domain objects as DTO's
+- **Validate** your incoming requests atleast on the server-side
+
+---
+### Caution
+# Extra
+
+The following material is not mandatory for this course but a "nice-to-know" and *could be* the future.
+
 
 ---
 name: grpc
 class: dark middle
 
 # Ain't no REST for the wicked
-> gRPC
+> gRPC <small>(extra)</small>
+
 
 ---
 ### gRPC
@@ -749,14 +817,6 @@ message Person {
 
 ---
 ### gRPC
-# Typical protocol buffers
-
-- Domain objects
-- Requests
-- Replies
-
----
-### gRPC
 # Services
 
 - **Expose methods** on a server
@@ -784,165 +844,10 @@ message HelloReply {
 # gRPC
 
 Read through the following tutorial:
-- <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/grpc/code-first?view=aspnetcore-5.0">Code-first gRPC services and clients with .NET</a>
+- <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/grpc/code-first?view=aspnetcore-6.0">Code-first gRPC services and clients with .NET</a>
 
 Read the readme of the following repository to integrate with Blazor:
 - <a target="_blank" href="https://github.com/hakenr/BlazorGrpcWebCodeFirst">Blazor gRPC Web Code First</a>
-
-> If you want to try this, create a new hosted Blazor WASM project:
->
-> `dotnet new blazorwasm --hosted -o gRPCDemo`
-
----
-name: exercise
-class: dark middle
-
-# Ain't no REST for the wicked
-> Exercise
-
----
-### Ain't no REST for the wicked
-# Exercise
-
-Complete the following exercises:
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1" target="_blank">SportStore Api</a>
-
----
-name: solution
-class: dark middle
-
-# Ain't no REST for the wicked
-> Solution
-
----
-### Ain't no REST for the wicked
-# Solution
-
-On the following links you can find the solutions for the exercises.
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1/tree/solution/src" target="_blank">SportStore Api</a>
-
-
----
-name: summary
-class: dark middle
-
-# Ain't no REST for the wicked
-> Summary
-
----
-### Ain't no REST for the wicked
-# Summary
-
-- REST is **not a standard**
-- set of **5 constraints** to call an API **RESTful**
-  - Uniform interface
-  - Client-server separated
-  - Stateless
-  - Cachable
-  - Layered system
-- Documentation is really important when sharing your (Web) API
-- Don't use Domain objects as DTO's
-
----
-name: graphql
-class: dark middle
-
-# Ain't no REST for the wicked
-> GraphQL (extra)
-
----
-### Ain't no REST for the wicked
-# GraphQL (extra)
-
-As an extra you might want to use GraphQL in .NET. Go through this LinkedIN Learning
-tutorial on your own (not mandatory).
-
-[API Development in .NET with GraphQL](https://www.lynda.com/NET-tutorials/API-Development-NET-GraphQL/664823-2.html)
-
-> You should be able to register using your HOGENT account
-
-> The next slides contain some information about **outdated sections**
-
----
-### GraphQL (extra)
-# Solution setup (1/2)
-
-This is how to create the initial project setup:
-
-
-```
-mkdir GraphQLDemo
-cd GraphQLDemo
-
-dotnet new webapi -o Server
-dotnet new classlib -o Orders
-dotnet new sln -o .
-
-dotnet sln .\GraphQLDemo.sln add .\Server\Server.csproj
-dotnet sln .\GraphQLDemo.sln add .\Orders\Orders.csproj
-
-cd Orders
-rm .\Class1.cs
-dotnet add package Bogus
-dotnet add package GraphQL
-dotnet add package Microsoft.Extensions.DependencyInjection
-```
-
----
-### GraphQL (extra)
-# Solution setup (2/2)
-
-```
-cd ..\Server
-# You don't need the Microsoft.AspNetCore.StaticFiles package
-dotnet add package GraphQL.Server.Transports.AspNetCore
-dotnet add package GraphQL.Server.Transports.Subscriptions.WebSockets
-dotnet add package GraphQL.Server.Transports.AspNetCore.SystemTextJson
-# Don't use GraphiQL, this playground is easier:
-dotnet add package GraphQL.Server.Ui.Playground
-
-dotnet add .\Server.csproj reference ..\Orders\Orders.csproj
-
-dotnet remove package Swashbuckle.AspNetCore
-rm -Recurse -Force .\Controllers
-rm WeatherForecast.cs
-```
-
-In the `launchSettings.json`, change the `launchUrl` to `ui/playground`. This assumes
-you have configured the GraphQL Playground instead of the GraphiQL playground.
-
-Now open the solution remove the REST and Swagger stuff from the `Startup.cs` and move on with the tutorial!
-
----
-### GraphQL (extra)
-# Notes on the tutorial
-
-- The tutorial is a little outdated, use the [GitHub](https://github.com/graphql-dotnet/server#configure) and [documentation](https://graphql-dotnet.github.io/docs/getting-started/introduction) to check which packages and APIs to use.
-- You should not add the NuGet package resource
-- Don't use any static files, there is a package for [GraphiQL](https://graphql-dotnet.github.io/docs/getting-started/graphiql)
-- Use Bogus to fake data
-- You know the project and folder structure can be done better
-
----
-### GraphQL (extra)
-# Notes on the tutorial
-
-- Inject and hold a reference to the `IWebHostEnvironment`
-- You also need this code in the `ConfigureServices` method
-
-```
-services.AddSingleton<IDocumentWriter, DocumentWriter>();
-// singletons hier
-services.AddGraphQL((options, provider) =>
-  {
-      options.EnableMetrics = Environment.IsDevelopment();
-      var logger = provider.GetRequiredService<ILogger<Startup>>();
-      options.UnhandledExceptionDelegate = ctx => logger.LogError("{Error} occurred", ctx.OriginalException.Message);
-  })
-  .AddSystemTextJson()
-  .AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = Environment.IsDevelopment())
-  .AddGraphTypes(typeof(OrdersSchema));
-```
 
 ---
 name: odata
@@ -959,4 +864,4 @@ OData (Open Data) is an open protocol which allows to create and consume queryab
 
 Have a look at the next video and try to follow the example.
 
-[Supercharging your Web APIs with OData and ASP.NET Core](https://www.youtube.com/watch?v=ZCDWUBOJ5FU)
+<a href="https://www.youtube.com/watch?v=ZCDWUBOJ5FU" target="_blank">Supercharging your Web APIs with OData and ASP.NET Core</a>
