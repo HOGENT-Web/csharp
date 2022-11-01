@@ -193,7 +193,7 @@ Imagine, you want to re-use this super kewl game in a
 - Console Application
 - ...
 
-Then we can re-use the `Domain.csproj` with all it's fluffy goodness and just implement the presentation layer.
+Then we can re-use the `Domain.csproj` with all its fluffy goodness and just implement the presentation layer.
 
 > Note: Sharing the `Domain` should **not be done** once we implement the Web API in a later chapter `Ain't no REST for the wicked`.
 ---
@@ -416,7 +416,7 @@ Welcome to your new app.
     }
 }
 ```
-- Code behind can be separated into it's own file (recommended)
+- Code behind can be separated into its own file (recommended)
 
 > Read more about code-behind and partial class support <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-6.0#partial-class-support-1"> here</a>
 
@@ -532,7 +532,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 // Possibility to add Dependency Injection
-// HttpClient in this case, refers to it's own wwwroot folder
+// HttpClient in this case, refers to its own wwwroot folder
 builder.Services.AddScoped(sp => new HttpClient 
 {
     BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
@@ -715,7 +715,7 @@ Implement the component as follows:
 ---
 ### SnakeEyes - Client
 # Dice.razor.css
-However we still need to style the component in it's scoped .css file
+However we still need to style the component in its scoped .css file
 ```css
 span{
     border: 2px solid black;
@@ -1207,11 +1207,11 @@ From this point onwards, we'll create an application which is hosted <a href="ht
 ```
 It's pretty silly to have pages where you cannot navigate to, add a `<NavLink/>` in the `<NavMenu>` component. 
 ```
-<li class="nav-item px-3">
+<div class="nav-item px-3">
         <NavLink class="nav-link" href="`product`">
             <span class="oi oi-list-rich"></span> `Products`
         </NavLink>
-</li>
+</div>
 ```
 
 > 📝 Commit: Add Product Index Page
@@ -1256,7 +1256,7 @@ public interface IProductService
 ---
 ### Product Index
 # `FakeProductService`
-Creating fake data can be tedious, but it can also be helpfull. Creating realistic fakes for your customer can help them to understand your application better. But can also speed up your development time when working in front-end and back-end teams.
+Creating fake data can be tedious, but it can also be helpful. Creating realistic fakes for your customer can help them to understand your application better. But can also speed up your development time when working in front-end and back-end teams.
 
 In this example we'll use some fake data generator called `Bogus`, read how to use it <a href="https://github.com/bchavez/Bogus" target="_blank">here</a>.
 
@@ -1309,7 +1309,7 @@ public class FakeProductService `: IProductService`
 }
 ```
 
-> If you're unfamilliar with async code, read <a target="_blank" href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/">the docs</a> and <a target="_blank" href="https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md">guidance provided by David Fowler</a>.
+> If you're unfamiliar with async code, read <a target="_blank" href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/">the docs</a> and <a target="_blank" href="https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md">guidance provided by David Fowler</a>.
 
 ---
 ### Dependency Injection
@@ -1423,7 +1423,7 @@ public static class ProductDto
 ---
 ### Product Detail
 # IProductService - GetDetailAsync
-Let's add a new call to the `IProductService` interface to make sure to only retrieve 1 `Product.Detail` using it's unique identifier(`Id`).
+Let's add a new call to the `IProductService` interface to make sure to only retrieve 1 `Product.Detail` using its unique identifier(`Id`).
 
 ```
 public interface IProductService
@@ -1511,7 +1511,7 @@ The index page renders a table with anchor elements to navigate to the `product/
 }
 ```
 
-> The parameter will be filled in and can be used in the `IProductService.GetDetalAsync(Id)`
+> The parameter will be filled in and can be used in the `IProductService.GetDetailAsync(Id)`
 
 ---
 ### Product Detail
