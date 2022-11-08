@@ -16,7 +16,7 @@ class: dark middle
 - [Summary](#summary)
 - Extra
   - [gRPC](#grpc)
-  - [OData (extra)](#odata)
+  - [OData](#odata)
 
 ---
 name: api
@@ -292,14 +292,14 @@ Running the REPL is awesome but complex requests like POST or PUT can be quite t
 ```
 httprepl http://localhost:5000
 pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
-pref set editor.command.default.arguments "-w"
+pref set editor.command.default.arguments "--wait"
 ```
 
 **macOS**
 ```
 httprepl http://localhost:5000
 pref set editor.command.default "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
-pref set editor.command.default.arguments "--disable-extensions --new-window —-wait”
+pref set editor.command.default.arguments "--disable-extensions —-wait"
 ```
 > More information can be found <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/web-api/http-repl/?view=aspnetcore-6.0&tabs=macos#set-the-default-text-editor">here</a>
 
@@ -549,24 +549,25 @@ dotnet add package FluentValidation
 Take the following class as an example
 
 ```
-public class CustomerDto {
-  public int Id { get; set; }
+public class CustomerCreateDto {
   public string LastName { get; set; }
   public string FirstName { get; set; }
   public decimal Discount { get; set; }
 }
 ```
 
+> You can use the nesting pattern.
+
 ---
 ### FluentValidation
 # How does it work?
 
-If we want to validate the given `CustomerDto` class, we should create a validator
+If we want to validate the given `CustomerCreateDto` class, we should create a validator
 class which inherits from `AbstractValidator`.
 
 ```{cs}
-public class CustomerDtoValidator 
-     : `AbstractValidator<CustomerDto>` { }
+public class CustomerCreateDtoValidator 
+     : `AbstractValidator<CustomerCreateDto>` { }
 ```
 
 ---
@@ -576,12 +577,14 @@ public class CustomerDtoValidator
 Within this class, define a constructor with all validation rules.
 
 ```{cs}
-public class CustomerDtoValidator : AbstractValidator<CustomerDto> 
+public class CustomerCreateDtoValidator 
+           : AbstractValidator<CustomerCreateDto> 
 {
-  public CustomerDtoValidator() // Constructor
+  public CustomerCreateDtoValidator() // Constructor
   {
-*    RuleFor(c => c.FirstName).NotEmpty();
-*    RuleFor(c => c.Discount).GreaterThan(0).LessThan(1);
+*     RuleFor(c => c.FirstName).NotEmpty();
+*     RuleFor(c => c.LastName).NotEmpty().MaximumLength(150);
+*     RuleFor(c => c.Discount).GreaterThan(0).LessThan(1);
   }
 }
 ```
@@ -595,17 +598,17 @@ DTO's however, are different and can be validated this way.
 # As nested classes
 
 ```
-public class CustomerDto {
-  public int Id { get; set; }
+public class `CustomerCreateDto` {
   public string LastName { get; set; }
   public string FirstName { get; set; }
   public decimal Discount { get; set; }
   
-  public class Validator : AbstractValidator<CustomerDto> {
+  public class Validator : AbstractValidator<`CustomerCreateDto`> {
     
     public Validator() 
     {
-        RuleFor(c => c.FirstName).NotNull();
+        RuleFor(c => c.FirstName).NotEmpty();
+        RuleFor(c => c.LastName).NotEmpty().MaximumLength(150);
         RuleFor(c => c.Discount).GreaterThan(0).LessThan(1);
     }
   }
@@ -635,7 +638,13 @@ Change the `Create` method of the `PizzaController`
 [HttpPost]
 public IActionResult Create(PizzaDto.Create dto)
 {    
-    var pizza = PizzaService.Add(new Pizza{Name = dto.Name,IsGlutenFree = dto.IsGlutenFree});
+    Pizza pizza = new()
+    {
+      Name = dto.Name,
+      IsGlutenFree = dto.IsGlutenFree
+    };
+
+    PizzaService.Add(pizza);
     return CreatedAtAction(nameof(Create), new { id = pizza.Id });
 }
 ```
@@ -645,15 +654,6 @@ public IActionResult Create(PizzaDto.Create dto)
 ---
 ### Input validation
 # FluentValidation Middleware
-Change the `PizzaService.Add` to return a `Pizza` object
-```
-public static Pizza Add(Pizza pizza)
-{
-    pizza.Id = nextId++;
-    Pizzas.Add(pizza);
-    return pizza;
-}
-```
 Add the ASP.NET Core package
 ```
 dotnet add package FluentValidation.AspNetCore
@@ -667,7 +667,7 @@ builder.Services
 ```
 > Read more about automatic validation in ASP.NET <a href="https://docs.fluentvalidation.net/en/latest/aspnet.html" target="_blank">here</a>.
 
-> Note: Manual validation might be better in some cases.
+> Note: Manual validation might be better in some cases. But as a tip, never use async functions in validators together with automatic validation.
 
 ---
 ### Input validation
@@ -695,9 +695,28 @@ Response:
   }
 }
 ```
+
 ---
 ### Input validation
-# FluentValidation in Blazor
+# FluentValidation with Swagger
+
+It's possible to show the validation rules by using the <a target="_blank" href="https://github.com/micro-elements/MicroElements.Swashbuckle.FluentValidation" >MicroElements.Swashbuckle.FluentValidation</a> package. 
+
+```
+dotnet add package MicroElements.Swashbuckle.FluentValidation
+```
+
+Add the services to the DI container in `program.cs`
+
+```cs
+builder.Services.AddFluentValidationRulesToSwagger();
+```
+
+> Check the schema of the DTO class in Swagger and see the validation rules.
+
+---
+### Input validation
+# FluentValidation with Blazor
 
 In most cases, you'd like client side validation to improve performance and user experience. Read through the <a href="https://github.com/Blazored/FluentValidation" target="_blank">GitHub's README</a>
 of the Blazor integration for FluentValidation. 
@@ -716,7 +735,7 @@ class: dark middle
 # Exercise
 
 Complete the following exercises:
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1" target="_blank">SportStore Api</a>
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1" target="_blank">BogusStore Api</a>
 
 ---
 name: solution
@@ -730,7 +749,7 @@ class: dark middle
 # Solution
 
 On the following links you can find the solutions for the exercises.
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1/tree/solution/src" target="_blank">SportStore Api</a>
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1/tree/solution/src" target="_blank">BogusStore Api</a>
 
 ---
 name: summary
