@@ -31,7 +31,7 @@ class: dark middle
 
 * **A**pplication **P**rogramming **I**nterface
 * approach to make software work with other software
-* <=> User Interface: let's users work with software
+* <=> User Interface: lets users work with software
 * nowadays mostly in the context of the Web (HTTP)
 
 ---
