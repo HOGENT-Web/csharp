@@ -735,7 +735,7 @@ class: dark middle
 # Exercise
 
 Complete the following exercises:
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1" target="_blank">BogusStore Api</a>
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-2" target="_blank">BogusStore Api</a>
 
 ---
 name: solution
@@ -749,7 +749,7 @@ class: dark middle
 # Solution
 
 On the following links you can find the solutions for the exercises.
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-1/tree/solution/src" target="_blank">BogusStore Api</a>
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-7-exercise-2/tree/solution/src" target="_blank">BogusStore Api</a>
 
 ---
 name: summary
@@ -762,13 +762,6 @@ class: dark middle
 ### Ain't no REST for the wicked
 # Summary
 
-- REST
-- set of **5 constraints** to call an API **RESTful**
-  - Uniform interface
-  - Client-server separated
-  - Stateless
-  - Cachable
-  - Layered system
 - **Documentation** is really important when sharing your (Web) API
 - **Don't** use Domain objects as DTO's
 - **Validate** your incoming requests atleast on the server-side
