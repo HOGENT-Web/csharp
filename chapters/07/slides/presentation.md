@@ -61,7 +61,7 @@ class: dark middle
   - uniform interface
   - client-server
   - stateless
-  - cachable
+  - cacheable
   - layered system
 
 > <a href="https://restfulapi.net/rest-architectural-constraints/" target="_blank">Read more about these constraints</a>
@@ -134,7 +134,7 @@ Examples:
 ### What is REST?
 # Cacheable
 
-* all responses should be made cachable (if possible)
+* all responses should be made cacheable (if possible)
 * good caching ensures the server scales better (less requests to process)
 * and the client responds faster
 
