@@ -770,7 +770,7 @@ class: dark middle
 ### Caution
 # Extra
 
-The following material is not mandatory for this course but a "nice-to-know" and *could be* the future.
+The following material is not mandatory for this course but a "nice-to-know".
 
 
 ---
@@ -793,10 +793,11 @@ class: dark middle
 - Defines
     - **services**: expose the methods
     - **messages**: what is sent around
+- Alternative to REST
+  - No hassle with post/get/put/delete.
+  - Faster (Ain't no REST for the wicked)
 
-> <a href="https://grpc.io/docs" target="_blank">Read the official docs</a>
-
-> Watch a conference talk: <a href="https://www.youtube.com/watch?v=RoXT_Rkg8LA" target="_blank">Intro to gRPC: A Modern Toolkit for Microservice Communication</a>
+> <a href="https://learn.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-6.0" target="_blank">Read the official docs</a>
 
 ---
 ### gRPC
@@ -812,8 +813,7 @@ class: dark middle
 
 - Mechanism to **serialize data**
 - **Independent** of language, platform...
-- Like XML or JSON but smaller, faster and simpler
-- Works with so called messages
+- Like XML or JSON but smaller, faster since they're binary
 - Messages transformed into a **binary** format before being sent
 - Every property of a message gets a number
     - Used to parse incoming/create outgoing buffers
@@ -853,7 +853,71 @@ message HelloReply {
 
 ---
 ### Ain't no REST for the wicked
-# gRPC
+# gRPC Code first
+
+.proto files makes it easy to generate code for the client and server. However if you're using C# on both sides you can use a code first approach. Using the <a href="https://github.com/protobuf-net/protobuf-net.Grpc" target="_blank">protobuf-net.Grpc</a> package you can define your services and messages in C#.
+
+```{cs}
+
+Data contracts:
+```cs
+namespace Shared.Contracts;
+
+[DataContract]
+public class HelloReply
+{
+    [DataMember(Order = 1)]
+    public string Message { get; set; }
+}
+
+[DataContract]
+public class HelloRequest
+{
+    [DataMember(Order = 1)]
+    public string Name { get; set; }
+}
+```
+
+---
+### Ain't no REST for the wicked
+# gRPC Code first
+
+Service contracts:
+```cs
+namespace Shared.Contracts;
+
+[ServiceContract]
+public interface IGreeterService
+{
+    [OperationContract]
+    Task<HelloReply> SayHelloAsync(HelloRequest request,
+        CallContext context = default);
+}
+```
+
+---
+### Ain't no REST for the wicked
+# gRPC Code first
+
+Service implementation:
+```cs
+public class GreeterService : IGreeterService
+{
+    public Task<HelloReply> SayHelloAsync(HelloRequest request,
+                                 CallContext context = default)
+    {
+        return Task.FromResult(
+                new HelloReply
+                {
+                    Message = $"Hello {request.Name}"
+                });
+    }
+}
+```
+
+---
+### gRPC Code first
+# Tutorial and examples
 
 Read through the following tutorial:
 - <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/grpc/code-first?view=aspnetcore-6.0">Code-first gRPC services and clients with .NET</a>
@@ -861,6 +925,7 @@ Read through the following tutorial:
 Read the readme of the following repository to integrate with Blazor:
 - <a target="_blank" href="https://github.com/hakenr/BlazorGrpcWebCodeFirst">Blazor gRPC Web Code First</a>
 
+All gRPC examples can be found in the following repository: <a target="_blank" href="https://aka.ms/grpcexamples">gRPC examples</a>
 ---
 name: odata
 class: dark middle
