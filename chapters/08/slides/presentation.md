@@ -250,7 +250,7 @@ On the details page it should be possible to open a sidepanel which makes it pos
 ---
 ### Bogus Store - Edit via Sidepanel
 <video controls width="100%" class="center" >
-  <source src="images/sportstore-edit-sidepanel.mp4" type="video/mp4">
+  <source src="images/bogusstore-edit-sidepanel.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
@@ -266,7 +266,7 @@ name:filter
 What we'll be building
 
 <video controls width="100%" class="center" >
-  <source src="images/sportstore-filter.mp4" type="video/mp4">
+  <source src="images/bogusstore-filter.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
