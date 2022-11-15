@@ -313,6 +313,11 @@ Your browser does not support the video tag.
 </video>
 
 ---
+class: dark middle
+# Suit up, wear a fancy Blazor
+> 📝 Commit: Tags : Index / Create
+
+---
 name:image-uploading
 class: dark middle
 # Suit up, wear a fancy Blazor
