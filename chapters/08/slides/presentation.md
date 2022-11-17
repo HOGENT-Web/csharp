@@ -243,7 +243,7 @@ On the details page it should be possible to open a sidepanel which makes it pos
 - Implement the `ProductService` functionality.
 - Create a new component with a code-behind file in the Client/Products folder called Edit.
 - On the Detail page, Show the Edit form in the Sidepanel component, make sure to refresh the Detail page when the edit is finished.
-- In the `ProductListItem` component, show the edit form in the Sidepanel component. Make sure to navitage to the Detail page when the edit is finished.
+- In the `ProductListItem` component, show the edit form in the Sidepanel component. Make sure to navigate to the Detail page when the edit is finished.
 
 > Example on the next slide
 
