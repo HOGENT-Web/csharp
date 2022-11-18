@@ -549,20 +549,23 @@ Your browser does not support the video tag.
 # StorageService
 Using a normal HttpClient we can upload files to BLOB based on the SAS returned from the Server.
 
-Client/Infrastructure/StorageService.cs
+Client/Files/AzureBlobStorageService.cs
 ```
-public class StorageService
+public class AzureBlobStorageService : IStorageService
 {
     private readonly HttpClient httpClient;
-    public const long maxFileSize = 1024 * 1024 * 10; // 10MB
-    public StorageService(HttpClient httpClient)
+    public static long MaxFileSize => 1024 * 1024 * 10; // 10MB
+
+    public AzureBlobStorageService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
     }
-    public async Task UploadImageAsync(Uri sas, IBrowserFile file)
+
+    public async Task UploadImageAsync(string sas, IBrowserFile file)
     {
-        var content = new StreamContent(file.OpenReadStream(maxFileSize));
+        var content = new StreamContent(file.OpenReadStream(MaxFileSize));
         content.Headers.Add("x-ms-blob-type", "BlockBlob");
+        content.Headers.Add("Content-Type", file.ContentType);
         var response = await httpClient.PutAsync(sas, content);
         response.EnsureSuccessStatusCode();
     }
@@ -572,30 +575,25 @@ public class StorageService
 ---
 ### Client
 # StorageService in DI
+
+Client/Files/IStorageService.cs
+```cs
+public interface IStorageService
+{
+    Task UploadImageAsync(string sas, IBrowserFile file);
+}
+```
+
 Add a Typed HttpClient in Dependency Injection
 
-```
-dotnet add package Microsoft.Extensions.Http
-```
-
 Client/Program.cs
-```
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
-
-            builder.Services.AddAuthorizationCore();
-            // Other services
-*           builder.Services.AddHttpClient<StorageService>();
-
-            await builder.Build().RunAsync();
-        }
-    }
+```cs
+// Other services
+builder.Services.AddHttpClient<IStorageService,
+                               AzureBlobStorageService>();
 ```
 
+> Doing this will allow us to inject the HttpClient in the StorageService and mock it when testing.
 ---
 ### Client
 # InputFile
@@ -604,13 +602,13 @@ Client/Products/Create.razor
 <div class="field">
     <div class="file has-name is-boxed is-fullwidth">
         <label class="file-label">
-            <InputFile class="file-input" OnChange="@LoadImage" accept="image/*"/>
+*           <InputFile class="file-input" OnChange="@LoadImage" accept="image/*" />
             <span class="file-cta">
                 <span class="file-icon">
                     <i class="fas fa-upload"></i>
                 </span>
                 <span class="file-label has-text-centered">
-                    Selecteer een afbeelding
+                    <span>Selecteer een afbeelding</span>
                 </span>
             </span>
             @if (image is not null)
@@ -636,68 +634,66 @@ public partial class Create
 
     [Inject] public IProductService ProductService { get; set; }
     [Inject] public NavigationManager NavigationManager { get; set; }
-*   [Inject] public StorageService StorageService { get; set; }
+*   [Inject] public IStorageService StorageService { get; set; }
 
     private async Task CreateProductAsync()
     {
-        ProductRequest.Create request = new() {Product = product};
-        var response = await ProductService.CreateAsync(request);
-*       await StorageService.UploadImageAsync(response.UploadUri, image);
-        NavigationManager.NavigateTo($"product/{response.ProductId}");
+        ProductResult.Create result = await ProductService.CreateAsync(product);
+*       await StorageService.UploadImageAsync(result.UploadUri, image!);
+        NavigationManager.NavigateTo($"product/{result.ProductId}");
     }
-*   private void LoadImage(InputFileChangeEventArgs args)
+
+*   private void LoadImage(InputFileChangeEventArgs e)
 *   {
-*       image = args.File;
-*       product.HasImage = true;
+*       image = e.File;
+*       product.ImageContentType = image.ContentType;
 *   }
 }
 ```
 
 ---
 ### Shared
-# ProductResponse
-Shared/Products/ProductResponse.cs
+# ProductResult
+Shared/Products/ProductResult.cs
+Create a new class to return the result of creating a product.
 
 Adding the UploadUri to the Create Response, so we can upload from the client.
 ```
-    public static class ProductResponse
+public abstract class ProductResult
+{
+    public class Index
     {
-        // Other responses
-        public class Create
-        {
-            public int ProductId { get; set; }
-*           public Uri UploadUri { get; set; }
-        }
+        public IEnumerable<ProductDto.Index>? Products { get; set; }
+        public int TotalAmount { get; set; }
     }
+
+*   public class Create
+*   {
+*       public int ProductId { get; set; }
+*       public string UploadUri { get; set; } = default!;
+*   }
+}
 ```
 
 ---
 ### Shared
 # ProductDto
 Shared/Products/ProductDto.cs
-```
-    public static class ProductDto
-    {
-        // Other DTO's
-        public class Mutate
-        {
-            public string Name { get; set; }
-            // Other properties
-*           public bool HasImage { get; set; }
 
-            public class Validator : AbstractValidator<Mutate>
-            {
-                public Validator()
-                {
-                    RuleFor(x => x.Name).NotEmpty().Length(1, 250);
-                    RuleFor(x => x.Price).InclusiveBetween(1, 250);
-                    RuleFor(x => x.Category).NotEmpty().Length(1, 250);
-*                   RuleFor(x => x.ImageAmount).NotEmpty();
-                    // Notice that this will break the Edit functionality
-                }
-            }
-        }
+`ImageContentType` is the MIME type e.g. `image/jpeg`, `image/png`, `image/gif` etc. We need it to create a valid filename on the server.
+
+```
+```cs
+public static class ProductDto
+{
+    // Other DTO's
+    public class Mutate
+    {
+        public string Name { get; set; }
+        // Other properties
+*       public string? ImageContentType { get; set; }
     }
+}
 ```
 
 ---
@@ -706,12 +702,12 @@ Shared/Products/ProductDto.cs
 We'll use an interface here so we can easily switch from Azure BLOB to another storage provider.
 Notice the abstract name, we're not referring to Azure at all, since it doesn't matter.
 
-Services/Common/IStorageService.cs
-```
+Services/Files/IStorageService.cs
+```cs
 public interface IStorageService
 {
-    string StorageBaseUri { get; }
-    Uri CreateUploadUri(string filename);
+    Uri BasePath { get; }
+    Uri GenerateImageUploadSas(Image image);
 }
 ```
 
@@ -737,44 +733,117 @@ Server/AppSettings.json
 > Adding ConnectionStrings to your repo is not the best practise in the world, make sure to take appropriate action, using environment secrets. Read more about <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows">Storing Secrets</a>
 
 ---
-### Services
-# BlobStorageService 
-Services/Common/BlobStorageService.cs
+### Domain
+# Add an Image class
+Domain/Files/Image.cs
 
-Code can be seen here, since it's too big for a slide, we need a new format for this...
+```cs
+public class Image : ValueObject
+{
+    public Uri BasePath { get; }
+    public Guid Identifier { get; }
+    public string Extension { get; }
 
-<a target="_blank" href="https://github.com/HOGENT-Web/csharp-ch-8-example-1/blob/2bf1ce5b8af673f2e8f83b453413bd67d6047ed6/src/Services/Common/BlobStorageService.cs#L1">BlobStorageService on GitHub</a>.
+    public string Filename => $"{Identifier}.{Extension}";
+    public Uri FileUri => new Uri($"{BasePath}/{Filename}");
 
+    public Image(Uri basePath, string contentType)
+    {
+       Identifier = Guid.NewGuid();
+*      Extension = MimeTypesMap.GetExtension(contentType).ToLower();
+       BasePath = Guard.Against.Null(basePath,nameof(basePath));
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return Extension.ToLower();
+        yield return Identifier;
+        yield return BasePath;
+    }
+}
+```
+
+---
+### Domain
+# Get the extension from the MIME
+
+Services/Services.csproj
+```
+dotnet add package MimeTypesMap
+```
+Which is a NuGet package that maps MIME types to extensions.
+
+```cs
+using HeyRed.Mime;
+
+MimeTypesMap.GetExtension("image/jpeg"); // => jpeg
+MimeTypesMap.GetMimeType("filename.jpeg"); // => image/jpeg
+
+MimeTypesMap.AddOrUpdate(string mime, string extension);
+```
+
+More information about the package can be found <a target="_blank" href="https://github.com/hey-red/MimeTypesMap">here</a>.
+---
+### BlobStorageService
+Services/Files/BlobStorageService.cs
+
+```cs
+public class BlobStorageService : IStorageService
+{
+    private readonly string connectionString;
+    public Uri BasePath => new Uri("https://hogentdemostorage.blob.core.windows.net/images");
+    public BlobStorageService(IConfiguration configuration)
+    {
+        connectionString = configuration.GetConnectionString("Storage");
+    }
+    public Uri GenerateImageUploadSas(Image image)
+    {
+        string containerName = "images";
+        var blobServiceClient = new BlobServiceClient(connectionString);
+        var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+        BlobClient blobClient = containerClient.GetBlobClient(image.Filename);
+        var blobSasBuilder = new BlobSasBuilder
+        {
+            ExpiresOn = DateTime.UtcNow.AddMinutes(5),
+            BlobContainerName = containerName,
+            BlobName = image.Filename,
+        };
+        blobSasBuilder.SetPermissions(BlobSasPermissions.Create | BlobSasPermissions.Write);
+        var sas = blobClient.GenerateSasUri(blobSasBuilder);
+        return sas;
+    }
+}
+```
 ---
 ### Services/Products/FakeProductService.cs
 ```
-public class FakeProductService : IProductService {
-*   private readonly IStorageService storageService;
-*   public FakeProductService(IStorageService storageService)
-*   {
+public class ProductService : IProductService {
+*  private readonly IStorageService storageService;
+   private readonly BogusDbContext dbContext;
+   public FakeProductService(`IStorageService storageService`, BogusDbContext dbContext)
+   {
+        this.dbContext = dbContext;
 *       this.storageService = storageService;
-*   }
-    public async Task<ProductResponse.Create> CreateAsync(ProductRequest.Create request)
+*  }
+    public async Task<`ProductResult.Create`> CreateAsync(ProductDto.Mutate model)
     {
-        ProductResponse.Create response = new();
-        var model = request.Product;
-        var price = new Money(model.Price);
-        var category = new Category(model.Category);
-*       var imageFilename = Guid.NewGuid().ToString();
-*       var imagePath = $"{storageService.StorageBaseUri}{imageFilename}";
-        var product = new Product(model.Name, model.Description, price, model.InStock, imagePath, category)
+        // Check if the product already exists
+
+*       Image image = new Image(storageService.BasePath, model.ImageContentType!);
+        Money price = new(model.Price);
+        Product product = new(model.Name!, model.Description!, price, `image.FileUri.ToString()`);
+
+        dbContext.Products.Add(product);
+        await dbContext.SaveChangesAsync();
+
+*       Uri uploadSas = storageService.GenerateImageUploadSas(image);
+
+        return new ProductResult.Create()
         {
-            Id = products.Max(x => x.Id) + 1
+            ProductId = product.Id,
+            UploadUri = uploadSas.ToString()
         };
-
-        products.Add(product);
-*       var uploadUri = storageService.CreateUploadUri(imageFilename);
-        response.ProductId = product.Id;
-*       response.UploadUri = uploadUri;
-
-        return response;
     }
-}
 ```
 
 ---
@@ -785,7 +854,6 @@ Since we're in a Browser, due to CORS we cannot upload the image. Let's allow al
 <img src="images/cors.png" width="100%" class="center" />
 
 <a href="images/cors.png" target="_blank">Fullscreen</a>
-
 
 ---
 ### Upload on Create
