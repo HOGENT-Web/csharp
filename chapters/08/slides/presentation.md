@@ -193,7 +193,7 @@ name:create
 Implement the Create Functionality.
 
 - Create a new page with a code-behind file in the Client/Products folder called Create, with url `/product/create`.
-- Make sure you can navigate from the `Toevoegen` knop in the index page.
+- Make sure you can navigate from the `Toevoegen` button in the index page.
 - Use the <a target="_blank" href="https://github.com/Blazored/FluentValidation">Blazored.FluentValidation</a> library to create the form.
 - Use the `ProductDto.Mutate` as model for the `EditForm`
 - Use <a target="_blank" href="https://bulma.io/documentation/form/general/">BULMA's form components</a> to style the form accordingly
