@@ -273,19 +273,144 @@ Your browser does not support the video tag.
 ---
 ### Bogus Store
 # Filter Products
-Implement the Filter Functionality. 
+Implement the filter functionality.  We'll implement the `SearchTerm` together, but you'll have to implement the other filters yourself.
 
-- Make sure the filter is applied when the user navigates to the `/product?searchterm=abc` page.
-- Adjust the `ProductService` (back-end) to filter the products based on the search criteria.
+The `SearchTerm` is a string which is used to filter the products by name and provided in the query string. e.g. `?searchTerm=product`
 
-> Use the following in the Index page and pass them down to the `ProductFilters.razor`:
+We'll be using `[Parameter, SupplyParameterFromQuery]`
 ```cs
     [Parameter]
-    [SupplyParameterFromQuery]
+    `[SupplyParameterFromQuery]`
     public string? Searchterm { get; set; }
 ```
 
-> The categories are hard-coded for now, you can however create a new `Controller` and `Service` to make them dynamic.
+> Note that **only** components with a `page "/"` directive can use the `[SupplyParameterFromQuery]` functionality. Which makes it impossible to use this functionality in the `ProductFilters` component. So we'll have to pass the `SearchTerm` to the `ProductFilters` component from the `Index` component.
+>
+> More information about providing parameters from the query string can be found in the <a target="_blank" href="https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-6.0#query-strings-1">official docs</a>.
+
+---
+### Filter Products
+**Index.razor.cs**
+
+Add a `SearchTerm` parameter to the `Index` component.
+```cs
+[Parameter]
+[SupplyParameterFromQuery]
+public string? SearchTerm { get; set; }
+```
+Change the `OnInitializedAsync` lifecycle method to a `OnParametersSetAsync` and change the request to include the `SearchTerm`.
+```cs
+protected override async Task `OnParametersSetAsync()`
+{
+*   ProductRequest.Index request = new()
+*   {
+*       Searchterm = Searchterm,
+*   };
+
+    var response = await ProductService.GetIndexAsync(request);
+    products = response.Products;
+}
+```
+
+> Read more about lifecycle methods <a target="_blank" href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-7.0#when-parameters-are-set-setparametersasync">here</a>.
+
+---
+### Filter Products
+**Client/Products/ProductService.cs**
+
+Use the `Searchterm` in the `GetIndexAsync` method.
+
+```cs
+public async Task<ProductResult.Index> 
+GetIndexAsync(ProductRequest.Index request)
+{
+    var response = await client.GetFromJsonAsync
+    <ProductResult.Index>
+    ($"{endpoint}`?searchterm={request.Searchterm}`");
+    return response!;
+}
+```
+
+> Notice the `?searchterm={request.Searchterm}` at the end of the url/query string. You can use a helper to create the url, but for now we'll just use string interpolation.
+
+---
+### Filter Products
+Pass the parameter to the `ProductFilters` component.
+
+**ProductFilters.razor.cs**
+```cs
+[Parameter, `EditorRequired`] 
+public string? Searchterm { get; set; } = default!;
+```
+
+> Using the `EditorRequired` the compiler will shown a warning if the parameter is not provided when using the `<ProductFilter/>` component.
+
+**Client/Products/Index.razor**
+```cs
+<ProductFilters `Searchterm="@Searchterm"`/>
+```
+
+---
+### Filter Products
+Bind the `Searchterm` to the input field.
+
+**ProductFilters.razor**
+```cs
+<input class="input" type="search" placeholder="Zoeken..." 
+       `value="@searchTerm" @onchange="SearchTermChanged"`>
+```
+> Notice that we cannot use the `@bind` syntax here, since we need to do some extra work when the value changes.
+> 
+> We'll use the `SearchTermChanged` method to update the `searchTerm` (field!) and navigate to the current page with the new `SearchTerm` parameters.
+>
+> Don't create a component that writes to its own parameters after the component is rendered for the first time. For more information, see the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-6.0#overwritten-parameters-1" target="_blank"> official docs</a>.
+
+---
+### Filter Products
+**ProductFilters.razor.cs**
+```cs
+[Parameter, EditorRequired] 
+public string? Searchterm { get; set; } = default!;
+
+private string? searchTerm;
+
+protected override void OnParametersSet()
+{
+    //Set the field equal to the parameter.
+    searchTerm = Searchterm; 
+}
+
+private void SearchTermChanged(ChangeEventArgs args)
+{
+    // When the inputfield changes...
+    searchTerm = args.Value?.ToString();
+    FilterProducts();
+}
+
+private void FilterProducts()
+{ // Navigate to the current page with the new SearchTerm parameter.
+  Dictionary<string, object?> parameters = new();
+  parameters.Add(nameof(searchTerm), searchTerm);
+  var uri = NavigationManager.GetUriWithQueryParameters(parameters);
+  NavigationManager.NavigateTo(uri);
+}
+```
+
+
+---
+### Filter Products
+# Exercise
+- Implement the other filters.
+    - Minimum Price
+    - Maximum Price
+    - Category / Tag use `Id` of the tag
+
+> Notice that the `Category` / `Tag` filters are not strings, but integers. So you'll have to use the `int.TryParse` method to convert the string to an integer.
+>
+> Notice that the `Price` filters are not strings, but decimals. So you'll have to use the `decimal.TryParse` method to convert the string to a decimal.
+> 
+> For now the Tags are hard coded but you can make them generic if you want by requesting them from the Server on load of the component.
+> Do not forget to adjust the `ProductService`(s) as well.
 
 ---
 class: dark middle
