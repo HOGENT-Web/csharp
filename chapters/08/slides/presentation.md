@@ -994,6 +994,101 @@ class: dark middle
 > 📝 Commit: Add Image Upload On Create
 
 ---
+name:shopping-cart
+### Exercise
+# Shopping Cart
+Implement the Shopping Cart functionality, **only  client side**.
+
+Make it possible to:
+- Add products in a Shopping Cart.
+- Remove products from the  Shopping Cart.
+- Increase / Decrease quantity.
+- Show the amount of items in the `Cart` in the `Header` component
+- Show the total price all items.
+- Show the Shopping Cart in a sidepanel component
+
+Tips:
+- Use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=webassembly" target="_blank">State Management article</a> to put a `Cart` class in DI. 
+- Make it possible for components to subscribe to the `OnCartChanged` event and make them re-render themselves when changes occur.
+- New classes you'll need:
+    - `Cart` Store in DI and inject it into components (See next slide)
+    - `CartItem`
+    - `ShoppingCart` (Component to render in the sidepanel)
+
+---
+### Shopping Cart
+# Final Result
+<video controls width="100%" class="center" >
+  <source src="images/shopping-cart.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+> See next slides for some help.
+
+---
+### Shopping Cart
+**Cart.cs**
+Example Cart class (Store in DI)
+```cs
+public class Cart
+{
+    private readonly List<CartItem> items = new();
+    public IReadOnlyList<CartItem> Items => items.AsReadOnly();
+    public event Action? OnCartChanged;
+    public decimal Total => items.Sum(x => x.Total);
+    public void AddItem(int productId, string name, decimal price)
+    {
+        var existingItem = items.SingleOrDefault(x => x.ProductId == productId);
+        if (existingItem == null)
+        {
+            CartItem item = new CartItem(productId, name, price, 1);
+            items.Add(item);
+        }else
+        {
+            existingItem.Amount++;
+        }
+        OnCartChanged?.Invoke();
+    }
+
+    public void RemoveItem(CartItem item)
+    {
+        items.Remove(item);
+        OnCartChanged?.Invoke();
+    }
+}
+```
+
+---
+### Shopping Cart
+**Header.razor.cs**
+Part of code-behind of the `Header` component.
+```cs
+public partial class Header : IDisposable
+{
+    [Inject] public ISidepanelService Sidepanel { get; set; }
+    [Inject] public Cart Cart { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Cart.OnCartChanged += StateHasChanged;
+    }
+    public void Dispose()
+    {
+        Cart.OnCartChanged -= StateHasChanged;
+    }
+    private void OpenShoppingCart()
+    {
+        Sidepanel.Open<ShoppingCart>("Winkelwagen");
+    }
+}
+```
+
+---
+class: dark middle
+# Suit up, wear a fancy Blazor
+> 📝 Commit: Add Shopping Cart
+
+---
 name:edit-image
 ### Exercise
 # Edit Product with Image
@@ -1009,37 +1104,6 @@ Tips:
     - Return a new SAS token and let the client upload to BLOB
 
 ---
-name:shopping-cart
-### Exercise
-# Shopping Cart
-Implement the Shopping Cart Functionality, **only client side functionality**
-
-Make it possible to:
-- Add products in a Shopping Cart.
-- Remove products from the  Shopping Cart.
-- Increase / Decrease quantity.
-- Show the amount of items in the `Cart` in the `Header` component
-
-Tips:
-- Render the Shoppingcart in the Sidepanel
-- Use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-6.0&pivots=webassembly" target="_blank">State Management article (memory)</a> to put the Cart in DI .
-
-> See next slide for example
-
----
-### Shopping Cart
-# Done.
-<video controls width="100%" class="center" >
-  <source src="images/shopping-cart.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-
----
-class: dark middle
-# Suit up, wear a fancy Blazor
-> 📝 Commit: Add Shopping Cart
-
----
 class: dark middle
 # Suit up, wear a fancy Blazor
 > Switch to Blazor Server
@@ -1049,11 +1113,18 @@ class: dark middle
 # Tutorial.
 Using the correct architecture you can (at this point) switch from Blazor WASM to Blazor Server. In a later stage the conversion becomes more difficult due to Authentication, Database access is not really a big problem. In most Blazor Server Apps, Cookies are used instead of JWT tokens.
 
-We won't go into too much detail and leave it as an exercise, since the process how you can convert to Blazor Server is a great way to see if you understood the material of this and previous modules.
+We won't go into too much detail and leave it as an exercise, since the process how you can convert to Blazor Server is a great way to see if you understood the material of this and previous chapters.
 
 - Tips:
     - Use <a target="_blank" href="https://www.appvnext.com/blog/2020/2/2/reuse-blazor-wasm-ui-in-blazor-server">this article</a> as a starting point.
     - You won't be needing the Client's services anymore, the interfaces of the shared project will suffice.
+
+---
+### Switch to gRPC
+# Extra
+Switch from REST to gRPC, we consider this as an extra exercise if you want to learn more about gRPC in combination with Blazor. 
+
+> Note that this is not part of the course for the examination. 
 
 ---
 ### Suit up, wear a fancy Blazor
@@ -1067,5 +1138,6 @@ In this module you learned:
 - Be aware of the render tree
 - Uploading files to BLOB storage
 - Use the EditForm component for advanced validated forms
+- Do not mutate incoming parameters in components.
 - Connect client-to-server via REST
 - It's quite easy to switch from Blazor WASM to Blazor Server using the correct architecture
