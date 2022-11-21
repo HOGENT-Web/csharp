@@ -14,6 +14,7 @@ class: dark middle
     - [Filter](#filter)
     - [Upload Image](#upload-image)
     - [Shopping Cart](#shopping-cart)
+- [Exercise](#exercise)
 
 ---
 class: dark middle
@@ -395,7 +396,6 @@ private void FilterProducts()
   NavigationManager.NavigateTo(uri);
 }
 ```
-
 
 ---
 ### Filter Products
@@ -1102,6 +1102,43 @@ Tips:
     - Save the changes to the database
     - Delete the old Block Blob Image
     - Return a new SAS token and let the client upload to BLOB
+
+---
+name: exercise
+class: dark middle
+
+# Suit up, wear a fancy Blazor
+> Exercise
+
+---
+### Exercise
+# Customers
+Implement the following functionalities:
+- An administrator can see a **list of all customers** and filter them by name(s) and email address, use a query string.
+- An administrator can **create** a new customer.
+- An administrator can see the **details** of a customer.
+- An administrator can **edit** a customer.
+
+Tip:
+- Use the Tags/Products as a reference.
+
+> In the next chapters we'll implement the Customer side of the application.
+
+---
+name: solution
+class: dark middle
+
+# Suit up, wear a fancy Blazor
+> Solution 
+
+---
+### Suit up, wear a fancy Blazor
+# Solution
+Following commits achieve a possible solution:
+- 📝 Commit: List Customers
+- 📝 Commit: Add Customer
+- 📝 Commit: Detail Customer
+- 📝 Commit: Edit Customer
 
 ---
 class: dark middle
