@@ -45,7 +45,7 @@ Please note that:
 - Duplicate
 
 However, some are worth mentioning:
-- <a target="_blank" href="https://github.com/Blazored">Blazored</a>, small but extenable
+- <a target="_blank" href="https://github.com/Blazored">Blazored</a>, small but extendable
 - <a target="_blank" href="https://github.com/MudBlazor/MudBlazor">MudBlazor</a>, full suite of components
 - <a target="_blank" href="https://github.com/bUnit-dev/bUnit">bUnit</a>, testing library
 
