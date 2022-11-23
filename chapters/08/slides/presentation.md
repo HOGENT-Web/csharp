@@ -573,7 +573,7 @@ Your browser does not support the video tag.
 # Shared Access Signatures (SAS)
 A shared access signature is a signed URI that points to one or more storage resources. The URI includes a token that contains a special set of query parameters. The token indicates how the resources may be accessed by the client. One of the query parameters, the signature, is constructed from the SAS parameters and signed with the key that was used to create the SAS. This signature is used by Azure Storage to authorize access to the storage resource.
 
-Using a SAS we can give the client access for a few minutes (not to long) to upload an image directly without streaming the image to our server and then to the Azure Storage Container. Therefore the load is never on our server but on the client and Azure itself. 
+Using a SAS we can give the client access for a few minutes (not too long) to upload an image directly without streaming the image to our server and then to the Azure Storage Container. Therefore the load is never on our server but on the client and Azure itself. 
 
 ---
 ### Image uploading
@@ -1169,7 +1169,7 @@ Switch from REST to gRPC, we consider this as an extra exercise if you want to l
 
 In this module you learned:
 - The ins-and-outs of Blazor
-- It's pretty powerfull for native C# speakers
+- It's pretty powerful for native C# speakers
 - Keep State in State objects via Dependency Injection
 - Pass parameters and callbacks to other components
 - Be aware of the render tree
