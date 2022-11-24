@@ -1121,8 +1121,17 @@ Implement the following functionalities:
 
 Tip:
 - Use the Tags/Products as a reference.
+- See next slide for a small demo.
 
 > In the next chapters we'll implement the Customer side of the application.
+
+---
+### Customers
+# Final Result
+<video controls width="100%" class="center" >
+  <source src="images/exercise-customers.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 ---
 name: solution
