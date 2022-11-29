@@ -75,11 +75,10 @@ class: dark middle
 * **O**bject **R**elational **M**apper (ORM) framework
 * open-source and cross platform
 * works with relational and not relational data stores
-    * use right provider to give EF Core access to your data store
+    * use the right provider to give EF Core access to your data store
     * <a href="https://docs.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli" target="_blank">List of available providers</a>
 * access data through the model classes
     * instead of writing SQL yourself
-    * like with Dapper
 
 ---
 ### Entity Framework Core
@@ -113,27 +112,12 @@ You have two options for creating the database and model
 ---
 ### Creating your model
 # Code-first workflow
-
-First, install Entity Framework Core
-
-**Windows:**
+Different packages are needed for the different providers, choose one.
 ```
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.`SqlServer`
+dotnet add package Microsoft.EntityFrameworkCore.`Sqlite`
+dotnet add package Microsoft.EntityFrameworkCore.`InMemory`
 ```
-
-**macOS/Linux**
-
-You can also opt for SQL Server and run it in Docker (see Dapper notebook) or choose MySQL for example:
-
-```
-dotnet add package MySql.Data.EntityFramework
-```
-
-> More information about MySQL in Entity Framework can be found <a href="https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework60.html" target="_blank">here</a>
-
----
-### Creating your model
-# Code-first workflow
 
 After installing EF Core, a typical workflow for the **code-first** approach is as follows
 
@@ -148,79 +132,615 @@ name: tutorial-ef-core
 class: dark middle
 
 # Data, the new raw material
-> Working with EF Core
+> Tutorial Entity Framework Core
 
 ---
 ### Entity Framework Core
-# Working with EF Core
+# Tutorial
 
 Complete the following tutorial
 [Persist and retrieve relational data with Entity Framework Core](https://docs.microsoft.com/en-us/learn/modules/persist-data-ef-core/)
 
 > Note that the tutorial is **mandatory** to go forward.
 
-<br />
-
-> Choose **Fluent** as **data access** syntax starting from Unit 5
 
 ---
-name: overriding-conventions
+name: ef-core-explained
 class: dark middle
 
 # Data, the new raw material
-> Overriding conventions
+> Entity Framework Core explained
 
 ---
 ### Entity Framework Core
-# Overriding conventions
+# Explained
+On the following slides, we'll explain the code which was already implemented in chapter 8. We just copy-pasted the solution branch. The code is not perfect, but it's a good starting point to learn how to map.
 
-If you don't obey the conventions of EF Core, like for example the `Id` or `<Entity name>Id`
-convention, you need the <a href="https://www.learnentityframeworkcore.com/configuration/data-annotation-attributes" target="_blank">data annotations</a> or <a href="https://www.learnentityframeworkcore.com/configuration/fluent-api" target="_blank">EF Core Fluent API</a> to map you model to the database.
+clone <a href="https://github.com/HOGENT-Web/csharp-ch-9-example-1" target="_blank"> this repository</a> to get started.
 
-Sometimes the Fluent API is easier to use and easier to maintain than the data annotations. Also **not everything is possible with data annotations**, you sometimes really need the Fluent API.
+- DbContext
+    - Entity Types
+    - Entity Base class
+    - OnConfiguring
+    - OnModelCreating
+    - Lifetime
+- Persistence.csproj
+    - Configurations
+    - Triggers
 
-<img src="./images/know-the-rules.jpg" alt="You know the rules and so do I" class="center"  style="max-width: 50%;" />
+> We advise to read through the links provided in the next slides to get a better understanding of EF Core.
 
 ---
 ### Entity Framework Core
-# Overriding conventions
+# DbContext
 
-Read through the following documentation sections:
 
-- <a href="https://www.learnentityframeworkcore.com/configuration" target="_blank">Configuration in Entity Framework Core</a>
-- <a href="https://www.learnentityframeworkcore.com/configuration/data-annotation-attributes" target="_blank">Data Annotation Attributes</a> (only this page)
-- <a href="https://www.learnentityframeworkcore.com/configuration/fluent-api" target="_blank">Fluent Api</a> (only this page)
-- <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects#persist-value-objects-as-owned-entity-types-in-ef-core-20-and-later" target="_blank">Persist value objects as owned entity types</a>
+```cs
+public class BogusDbContext : DbContext
+{
+    public DbSet<Product> Products => Set<Product>();
 
-<img src="./images/follow-the-rules.jpeg" alt="Follow the rules, ain't nobody got time for that" class="center" style="max-width: 50%;" />
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+
+    }
+}
+```
+The `DbContext` class is an integral part of Entity Framework. An instance of `DbContext` represents a session with the database which can be used to query and save instances of your entities to a database. `DbContext` is a combination of the Unit Of Work and Repository patterns.
+
+> More information can be found <a href="https://www.entityframeworktutorial.net/efcore/entity-framework-core-dbcontext.aspx#:~:text=The%20DbContext%20class%20is%20an,Of%20Work%20and%20Repository%20patterns" target="_blank">here</a> 
+
 
 ---
-name: exercises
+### DbContext
+# Entity Types
+
+```cs
+public class BogusDbContext `: DbContext`
+{
+*   public DbSet<Product> Products => Set<Product>();
+}
+```
+
+- DbSet<T> is a collection of entities of type `T`, `Product` in this case.
+- Each DbSet<T> represents a table in the database.
+- The `Set<T>` method is used to access the DbSet<T> collection.
+
+> More information can be found <a href="https://learn.microsoft.com/en-gb/ef/core/modeling/entity-types?tabs=fluent-api" target="_blank">here</a> 
+
+---
+### DbContext
+# Entity Base class
+
+```cs
+public abstract class Entity
+{
+    public int Id { get; protected set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    // other stuff
+}
+```
+
+- Each Entity in our domain model should inherit from this class.
+- This class contains the `Id` property, which is the primary key of the table.
+- The `CreatedAt` and `UpdatedAt` properties are used to track when an entity was created and updated.
+
+```cs
+public class Product `: Entity`
+{
+    // other stuff and properties
+}
+```
+> More information can be found <a href="https://enterprisecraftsmanship.com/posts/entity-base-class/" target="_blank">here</a> 
+
+---
+### DbContext
+# Constructors for entities
+Declare private constructors for classes that are stored in the database, so EF Core will always use this constructor.
+
+```cs
+public class Product : Entity
+{
+*   private Product() { }
+    // other stuff and properties
+}
+```
+
+If you don't do this, EF Core will use the default constructor, if there is one or the one with the most parameters. If you're using setter validation in your entities, this can cause problems. Since EF Core will use that constructor and set the properties, the validation will be triggered.
+
+> More information can be found <a href="https://learn.microsoft.com/en-us/ef/core/modeling/constructors" target="_blank">here</a>
+
+---
+### DbContext
+# OnConfiguring
+
+```cs
+public class BogusDbContext : DbContext
+{
+   public DbSet<Product> Products => Set<Product>();
+   
+   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.EnableDetailedErrors();
+        optionsBuilder.EnableSensitiveDataLogging();
+*       optionsBuilder.UseInMemoryDatabase(databaseName: "BogusDb");
+    }
+}
+```
+This method is called for each instance of the context that is created.
+
+> Later we will change this to use a real database
+
+---
+### DbContext
+# OnModelCreating
+Entity Framework Core uses a set of conventions to build a model based on the shape of your entity classes. You can specify additional configuration to supplement and/or override what was discovered by convention.
+
+You can override the `OnModelCreating` method in your derived context and use the ModelBuilder API to configure your model. This is the most powerful method of configuration and allows configuration to be specified without modifying your entity classes. Fluent API configuration has the highest precedence and will override conventions and data annotations.
+
+```cs
+public class BogusDbContext : DbContext
+{
+  public DbSet<Product> Products => Set<Product>();
+    // Other stuff
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+      modelBuilder.Entity<Product>()
+          .Property(x => x.Name)
+          .HasMaxLength(50)
+          .IsRequired();
+  }
+}
+```
+
+> More information can be found <a href="https://learn.microsoft.com/en-us/ef/core/modeling/" target="_blank">here</a> 
+
+
+---
+### DbContext
+# Grouping configuration
+To reduce the size of the `OnModelCreating` method all configuration for an entity type can be extracted to a separate class implementing `IEntityTypeConfiguration<TEntity>.`
+
+```cs
+class ProductConfiguration : IEntityTypeConfiguration<Product>
+{
+    public void Configure(EntityTypeBuilder<Product> builder)
+    {
+        builder.Property(x => x.Name)
+               .HasMaxLength(50);
+               .IsRequired();
+    }
+}
+```
+> More information can be found <a href="https://learn.microsoft.com/en-gb/ef/core/dbcontext-configuration/" target="_blank">here</a> 
+>
+> Do not forget to apply the configuration in the `OnModelCreating` method of the `DbContext` (see next slide).
+
+
+---
+### DbContext
+# Applying all configurations
+
+```cs
+public class BogusDbContext : DbContext
+{
+    public DbSet<Product> Products => Set<Product>();
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BogusDbContext).Assembly);
+    }
+}
+```
+
+---
+### DbContext
+# Conventions
+Most of the time Entity Framework Core will map the models based on conventions so you don't need to configure everything yourself. Knowing these conventions can help you to understand what is going on and why something is (not) working. On the following links, you can find a list of all conventions that are used by EF Core.
+- <a href="https://www.entityframeworktutorial.net/efcore/conventions-in-ef-core.aspx"> Basic Conventions</a>
+- <a href="https://learn.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key"> Relationship Conventions</a>
+
+---
+### DbContext
+# Lifetime
+The lifetime of a `DbContext` begins when the instance is created and ends when the instance is disposed. A `DbContext` instance is designed to be used for a single unit-of-work. This means that the **lifetime** of a `DbContext` instance is usually **very short**.
+
+In many web applications, each HTTP request corresponds to a single unit-of-work. This makes tying the context lifetime to that of the request a good default for web applications, which is `scoped`.
+
+**Server/Program.cs**
+```cs
+builder.Services.AddDbContext<BogusDbContext>();
+```
+
+> More information can be found <a href="https://learn.microsoft.com/en-gb/ef/core/dbcontext-configuration/" target="_blank">here</a> 
+
+---
+### Persistence.csproj
+# Configurations
+We used the grouping configuration and provide 1 file per entity type. As can be seen in the `ProductConfiguration.cs` file.
+
+```cs
+class ProductConfiguration : IEntityTypeConfiguration<Product>
+{
+    public void Configure(EntityTypeBuilder<Product> builder)
+    {
+        builder.OwnsOne(x => x.Price).Property(x => x.Value);
+    }
+}
+```
+
+---
+### Persistence.csproj
+# Triggers
+A Trigger is something that is executed before or after an action is performed on the database. In this case we will use triggers to set the `CreatedAt` and `UpdatedAt` properties of the entities. Notice that this is database agnostic and will work for any database provider.
+
+```cs
+public class EntityBeforeSaveTrigger : IBeforeSaveTrigger<Entity>
+{
+    public Task BeforeSave(ITriggerContext<Entity> context, 
+                           CancellationToken cancellationToken)
+    {
+        if (context.ChangeType == ChangeType.Added)
+        {
+            context.Entity.CreatedAt = DateTime.UtcNow;
+            context.Entity.UpdatedAt = DateTime.UtcNow;
+        }
+        if (context.ChangeType == ChangeType.Modified)
+        {
+            context.Entity.UpdatedAt = DateTime.UtcNow;
+        }
+        return Task.CompletedTask;
+    }
+}
+```
+
+> This is not built-in so we've used the `EntityFrameworkCore.Triggered` package.
+
+
+---
+name: sql-server
 class: dark middle
 
 # Data, the new raw material
-> Exercises
+> Switch to Microsoft SQL Server
 
 ---
-### Data, the new raw material
-# Exercises
+### Switch to Microsoft SQL Server
+**Persistence.csproj**
+```bash
+dotnet `add` package Microsoft.EntityFrameworkCore.`SqlServer`
+dotnet `remove` package Microsoft.EntityFrameworkCore.`InMemory`
+```
 
-1. [Dapper](.../../../notebooks/exercises.ipynb)
-2. <a href="https://github.com/HOGENT-Web/csharp-ch-9-exercise-1" target="_blank">SportStore with EF</a>
+**Server/Program.cs**
+```cs
+builder.Services.AddDbContext<BogusDbContext>(`options =>`
+*{
+*    options.UseSqlServer
+*    (
+*        builder.Configuration.GetConnectionString("SqlServer")
+*    );
+});
+```
+> Note that the connectionstring is fetched from the `AppSettings.json` file.
 
 ---
-name: solutions
+### Switch to Microsoft SQL Server
+**Server/AppSettings.json**
+
+Windows
+```json
+{
+  "ConnectionStrings": {
+    "Storage": "YOUR_BLOB_STORAGE_CONNECTION_STRING_HERE",
+    "SqlServer": "Server=(localdb)\\mssqllocaldb;Database=BogusDb;Trusted_Connection=True;"
+  }
+}
+```
+macOS/Linux
+```json
+{
+  "ConnectionStrings": {
+    "Storage": "YOUR_BLOB_STORAGE_CONNECTION_STRING_HERE",
+    "SqlServer": "Server=localhost,1433;Database=Csharp.BogusDb;User=sa;Password=p@ssw0rd"
+  }
+}
+```
+> You will need Docker if you're on Linux / macOS.
+
+---
+### DbContext
+# MS SQL Server 
+**BogusDbContext.cs**
+```cs
+public class BogusDbContext : DbContext
+{
+   public DbSet<Product> Products => Set<Product>();
+
+*  public BogusDbContext(DbContextOptions<BogusDbContext> options)
+*  : base(options) {}
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.EnableDetailedErrors();
+        optionsBuilder.EnableSensitiveDataLogging();
+*       // Remove the InMemoryDatabase
+        optionsBuilder.UseTriggers(options =>
+        {
+            options.AddTrigger<EntityBeforeSaveTrigger>();
+        });
+    }
+}
+```
+
+---
+### Switch to Microsoft SQL Server
+**FakeSeeder.cs**
+
+```cs
+public void Seed()
+{
+    // Not a good idea in production.
+*   dbContext.Database.EnsureDeleted();
+*   dbContext.Database.EnsureCreated();
+
+    SeedProducts();
+    SeedTags();
+    SeedCustomers();
+}
+```
+For now we'll use a drop/create strategy to make sure we have a clean database. In production you would use migrations.
+
+> Learn how to use migrations <a href="https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli" target="_blank">here</a>
+
+---
 class: dark middle
 
 # Data, the new raw material
-> Solutions
+> 📝 Commit: Switch to Sql Server
+>
+> Show the database schema using SSMS or Azure Data Studio
+
+---
+### Overriding the default conventions
+**BogusDbContext.cs**
+
+```cs
+// Other methods omitted
+protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+{
+    // All decimals should have 2 digits after the comma
+    configurationBuilder.Properties<decimal>().HavePrecision(18, 2);
+    // Max Length of a NVARCHAR that can be indexed
+    configurationBuilder.Properties<string>().HaveMaxLength(4_000);
+}
+```
+> Global configuration for all entities and `decimal` / `string` properties.
+
+---
+class: dark middle
+
+# Data, the new raw material
+> 📝 Commit: Global Conventions
+
+---
+### Overriding the logging
+**Server/AppSettings.json**
+
+```json
+{
+  "ConnectionStrings": {
+    "Storage": "YOUR_CONNECTION_STRING_HERE",
+    "SqlServer": "YOUR_CONNECTION_STRING_HERE"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning",
+*     "EntityFrameworkCore.Triggered" : "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+```
+> Making the Triggered package shut-up a bit more.
+
+---
+class: dark middle
+
+# Data, the new raw material
+> 📝 Commit: Less Logging From Triggered
+
+---
+### Default values for `Entities`
+**Persistence/Configurations/EntityConfiguration.cs**
+
+```cs
+class EntityConfiguration<T> : IEntityTypeConfiguration<T> where T : Entity
+{
+    public virtual void Configure(EntityTypeBuilder<T> builder)
+    {
+        // All tables are singlular named and have the name of the Entity
+        builder.ToTable(typeof(T).Name); 
+        // All entities can be soft deleted but are not by default
+        builder.Property(x => x.IsEnabled).IsRequired().HasDefaultValue(true).ValueGeneratedNever();
+        // Default SQL constraint for CreatedAt and UpdatedAt
+        builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+        builder.Property(x => x.UpdatedAt).HasDefaultValueSql("GETUTCDATE()").IsConcurrencyToken();
+    }
+}
+```
+> Default configuration for all entities.
+>
+> Continued on the next slide.
+
+---
+### Default values for `Entities`
+**Persistence/Configurations/EntityConfiguration.cs**
+
+Before
+```cs
+internal class ProductConfiguration `:  IEntityTypeConfiguration<Product>`
+{
+    public void Configure(EntityTypeBuilder<Product> builder)
+    {
+        builder.OwnsOne(x => x.Price).Property(x => x.Value);
+    }
+}
+```
+
+After
+```cs
+internal class ProductConfiguration `: EntityConfiguration<Product>`
+{
+    public `override` void Configure(EntityTypeBuilder<Product> builder)
+    {
+        `base.Configure(builder);`
+        builder.OwnsOne(x => x.Price).Property(x => x.Value);
+    }
+}
+```
+> Do this for all your `EntityConfiguration` classes, so `CustomerConfiguration` etc.
+
+
+---
+class: dark middle
+
+# Data, the new raw material
+> 📝 Commit: Introduce EntityConfiguration&lt;T&gt;
+
+---
+### Rename Price_Value column to Price
+**Persistence/Configurations/ProductConfiguration.cs**
+```cs
+
+internal class ProductConfiguration : EntityConfiguration<Product>
+{
+    public override void Configure(EntityTypeBuilder<Product> builder)
+    {
+        base.Configure(builder);
+
+        builder`.OwnsOne(x => x.Price)`
+               `.Property(x => x.Value)`
+               `.HasColumnName(nameof(Product.Price))`;
+    }
+}
+```
+> Read through the <a href="https://learn.microsoft.com/en-us/ef/core/modeling/owned-entities" target="_blank">documentation</a> to learn more about `ValueObjects` and how to map them to the database.
+> 
+> `OwnsOne` / `OwnsMany` is **not** the same as `HasOne` / `HasMany`. Only use `OwnsOne` / `OwnsMany` for `ValueObjects` to store the object with the Entity that owns it.
+
+---
+class: dark middle
+
+# Data, the new raw material
+> 📝 Commit: Rename Price_Value column to Price
+
+---
+### OrderLine is not mapped at all.
+**Persistence/Configurations/OrderLineConfiguration.cs**
+```cs
+internal class OrderLineConfiguration : EntityConfiguration<OrderLine>
+{
+    public override void Configure(EntityTypeBuilder<OrderLine> builder)
+    {
+        base.Configure(builder);
+
+        // Was not mapped due to {get;}
+        builder.Property(x => x.Quantity);
+        builder.Property(x => x.Description);
+        
+        // Value Object Mapping and rename of column
+        builder.OwnsOne(x => x.Price)
+               .Property(x => x.Value)// Was not mapped due to {get;}
+               .HasColumnName(nameof(OrderLine.Price));
+        // 1 to Many relationship with a cascade restrict behavior
+        builder.HasOne(x => x.Product)
+               .WithMany()
+               .OnDelete(DeleteBehavior.Restrict);
+    }
+}
+```
+> Note that `{get;}` properties are not mapped by default so we need the `.Property(x => x.Value)` to map the `Value` property or use `{get; private set;}` but that's lying to the Domain. More information about `one-to-many` relationships <a href="https://docs.microsoft.com/en-us/ef/core/modeling/relationships" target="_blank">here</a>.
+
+---
+class: dark middle
+
+# Data, the new raw material
+> 📝 Commit: OrderLine Configuration
+
+---
+class: dark middle
+
+# Data, the new raw material
+> Exercise
 
 ---
 ### Data, the new raw material
-# Solutions
+# Exercise
+Use the <a href="https://learn.microsoft.com/en-us/ef/core/" target="_blank">documentation</a> of EF Core and configurations to:
 
-1. [Dapper](.../../../notebooks/solutions.ipynb)
-2. <a href="https://github.com/HOGENT-Web/csharp-ch-9-exercise-1/tree/solution" target="_blank">SportStore with EF</a>
+Tags
+- Set the max length of a `Tag` to 50 characters
+
+Products
+- Add a unique index to the `Name` column
+
+Customers
+- Rename the `Email_Value` column to `Email`
+- Add a unique index for the `Email` column
+- Rename the `Address_Street` column to `Street`, do this for all the `Address` properties
+
+---
+class: dark middle
+
+# Data, the new raw material
+> 📝 Commit: Additional Mappings
+
+---
+class: dark middle
+
+# Data, the new raw material
+> 📝 Commit: Additional Mappings
+
+---
+### ProductTag as Entity (if you want to)
+**Persistence/Configurations/TagConfiguration.cs**
+```cs
+internal class TagConfiguration : EntityConfiguration<Tag>
+{
+    public override void Configure(EntityTypeBuilder<Tag> builder)
+    {
+        base.Configure(builder);
+
+        builder.Property(x => x.Name).HasMaxLength(50);
+*       builder.HasMany(x => x.Products)
+*              .WithMany(x => x.Tags)
+*              .UsingEntity<ProductTag>
+*              (
+*                  x => x.HasOne(x => x.Product).WithMany(),
+*                  x => x.HasOne(x => x.Tag).WithMany().OnDelete(DeleteBehavior.Restrict),
+*                  x => x.ToTable($"{nameof(Product)}_{nameof(Tag)}")
+*              );
+*   }
+}
+```
+```cs
+*public class ProductTag : Entity // In the Domain
+*{
+*    public Product Product { get; set; } = default!;
+*    public Tag Tag { get; set; } = default!;
+*    private ProductTag() { }
+*}
+```
 
 ---
 name: summary
