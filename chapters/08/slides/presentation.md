@@ -892,7 +892,7 @@ public class Image : ValueObject
 ### Domain
 # Get the extension from the MIME
 
-Services/Services.csproj
+Domain/Domain.csproj
 ```
 dotnet add package MimeTypesMap
 ```
