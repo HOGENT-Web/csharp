@@ -971,27 +971,22 @@ using (var context = new BloggingContext())
 ---
 ### Saving Data
 # Relational
-Deleting
-```cs
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs.First();
-    `context.Blogs.Remove(blog);`
-    `context.SaveChanges();`
-}
-```
 
-Multiple operations
 ```cs
 using (var context = new BloggingContext())
 {
-    // add
-    context.Blogs.Add(new Blog { Url = "http://example.com/blog_one" });
-    context.Blogs.Add(new Blog { Url = "http://example.com/blog_two" });
-    var firstBlog = context.Blogs.First();
-    firstBlog.Url = ""; // update
-    var lastBlog = context.Blogs.OrderBy(e => e.BlogId).Last();
-    context.Blogs.Remove(lastBlog); //delete
+    var blog = new Blog
+    {
+        Url = "http://blogs.msdn.com/dotnet",
+        Posts = new List<Post>
+        {
+            new Post { Title = "Intro to C#" },
+            new Post { Title = "Intro to VB.NET" },
+            new Post { Title = "Intro to F#" }
+        }
+    };
+
+    context.Blogs.Add(blog);
     context.SaveChanges();
 }
 ```
