@@ -970,6 +970,14 @@ public class ProductService : IProductService {
         };
     }
 ```
+---
+### Services/ServiceCollectionExtensions.cs
+# StorageService in DI
+
+Services/ServiceCollectionExtensions.cs
+```cs
+services.AddScoped<IStorageService, BlobStorageService>();
+```
 
 ---
 ### CORS
