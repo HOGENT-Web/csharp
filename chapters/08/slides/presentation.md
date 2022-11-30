@@ -722,7 +722,7 @@ builder.Services.AddHttpClient<IStorageService,
 ---
 ### Client
 # InputFile
-Client/Products/Create.razor
+Client/Products/Components/Create.razor
 ```
 <div class="field">
     <div class="file has-name is-boxed is-fullwidth">
@@ -750,7 +750,7 @@ Client/Products/Create.razor
 ---
 ### Client
 # InputFile
-Client/Products/Create.razor.cs
+Client/Products/Components/Create.razor.cs
 ```
 public partial class Create
 {
