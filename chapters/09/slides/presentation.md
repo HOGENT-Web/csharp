@@ -11,10 +11,12 @@ class: dark middle
 - [Introduction](#intro)
 - [Dapper](#dapper)
 - [Entity Framework Core](#ef-core)
-- [Working with EF Core](#tutorial-ef-core)
-- [Overriding conventions](#overriding-conventions)
-- [Exercises](#exercises)
-- [Solutions](#solutions)
+- [Tutorial EF Core](#tutorial-ef-core)
+- [EF Core Explained](#ef-core-explained)
+- [Switch to SQL Server](#sql-server)
+- [Configurations](#configurations)
+- [Queries](#queries)
+- [Saving Data](#saving-data)
 - [Summary](#summary)
 
 ---
@@ -510,6 +512,7 @@ class: dark middle
 > Show the database schema using SSMS or Azure Data Studio
 
 ---
+name:configurations
 ### Overriding the default conventions
 **BogusDbContext.cs**
 
@@ -743,7 +746,7 @@ internal class TagConfiguration : EntityConfiguration<Tag>
 ```
 
 ---
-name: summary
+name: queries
 class: dark middle
 
 # Data, the new raw material
@@ -897,7 +900,7 @@ using (var context = new BloggingContext())
 > Read more about it <a href="https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager" target="_blank">here</a>.
 
 ---
-name: summary
+name: saving-data
 class: dark middle
 
 # Data, the new raw material
