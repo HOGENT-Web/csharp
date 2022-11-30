@@ -940,12 +940,12 @@ public class BlobStorageService : IStorageService
 }
 ```
 ---
-### Services/Products/FakeProductService.cs
+### Services/Products/ProductService.cs
 ```
 public class ProductService : IProductService {
 *  private readonly IStorageService storageService;
    private readonly BogusDbContext dbContext;
-   public FakeProductService(`IStorageService storageService`, BogusDbContext dbContext)
+   public ProductService(`IStorageService storageService`, BogusDbContext dbContext)
    {
         this.dbContext = dbContext;
 *       this.storageService = storageService;
