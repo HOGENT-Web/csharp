@@ -747,6 +747,257 @@ name: summary
 class: dark middle
 
 # Data, the new raw material
+> Queries
+
+---
+### Queries
+# LINQ
+
+EF Core uses Language-Integrated Query to query data from the database. LINQ allows you to use C# to write strongly typed queries. Database providers in turn translate it to database-specific query language.
+```cs
+using (var context = new BloggingContext())
+{
+    var blogs = context.Blogs.ToList();
+}
+```
+
+```cs
+using (var context = new BloggingContext())
+{
+    var blog = context.Blogs
+        .Single(b => b.BlogId == 1);
+}
+```
+
+```cs
+using (var context = new BloggingContext())
+{
+    var blogs = context.Blogs
+        .Where(b => b.Url.Contains("dotnet"))
+        .ToList();
+}
+```
+
+> Read more about it <a href="https://docs.microsoft.com/en-us/ef/core/querying/" target="_blank">here</a>, and see Chapter 4.
+
+---
+### Queries
+# Client vs Server evaluation
+EF Core attempts to evaluate a query on the database server as much as possible. However, there are some limitations. 
+
+In the following example, a helper method is used to standardize URLs for blogs, which are returned from a SQL Server database. Since the SQL Server provider has no insight into how this method is implemented, it isn't possible to translate it into SQL. 
+```cs
+var blogs = context.Blogs
+    .Select(blog => new { 
+                Id = blog.BlogId,
+                Url = `StandardizeUrl(blog.Url)` 
+            })
+    .ToList();
+```
+```cs
+public static string StandardizeUrl(string url)
+{
+    url = url.ToLower();
+    if (!url.StartsWith("http://"))
+        url = string.Concat("http://", url);
+    return url;
+}
+```
+
+> Read more about it <a href="https://learn.microsoft.com/en-us/ef/core/querying/client-eval" target="_blank">here</a>.
+
+---
+### Queries
+# Tracking vs. No-Tracking
+Tracking behavior controls if EF Core will keep information about an entity instance in its change tracker. If an entity is tracked, any changes detected in the entity will be persisted to the database during `SaveChanges()`. EF Core will also fix up navigation properties between the entities in a tracking query result and the entities that are in the change tracker.
+
+**Tracking** (default)
+```cs
+var blog = context.Blogs.SingleOrDefault(b => b.BlogId == 1);
+blog.Rating = 5;
+context.SaveChanges();
+```
+
+**Non-tracking**
+
+Are useful when the results are used in a **read-only scenario**. They're quicker to execute because there's no need to set up the change tracking information. If you don't need to update the entities retrieved from the database, then a no-tracking query should be used.
+```cs
+var blogs = context.Blogs.`AsNoTracking()`.ToList();
+```
+
+> Read more about it <a href="https://learn.microsoft.com/en-us/ef/core/querying/tracking" target="_blank">here</a>.
+
+---
+### Queries
+# Loading Related Data
+- <a href="https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager" target="_blank">Eager loading</a> 
+     - means that the related data is loaded from the database as part of the initial query.
+     - We'll use this approach, which is also the most standard.
+- <a href="https://learn.microsoft.com/en-us/ef/core/querying/related-data/explicit" target="_blank">Explicit loading</a> 
+    - means that the related data is explicitly loaded from the database at a later time.
+    - Rarely used.
+    - We won't go into detail for this approach.
+- <a href="https://learn.microsoft.com/en-us/ef/core/querying/related-data/lazy" target="_blank">Lazy loading</a> 
+    - means that the related data is transparently loaded from the database when the navigation property is accessed.
+    - Can cause unneeded extra database roundtrips to occur (the so-called N+1 problem), and care should be taken to avoid this. We don't recommend this approach.
+    - We won't go into detail for this approach.
+
+
+---
+### Loading Related Data
+# Eager loading
+You can use the `Include` method to specify related data to be included in query results. In the following example, the blogs that are returned in the results will have their Posts property populated with the related posts. Think about it as a `JOIN` in SQL.
+
+```cs
+using (var context = new BloggingContext())
+{
+    var blogs = context.Blogs
+        `.Include(blog => blog.Posts)`
+        .ToList();
+}
+```
+
+```cs
+using (var context = new BloggingContext())
+{
+    var blogs = context.Blogs
+        `.Include(blog => blog.Posts)`
+        `.Include(blog => blog.Owner)`
+        .ToList();
+}
+```
+
+> Read more about it <a href="https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager" target="_blank">here</a>.
+
+---
+### Loading Related Data
+# Eager loading
+Eager loading a collection navigation in a single query may cause performance issues. Therefore you can use a Filtered Include to specify a filter condition for the related data to be included in the query results. 
+
+```cs
+using (var context = new BloggingContext())
+{
+    var filteredBlogs = context.Blogs
+        .Include(blog => `blog.Posts.Where(post => post.Rating >= 5`)
+        .ToList();
+}
+```
+Including multi-level
+```cs
+using (var context = new BloggingContext())
+{
+    var blogs = context.Blogs
+        `.Include(blog => blog.Posts)`
+            `.ThenInclude(post => post.Author)`
+                `.ThenInclude(author => author.Photo)`
+        .ToList();
+}
+```
+
+> Read more about it <a href="https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager" target="_blank">here</a>.
+
+---
+name: summary
+class: dark middle
+
+# Data, the new raw material
+> Saving Data
+
+---
+### Saving Data
+# ChangeTracker
+Each context instance has a `ChangeTracker` that is responsible for keeping track of changes that need to be written to the database. As you make changes to instances of your entity classes, these changes are recorded in the ChangeTracker and then written to the database when you call SaveChanges. The database provider is responsible for translating the changes into database-specific operations (for example, `INSERT`, `UPDATE`, and `DELETE` commands for a relational database).
+
+> Read more about it <a href="https://learn.microsoft.com/en-us/ef/core/saving/" target="_blank">here</a>.
+
+---
+### Saving Data
+# Basic Save
+Use the `DbSet.Add` method to add new instances of your entity classes. The data will be inserted in the database when you call `SaveChanges`.
+
+Adding
+```cs
+using (var context = new BloggingContext())
+{
+    var blog = new Blog { Url = "http://example.com" };
+    `context.Blogs.Add(blog);`
+    `context.SaveChanges();`
+}
+```
+
+Updating
+```cs
+using (var context = new BloggingContext())
+{
+    var blog = context.Blogs.First();
+    blog.Url = "http://example.com/blog";
+    context.SaveChanges();
+}
+```
+
+> Read more about it <a href="https://learn.microsoft.com/en-us/ef/core/saving/basic" target="_blank">here</a>.
+
+---
+### Saving Data
+# Basic Save
+Deleting
+```cs
+using (var context = new BloggingContext())
+{
+    var blog = context.Blogs.First();
+    `context.Blogs.Remove(blog);`
+    `context.SaveChanges();`
+}
+```
+
+Multiple operations
+```cs
+using (var context = new BloggingContext())
+{
+    // add
+    context.Blogs.Add(new Blog { Url = "http://example.com/blog_one" });
+    context.Blogs.Add(new Blog { Url = "http://example.com/blog_two" });
+    var firstBlog = context.Blogs.First();
+    firstBlog.Url = ""; // update
+    var lastBlog = context.Blogs.OrderBy(e => e.BlogId).Last();
+    context.Blogs.Remove(lastBlog); //delete
+    context.SaveChanges();
+}
+```
+
+---
+### Saving Data
+# Relational
+Deleting
+```cs
+using (var context = new BloggingContext())
+{
+    var blog = context.Blogs.First();
+    `context.Blogs.Remove(blog);`
+    `context.SaveChanges();`
+}
+```
+
+Multiple operations
+```cs
+using (var context = new BloggingContext())
+{
+    // add
+    context.Blogs.Add(new Blog { Url = "http://example.com/blog_one" });
+    context.Blogs.Add(new Blog { Url = "http://example.com/blog_two" });
+    var firstBlog = context.Blogs.First();
+    firstBlog.Url = ""; // update
+    var lastBlog = context.Blogs.OrderBy(e => e.BlogId).Last();
+    context.Blogs.Remove(lastBlog); //delete
+    context.SaveChanges();
+}
+```
+
+---
+name: summary
+class: dark middle
+
+# Data, the new raw material
 > Summary
 
 ---
