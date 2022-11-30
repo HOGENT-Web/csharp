@@ -822,6 +822,37 @@ public static class ProductDto
 ```
 
 ---
+### Domain
+# Add an Image class
+Domain/Files/Image.cs
+
+```cs
+public class Image : ValueObject
+{
+    public Uri BasePath { get; }
+    public Guid Identifier { get; }
+    public string Extension { get; }
+
+    public string Filename => $"{Identifier}.{Extension}";
+    public Uri FileUri => new Uri($"{BasePath}/{Filename}");
+
+    public Image(Uri basePath, string contentType)
+    {
+       Identifier = Guid.NewGuid();
+*      Extension = MimeTypesMap.GetExtension(contentType).ToLower();
+       BasePath = Guard.Against.Null(basePath,nameof(basePath));
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return Extension.ToLower();
+        yield return Identifier;
+        yield return BasePath;
+    }
+}
+```
+
+---
 ### Services
 # IStorageService
 We'll use an interface here so we can easily switch from Azure BLOB to another storage provider.
@@ -856,37 +887,6 @@ Server/AppSettings.json
 ```
 
 > Adding ConnectionStrings to your repo is not the best practise in the world, make sure to take appropriate action, using environment secrets. Read more about <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows">Storing Secrets</a>
-
----
-### Domain
-# Add an Image class
-Domain/Files/Image.cs
-
-```cs
-public class Image : ValueObject
-{
-    public Uri BasePath { get; }
-    public Guid Identifier { get; }
-    public string Extension { get; }
-
-    public string Filename => $"{Identifier}.{Extension}";
-    public Uri FileUri => new Uri($"{BasePath}/{Filename}");
-
-    public Image(Uri basePath, string contentType)
-    {
-       Identifier = Guid.NewGuid();
-*      Extension = MimeTypesMap.GetExtension(contentType).ToLower();
-       BasePath = Guard.Against.Null(basePath,nameof(basePath));
-    }
-
-    protected override IEnumerable<object?> GetEqualityComponents()
-    {
-        yield return Extension.ToLower();
-        yield return Identifier;
-        yield return BasePath;
-    }
-}
-```
 
 ---
 ### Domain
