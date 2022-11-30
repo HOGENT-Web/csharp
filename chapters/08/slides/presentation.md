@@ -722,7 +722,7 @@ builder.Services.AddHttpClient<IStorageService,
 ---
 ### Client
 # InputFile
-Client/Products/Create.razor
+Client/Products/Components/Create.razor
 ```
 <div class="field">
     <div class="file has-name is-boxed is-fullwidth">
@@ -750,7 +750,7 @@ Client/Products/Create.razor
 ---
 ### Client
 # InputFile
-Client/Products/Create.razor.cs
+Client/Products/Components/Create.razor.cs
 ```
 public partial class Create
 {
@@ -822,6 +822,37 @@ public static class ProductDto
 ```
 
 ---
+### Domain
+# Add an Image class
+Domain/Files/Image.cs
+
+```cs
+public class Image : ValueObject
+{
+    public Uri BasePath { get; }
+    public Guid Identifier { get; }
+    public string Extension { get; }
+
+    public string Filename => $"{Identifier}.{Extension}";
+    public Uri FileUri => new Uri($"{BasePath}/{Filename}");
+
+    public Image(Uri basePath, string contentType)
+    {
+       Identifier = Guid.NewGuid();
+*      Extension = MimeTypesMap.GetExtension(contentType).ToLower();
+       BasePath = Guard.Against.Null(basePath,nameof(basePath));
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return Extension.ToLower();
+        yield return Identifier;
+        yield return BasePath;
+    }
+}
+```
+
+---
 ### Services
 # IStorageService
 We'll use an interface here so we can easily switch from Azure BLOB to another storage provider.
@@ -856,37 +887,6 @@ Server/AppSettings.json
 ```
 
 > Adding ConnectionStrings to your repo is not the best practise in the world, make sure to take appropriate action, using environment secrets. Read more about <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows">Storing Secrets</a>
-
----
-### Domain
-# Add an Image class
-Domain/Files/Image.cs
-
-```cs
-public class Image : ValueObject
-{
-    public Uri BasePath { get; }
-    public Guid Identifier { get; }
-    public string Extension { get; }
-
-    public string Filename => $"{Identifier}.{Extension}";
-    public Uri FileUri => new Uri($"{BasePath}/{Filename}");
-
-    public Image(Uri basePath, string contentType)
-    {
-       Identifier = Guid.NewGuid();
-*      Extension = MimeTypesMap.GetExtension(contentType).ToLower();
-       BasePath = Guard.Against.Null(basePath,nameof(basePath));
-    }
-
-    protected override IEnumerable<object?> GetEqualityComponents()
-    {
-        yield return Extension.ToLower();
-        yield return Identifier;
-        yield return BasePath;
-    }
-}
-```
 
 ---
 ### Domain
@@ -940,12 +940,12 @@ public class BlobStorageService : IStorageService
 }
 ```
 ---
-### Services/Products/FakeProductService.cs
+### Services/Products/ProductService.cs
 ```
 public class ProductService : IProductService {
 *  private readonly IStorageService storageService;
    private readonly BogusDbContext dbContext;
-   public FakeProductService(`IStorageService storageService`, BogusDbContext dbContext)
+   public ProductService(`IStorageService storageService`, BogusDbContext dbContext)
    {
         this.dbContext = dbContext;
 *       this.storageService = storageService;
@@ -969,6 +969,14 @@ public class ProductService : IProductService {
             UploadUri = uploadSas.ToString()
         };
     }
+```
+---
+### Services/ServiceCollectionExtensions.cs
+# StorageService in DI
+
+Services/ServiceCollectionExtensions.cs
+```cs
+services.AddScoped<IStorageService, BlobStorageService>();
 ```
 
 ---
