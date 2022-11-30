@@ -442,7 +442,7 @@ Windows
 {
   "ConnectionStrings": {
     "Storage": "YOUR_BLOB_STORAGE_CONNECTION_STRING_HERE",
-    "SqlServer": "Server=(localdb)\\mssqllocaldb;Database=BogusDb;Trusted_Connection=True;"
+    "SqlServer": "Server=localhost;TrustServerCertificate=True;Database=BogusDb;Trusted_Connection=True;"
   }
 }
 ```
