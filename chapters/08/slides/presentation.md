@@ -916,7 +916,7 @@ Services/Files/BlobStorageService.cs
 public class BlobStorageService : IStorageService
 {
     private readonly string connectionString;
-    public Uri BasePath => new Uri("https://hogentdemostorage.blob.core.windows.net/images");
+    public Uri BasePath => new Uri("https://`[your storage account]`.blob.core.windows.net/images");
     public BlobStorageService(IConfiguration configuration)
     {
         connectionString = configuration.GetConnectionString("Storage");
