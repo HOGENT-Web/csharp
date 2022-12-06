@@ -10,10 +10,10 @@ class: dark middle
 - [Bogus Store example](#bogustore-example)
     - [Delete](#delete)
     - [Create](#create)
-    - [Edit](#edit)
     - [Filter](#filter)
     - [Upload Image](#upload-image)
     - [Shopping Cart](#shopping-cart)
+    - [Edit](#edit)
 - [Exercise](#exercise)
 
 ---
@@ -1097,19 +1097,158 @@ class: dark middle
 > 📝 Commit: Add Shopping Cart
 
 ---
-name:edit-image
-### Exercise
-# Edit Product with Image
-Fix the Edit Functionality. 
+class: dark middle
+# Suit up, wear a fancy Blazor
+> Passing Auth to the API
 
-- Make it possible to edit the product's image, since we broke the functionaltity.
+---
+### Passing Auth to the API
+# Client
+On the client side, we'll use the `HttpClient` to call the API. Do note that we're using Fake Authentication, so we'll need to pass the `Authorization` header ourselves. We'll do this with a `DelegatingHandler`, so we don't have to do this for every call. 
 
-Tips:
-- Notice that the browser will cache the images, a workaround for this is:
-    - If the image is changed (LoadImage is called) create a new Identifier for it (new GUID) 
-    - Save the changes to the database
-    - Delete the old Block Blob Image
-    - Return a new SAS token and let the client upload to BLOB
+<img src="https://learn.microsoft.com/en-us/aspnet/web-api/overview/advanced/http-message-handlers/_static/image1.png" width="50%" class="center" />
+
+> Note that this is **not** safe in production, as you'll need to pass the `Authorization` header to the API. This is only for demo purposes, since the Client can still choose how to authenticate the user.
+
+---
+### Passing Auth to the API
+# Delegating handler
+A message handler is a class that receives an HTTP request and returns an HTTP response. Message handlers derive from the abstract `HttpMessageHandler` class.
+
+Typically, a series of message handlers are **chained together**. The first handler receives an HTTP request, does some processing, and gives the request to the next handler. At some point, the response is created and goes back up the chain. This pattern is called a delegating handler.
+
+**Example Delegating Handler**
+
+```cs
+public class LoggingMessageHandler : `DelegatingHandler`
+{
+    protected async override Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        Debug.WriteLine("Process request");
+        // Call the inner handler.
+        var response = await base.SendAsync(request, cancellationToken);
+        Debug.WriteLine("Process response");
+        return response;
+    }
+}
+```
+
+> Read more <a href="https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/http-message-handlers" target="_blank">here</a>.
+
+---
+### Delegating handler
+# Send headers to the API
+The `FakeAuthorizationMessageHandler` will add the `Authorization` header to the request, so the API can access the claims of the user.
+
+```cs
+public class FakeAuthorizationMessageHandler : DelegatingHandler
+{
+    private readonly FakeAuthenticationProvider fakeAuthenticationProvider;
+
+    public FakeAuthorizationMessageHandler(FakeAuthenticationProvider fakeAuthenticationProvider)
+    {
+        this.fakeAuthenticationProvider = fakeAuthenticationProvider;
+    }
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
+    {
+        if(fakeAuthenticationProvider.Current.Identity?.Name == FakeAuthenticationProvider.Anonymous.Identity?.Name)
+        { // Anonymous user, don't send headers
+            return base.SendAsync(request, cancellationToken);
+        }
+
+        `request.Headers.Add("UserId", fakeAuthenticationProvider.Current.FindFirst(ClaimTypes.NameIdentifier)?.Value);`
+        `request.Headers.Add("Role", fakeAuthenticationProvider.Current.FindFirst(ClaimTypes.Role)?.Value);`
+        `request.Headers.Add("Email", fakeAuthenticationProvider.Current.FindFirst(ClaimTypes.Email)?.Value);`
+        `request.Headers.Add("Name", fakeAuthenticationProvider.Current.FindFirst(ClaimTypes.Name)?.Value);`
+        return base.SendAsync(request, cancellationToken);
+    }
+}
+```
+
+---
+### Delegating handler
+# Add to the pipline
+The `FakeAuthorizationMessageHandler` will add the `Authorization` header to the request, so the API can access the claims of the user.
+**Progran.cs**
+```cs
+// Other stuff
+builder.Services.AddAuthorizationCore();
+builder.Services.AddSingleton<FakeAuthenticationProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<FakeAuthenticationProvider>());
+*builder.Services.AddTransient<FakeAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("Project.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+                `.AddHttpMessageHandler<FakeAuthorizationMessageHandler>();`
+
+builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Project.ServerAPI"));
+// Other stuff
+```
+
+> Now all requests to the API will have headers with the claims of the user.
+
+---
+### Passing Auth to the API
+# Server
+On the client side, we're using the `HttpClient` to call the API and the `FakeAuthorizationMessageHandler` to send all the Claims in the headers. On the server side, we'll use the `Authorize` attribute to check if the user is allowed to access the API. However since it's all fake, we'll need to check the headers ourselves with a custom `AuthenticationHandler<AuthenticationSchemeOptions>`
+
+---
+### FakeAuthenticationHandler
+```cs
+public class FakeAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
+{
+    public FakeAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options,ILoggerFactory logger,UrlEncoder encoder, ISystemClock clock): base(options,logger, encoder, clock) { }
+
+    protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
+    {
+        List<Claim> claims = new();
+        if (Context.Request.Headers.TryGetValue("UserId", out var userId))
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, userId!));
+        if (Context.Request.Headers.TryGetValue("Role", out var roles))
+            claims.Add(new Claim(ClaimTypes.Role, roles!));
+        if (Context.Request.Headers.TryGetValue("Email", out var email))
+            claims.Add(new Claim(ClaimTypes.Email, email!));
+        if (Context.Request.Headers.TryGetValue("Name", out var name))
+            claims.Add(new Claim(ClaimTypes.Name, name!));
+        if (claims.Any())
+        {
+            var identity = new ClaimsIdentity(claims, Scheme.Name);
+            var principal = new ClaimsPrincipal(identity);
+            var ticket = new AuthenticationTicket(principal, Scheme.Name);
+            return await Task.FromResult(AuthenticateResult.Success(ticket));
+        }
+        return await Task.FromResult(AuthenticateResult.NoResult());
+    }
+}
+```
+
+> Read more about AuthenticationHandlers <a href="https://learn.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-6.0" target="_blank">here</a>.
+
+---
+### FakeAuthenticationHandler
+Adding the `FakeAuthenticationHandler` to the pipeline is very similar to the `FakeAuthorizationMessageHandler` on the client side.
+
+**Program.cs** (server)
+```cs
+// Other stuff
+// Database
+builder.Services.AddDbContext<BogusDbContext>();
+
+// (Fake) Authentication
+ `builder.Services.AddAuthentication("Fake Authentication")`
+                 `.AddScheme<AuthenticationSchemeOptions, FakeAuthenticationHandler>("Fake Authentication", null);`
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+var app = builder.Build();
+// Other stuff
+app.UseRouting();
+// ALWAYS after UseRouting
+*app.UseAuthentication();
+*app.UseAuthorization();
+```
+> Note that the `UseAuthentication` and `UseAuthorization` are always after the `UseRouting` middleware in the pipeline.
 
 ---
 name: exercise
@@ -1156,6 +1295,21 @@ Following commits achieve a possible solution:
 - 📝 Commit: Add Customer
 - 📝 Commit: Detail Customer
 - 📝 Commit: Edit Customer
+
+---
+name:edit-image
+### Exercise
+# Edit Product with Image
+Fix the Edit Functionality. 
+
+- Make it possible to edit the product's image, since we broke the functionaltity.
+
+Tips:
+- Notice that the browser will cache the images, a workaround for this is:
+    - If the image is changed (LoadImage is called) create a new Identifier for it (new GUID) 
+    - Save the changes to the database
+    - Delete the old Block Blob Image
+    - Return a new SAS token and let the client upload to BLOB
 
 ---
 class: dark middle
