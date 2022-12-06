@@ -692,7 +692,7 @@ class: dark middle
 Use the <a href="https://learn.microsoft.com/en-us/ef/core/" target="_blank">documentation</a> of EF Core and configurations to:
 
 Tags
-- Set the max length of a `Tag` to 50 characters
+- Set the max length of a `Tag`'s `Name` to 50 characters
 
 Products
 - Add a unique index to the `Name` column
@@ -700,7 +700,7 @@ Products
 Customers
 - Rename the `Email_Value` column to `Email`
 - Add a unique index for the `Email` column
-- Rename the `Address_Street` column to `Street`, do this for all the `Address` properties
+- Rename the `Address_Addressline1` column to `Addressline1`, do this for all the `Address` properties (remove the `Address_` prefix)
 
 ---
 class: dark middle
