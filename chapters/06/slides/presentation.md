@@ -1860,6 +1860,94 @@ Currently we can only set the `ClaimsPrincipal` (authenticated user) on compile 
 > 📝 Commit: Checkout the commit: <a target="_blank" href="https://github.com/HOGENT-Web/csharp-ch-6-example-2/commit/25153f5c046bc4e0bf9366426ea798b480e15011">Add FakeAuth on Runtime</a>
 
 ---
+### Fake it till you make it
+# A closer look at AuthorizeView
+Sometimes you want to do stuff in the razor page when the user is authenticated or not. For this you can use the `AuthorizeView` component and it's `RenderFragment` parameters.
+
+```cs
+<AuthorizeView>
+    `<Authorized>`
+        <p>Authorized</p>
+    `</Authorized>`
+    `<NotAuthorized>`
+        <p>Not Authorized</p>
+        <SomeBlazorComponent />
+    `</NotAuthorized>`
+</AuthorizeView>
+```
+
+If you only want to show something when the user is authenticated, you can use the `Authorized` parameter.
+```cs
+<AuthorizeView>
+    <p>Authorized</p>
+</AuthorizeView>
+```
+> Notice that the `Authorized` parameter is the default `ChildContext`.
+
+---
+### Fake it till you make it
+# A closer look at AuthorizeView
+Sometimes you want to do **C#** stuff in the razor page when the user is not authenticated.
+
+```cs
+<AuthorizeView>
+* <NotAuthorized>
+* @{
+*     // C# code
+*     NavigationManager.NavigateTo("login");
+*  }
+* </NotAuthorized>
+</AuthorizeView>
+```
+
+---
+### Fake it till you make it
+# The context of AuthorizeView
+Sometimes you want to access the claims in the razor page when the user is authenticated or not. For this you can use the `AuthorizeView` component and it's `Context` parameters.
+
+```cs
+@using System.Security.Claims // somewhere at the top of the .razor
+
+<AuthorizeView>
+  <p>`@context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value`</p>
+  <p>@context.User.FindFirst(ClaimTypes.Email)?.Value</p>
+  <p>@context.User.FindFirst(ClaimTypes.Name)?.Value</p>
+  <p>...</p>
+</AuthorizeView>
+```
+
+If you only want to you can rename the `context` variable to something more meaningful.
+```cs
+<AuthorizeView `Context="claimsPrincipal"`>
+  <p>`@claimsPrincipal`.User.FindFirst(ClaimTypes.Name)?.Value</p>
+</AuthorizeView>
+```
+> Notice that the `Authorized` parameter is the default parameter.
+
+---
+### Fake it till you make it
+# AuthenticationState Code-behind
+Sometimes you want to access the claims in the code-behind of the razor page. For this you can inject the `AuthenticationState`.
+
+**Some code-behind partial class**:
+```cs
+*using System.Security.Claims;
+*using Microsoft.AspNetCore.Components;
+*using Microsoft.AspNetCore.Components.Authorization;
+
+namespace BogusStore.Client;
+
+public partial class Index
+{
+  `[Inject] public AuthenticationState AuthState { get; set; }`
+  private void DoSomething()
+  {
+      `var mail = AuthState.User.FindFirst(ClaimTypes.Email)?.Value;`
+  }
+}
+```
+
+---
 name: workshop
 class: dark middle
 
