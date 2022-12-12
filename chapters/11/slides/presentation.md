@@ -11,7 +11,6 @@ class: dark middle
 - [Managed vs Unmanaged dependencies](#managed-vs-unmanaged-dependencies)
 - [Levels of testing](#levels-of-testing)
 - [Playwright](#playwright)
-- [You are naming your tests wrong](#naming)
 - [Exercises](#exercises)
 - [Solutions](#solutions)
 - Extra:
@@ -24,7 +23,7 @@ name:overview
 # Overview
 In this module we'll show how to start using integration tests, explain the differences compared to Unit Tests and show some pitfalls.
 
-We'll use <a target="_blank" href="https://playwright.dev">Playwright</a>, a new cross-platform tool to create end-to-end integration tests.
+We'll use <a target="_blank" href="https://playwright.dev">Playwright</a>, a cross-platform tool to create end-to-end integration tests.
 
 
 ---
@@ -92,7 +91,7 @@ Some developers are fond of abstracting away the database, however one of the mo
 .Include(x => x.NavigationProperty)
 ``` 
 
-These bugs cannot be found or tested using a In Memory Database, since there are no JOINS. So the bug cannot be replicated...
+These bugs cannot be found or tested using an in-memory collection, since there are no JOINS. So the bug cannot be replicated...
 
 While writing integration tests, you want to replicate a production environment. Changing database providers in your integration test suite is *most of the time*... **lying to yourself**.
 
@@ -129,38 +128,6 @@ How far are you willing to go? What part of the application are you going to tes
 > We're going with the last one. Testing the entire thing, however combinations can be used too and other approaches are not uncommon.
 
 ---
-name:naming
-### Headless testing
-# You are naming your tests wrong
-
-Your tests **should** describe your system’s behavior in a way that’s understandable not only to programmers, but to **non-technical people too**.  Test against observable behavior and not implementation details.
-
-Using the name of the function or method, is not very descriptive. Also think about renaming the function, the test name will not be renamed automatically...
-
----
-### Headless testing
-# You are naming your tests wrong
-
-```
-[MethodUnderTest]_[Scenario]_[ExpectedResult]
-```
-
-```
-[Fact]
-public void IsDeliveryValid_InvalidDate_ReturnsFalse()
-```
-
-You simply can’t fit a high-level description of a complex behavior into a narrow box of such a policy. You must allow freedom of expression.
-
-```
-[Fact]
-public void Delivery_with_a_past_date_is_invalid()
-```
-
-The latter version is clearly better. It reads like plain English and describes the use case under test using business terms. It conveys the system’s observable behavior.
-
-
----
 class: dark middle
 name:playwright
 # Chapter 11 - Headless testing
@@ -169,13 +136,13 @@ name:playwright
 ---
 ### Playwright
 # Overview
-<a target="_blank" href="https://playwright.dev">Playwright</a> is a framework for Web Testing and Automation. If you're familiar with Cypress it's not that different.
+<a target="_blank" href="https://playwright.dev">Playwright</a> is a framework for Web Testing and Automation. If you're familiar with <a target="_blank" href="https://www.cypress.io">Cypress</a> it's not that different.
 
 Some key features:
 - Any browser
     - Supports all modern rendering engines, including Chromium, WebKit and Firefox.
 - Any platform
-    - Test on Windows, Linux and macOS, locally or on CI.
+    - Test on Windows, Linux and macOS, locally or via the  CI/CD pipeline.
 - One API
     - Use the Playwright API in TypeScript, JavaScript, Python, .NET, Java.
 
@@ -235,7 +202,7 @@ Replace the contents of `UnitTest1.cs` with the following:
 public class CounterTests : PageTest
 {
     private const string ServerBaseUrl = "https://localhost:5001";
-
+    
     [Test]
     public async Task Clicking_Counter_Updates_Count()
     {
@@ -274,7 +241,6 @@ Tips:
 - Use the documentation of <a target="_blank" href="https://playwright.dev/dotnet/docs/intro">Playwright.net</a>
 - Don't forget to wait for the page to be loaded
 
-
 ---
 ### Playwright
 # Flaky tests
@@ -285,7 +251,8 @@ await Page.ClickAsync("text=Click Me");
 
 What if you localize your app or rename the contents of the button? It's better to use test-data specific selectors and add them to the HTML/razor document, for example:
 ```
-<button data-test-id="counter-button" class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button data-test-id="counter-button" class="btn btn-primary" 
+        @onclick="IncrementCount">Click me</button>
 ```
 Then you can use the following to test:
 ```
