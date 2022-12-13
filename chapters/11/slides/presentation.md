@@ -182,7 +182,7 @@ dotnet sln add PlaywrightTests
 Add package `Microsoft.Playwright.NUnit` to the test project 
 ```
 cd PlaywrightTests
-dotnet add package Microsoft.Playwright.NUnit
+dotnet add package Microsoft.Playwright.NUnit --version 1.17.3
 ```
 Build the test project and install browsers
 ``` 
