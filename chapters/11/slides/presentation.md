@@ -235,7 +235,7 @@ dotnet test
 ### Playwright
 # Exercise
 - Create a new file in the test project called `FetchDataTests`
-- Create a new test based on the `CounterTests` that checks if there are 5 items being rendered.
+- Create a new test based on the `CounterTests` that checks if there are 5 `li` items being rendered on the `fetchdata` page.
 
 Tips:
 - Use the documentation of <a target="_blank" href="https://playwright.dev/dotnet/docs/intro">Playwright.net</a>
