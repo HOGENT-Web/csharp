@@ -99,7 +99,7 @@ While writing integration tests, you want to replicate a production environment.
 name:levels-of-testing
 ### Headless testing
 # Levels of testing
-How far are you willing to go? What part of the application are you going to test keeping in mind that integration tests take longer to run, which can be "Ok" for a handfull of tests but knowing that test suites of 1k - 10k tests are not uncommon in larger projects.
+How far are you willing to go? What part of the application are you going to test keeping in mind that integration tests take longer to run, which can be "Ok" for a handful of tests but knowing that test suites of 1k - 10k tests are not uncommon in larger projects.
 
 - Domain Layer 
     - Can easily be unit tested
