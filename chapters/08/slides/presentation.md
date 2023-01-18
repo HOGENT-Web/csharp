@@ -54,7 +54,7 @@ However, some are worth mentioning:
 ---
 ### Component Libraries
 # Open source
-The biggest pittfalls:
+The biggest pitfalls:
 - Not reading the documentation
 - Swashbuckling with how the library is setup
 - Not doing research before you implement it in your project
