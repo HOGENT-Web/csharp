@@ -52,7 +52,7 @@ A fullblown source code editor to manipulate code **with a local database**
 <br/>
 <br/>
 <video controls width="100%">
-  <source src="images/visual-studio-install.mp4" type="video/mp4">
+  <source src="images/visual-studio-install-2023.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
