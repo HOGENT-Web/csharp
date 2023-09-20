@@ -14,6 +14,7 @@ class: dark middle
 - [Classes](#classes)
 - [Prerequisites](#prerequisites)
 - [Examination](#examination)
+- [What we're building](#what-were-building)
 
 ---
 name:situation
@@ -126,14 +127,42 @@ name:examination
 # Examination
 - 100% Exam in the examination period
 - **B**ring **Y**our **O**wn **D**evice
- - Communication during the exam is strictly **forbidden**
+- Communication during the exam is strictly **forbidden**
 - Implement parts of a larger solution
 
 > If the code does not compile a.ka. `Build Errors` ** = 0/20.**
 
+## Catch-up (inhaal examen)
+
+- If you're sick or have another **valid** reason
+- The catch-up exam is an **oral** exam via Teams.
+- You can only take the catch-up exam if you have a **valid reason**.
+
 ---
+
 ### Course Overview
 # Help
 We don't provide help **after** class. Unless you created a [Stackoverflow](https://stackoverflow.com/) post to describe the issue and tried to copy-paste code like a real developer.
 
-<img src="https://media-exp1.licdn.com/dms/image/C5612AQEjXRhO--cWxA/article-cover_image-shrink_423_752/0/1632944004487?e=1668643200&v=beta&t=3fPrVIrY4A4uMfcJ_q-HD4Ps9bvcHJ_puflgYxKmsX4" width="90%" class="center" /> 
+<img src="https://i.kym-cdn.com/photos/images/newsfeed/001/450/446/573.jpg" width="50%" class="center" />
+
+---
+
+name:what-were-building
+### Course Overview
+# What we're building
+
+A Web store which sells bogus products called BogusStore.
+
+### Technologies
+- Blazor WASM
+- ASP.NET REST API
+- Authentication and Authorization with Auth0
+- Entity Framework and Microsoft SQL Server for persistence
+- Deployed on Azure
+
+### Use cases
+- A user can browse the catalog using filtering
+- An administrator can add products to the catalog
+- A user can add products to the shopping cart
+- ...
