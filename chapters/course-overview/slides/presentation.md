@@ -15,6 +15,7 @@ class: dark middle
 - [Prerequisites](#prerequisites)
 - [Examination](#examination)
 - [What we're building](#what-were-building)
+- [Chapter Overview](#chapter-explanation)
 
 ---
 name:situation
@@ -128,6 +129,7 @@ name:examination
 - 100% Exam in the examination period
 - **B**ring **Y**our **O**wn **D**evice
 - Communication during the exam is strictly **forbidden**
+- AI based tools are strictly **forbidden**
 - Implement parts of a larger solution
 
 > If the code does not compile a.ka. `Build Errors` ** = 0/20.**
@@ -139,15 +141,6 @@ name:examination
 - You can only take the catch-up exam if you have a **valid reason**.
 
 ---
-
-### Course Overview
-# Help
-We don't provide help **after** class. Unless you created a [Stackoverflow](https://stackoverflow.com/) post to describe the issue and tried to copy-paste code like a real developer.
-
-<img src="https://i.kym-cdn.com/photos/images/newsfeed/001/450/446/573.jpg" width="50%" class="center" />
-
----
-
 name:what-were-building
 ### Course Overview
 # What we're building
@@ -166,3 +159,79 @@ A Web store which sells bogus products called BogusStore.
 - An administrator can add products to the catalog
 - A user can add products to the shopping cart
 - ...
+
+---
+### Course Overview
+# Final Result
+
+<video controls width="100%" class="center" >
+  <source src="/chapters/08/slides/images/bogusstore-final-result.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+---
+### What we're building
+# Shopping Cart
+
+<video controls width="100%" class="center" >
+  <source src="/chapters/08/slides/images/shopping-cart.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+---
+name:chapter-explanation
+### Course Overview
+# Chapters
+- **Chapter 1** : Introduction to the .NET ecosystem
+    - .NET Explained
+    - Class Libraries
+    - GIT Structure
+- **Chapter 2** : See Sharp with C#
+    - C# Basics
+    - A lot of basic stuff you should already know in JAVA etc.
+- **Chapter 3** : Model & Unit Testing
+    - C# Advanced
+    - Creating a Domain and best practises
+    - Unit Testig
+- **Chapter 4** : LINQ **Self Study**
+    - Lanuage Integrated Query
+    - Like JAVA Streams, functional programming
+- **Chapter 5** : David's & Goliath's Architecture
+    - Modern Architecture
+    - Learn how to setup a project
+- **Chapter 6** : Suit up, wear a Blazor
+    - Simple client side C# with Blazor
+    - Like React but with C#
+    - No Server yet
+
+> At this point we're in week 4 of the semester.
+
+---
+### Course Overview
+# Chapters
+- **Chapter 7** : Suit up, wear a Blazor
+    - Simple client side C# with Blazor
+    - Like React but with C#
+    - No Server yet.
+- **Chapter 8** : Ain't No REST for the wicked
+    - Setting up a REST API.
+    - Kinda like the Web Services course
+- **Chapter 9** : Data The New Raw Material
+    - Connecting to a database
+    - Using Object Relational Mappers
+- **Chapter 10** : Authentication & Authorization
+    - Using Auth0 to secure our application
+- **Chapter 11** : Headless Testing
+    - Testing our application
+    - Integration testing
+- **Chapter 12** : Example Exams
+    - Prepare yourself for the examination
+    
+> At this point it's Christmas.🌲🤶
+
+---
+### Course Overview
+# Help
+We don't provide help **after** class. Unless you created a [Stackoverflow](https://stackoverflow.com/) post to describe the issue and tried to copy-paste code like a real developer.
+
+<img src="https://i.kym-cdn.com/photos/images/newsfeed/001/450/446/573.jpg" width="50%" class="center" />
