@@ -1,11 +1,11 @@
 class: dark middle
 
 # Enterprise Web Development C&#35;
-> 1. Introducting the .NET ecosystem
+> 1. Introducing the .NET ecosystem
 
 ---
-### Introducting the .NET ecosystem
-# Table of contents
+### Introducing the .NET ecosystem
+# Table of Contents
 
 - [.NET Explained](#net-explained)
 - [> Hello World!](#hello-world)
@@ -17,7 +17,7 @@ class: dark middle
 ---
 name:net-explained
 class: dark middle
-# Introducting the .NET ecosystem
+# Introducing the .NET ecosystem
 > .NET Explained
 
 
@@ -29,19 +29,19 @@ class: dark middle
 
 ---
 ### .NET Explained
-# Why.NET?
+# Why .NET?
 <br/>
 <img src="./images/dotnet-ecosystem-momentum.png" width="100%"/>
 
 ---
 ### .NET Explained
-# Why.NET?
+# Why .NET?
 <br/>
 <img src="./images/dotnet-performance.png" width="100%"/>
 
 ---
 ### .NET Explained
-# .NET The Ecosystem
+# .NET: The Ecosystem
 - Languages
  - C&#35;
  - F&#35;
@@ -91,7 +91,7 @@ class: dark middle
 - **I**ntegrated **D**evelopment **E**nvironment
 - Use it to write code.
 - **S**oftware **D**evelopment **K**it
-   - Analysers
+   - Analyzers
    - Compilers
    - Runtime
    - BCL
@@ -99,7 +99,7 @@ class: dark middle
 
 dotnet **C**ommand **L**ine **I**nterface
 - dotnet new&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| project templates
-- dotnet watch | dev time compile, watch for changes and run
+- dotnet watch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| dev time compile, watch for changes and run
 - dotnet publish&nbsp;&nbsp;&nbsp;| ready for deployment
 
 ---
@@ -118,7 +118,7 @@ What happens to my C&#35; code?
 2. You write C&#35; code with the help of:
  - **B**ase **C**lass **L**ibrary
  - External packages downloaded from NuGet
- - Analysers provided by the Roslyn compiler
+ - Analyzers provided by the Roslyn compiler
 3. You build/compile the project into **D**ynamic **L**ink **L**ibraries using Roslyn
 4. Run the application using the **C**ommon **L**anguage **R**untime
 5. The CLR compiles code **J**ust **I**n **T**ime to machine code.
@@ -127,7 +127,7 @@ What happens to my C&#35; code?
 name:history
 ### .NET Explained
 # History
-3 Flavours of .NET:
+3 Flavors of .NET:
 - .NET Framework
 - .NET Core
 - .NET Standard
@@ -159,9 +159,9 @@ name:history
 - **Versions slowly**
  - which means you can’t easily use the latest features.
 - Needs a <a href="https://dotnet.microsoft.com/platform/dotnet-standard#versions" target="_blank">decoder table</a>
- - Which API's are available in which implementation?
+ - Which APIs are available in which implementation?
 - Exposes **platform-specific features**
- - They didn't want to break the entire ecosystem so there are Windows specific API's. Which don't make sense on Apple devices. e.g. FileSystem
+ - They didn't want to break the entire ecosystem so there are Windows specific APIs. Which don't make sense on Apple devices. e.g. FileSystem
 
 > More information about .NET Standard can be found <a href="https://devblogs.microsoft.com/dotnet/the-future-of-net-standard/" target="_blank">here</a>.
 
@@ -181,19 +181,19 @@ Shipping a **NuGet package** and want compatibility with .NET Framework?
 - .NET Standard
 
 All other stuff:
-- .NET6
+- .NET 6
 > **You are here**
 
 ---
 ### .NET Explained
 # Versioning
 
-.NET uses semantic versioning, example for .net5:
+.NET uses semantic versioning, example for .NET 5:
 - .NET 5.1.3
   - Major Version: 5
   - Minor Version: 1
   - Fix Version: 3
-- Major release every year in november
+- Major release every year in November
   - Which is annoying for a curriculum but hey...
 - **L**ong **T**erm **S**upport release a few months after major release.
   - Major release: 5.0
@@ -366,7 +366,7 @@ C#
 ```
 class Bicycle {
   private int gear = 5;
-  public void Brake() { // Notice the PascalCase instead of camelCase
+  public void Brake() { // Notice the PascalCase
     Console.WriteLine("I'm braking!")
   }
 }
@@ -434,7 +434,7 @@ using Domain; // Importing the namespace
 var bike = new Bicycle(); // Instantiating a new Bicycle Object
 bike.Brake(); // Using the method
 ```
-4. Open a terminal and run the App. (**GIF on next slide**)
+4. Open a terminal and run the App. (**MOV on next slide**)
 
 ---
 ### Referencing a Class Library
