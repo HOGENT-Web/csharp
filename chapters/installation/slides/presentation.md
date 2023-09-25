@@ -5,7 +5,7 @@ class: dark middle
 
 ---
 ### Installation Guide
-# Table of contents
+# Table of Contents
 
 Code Editors (IDE)
 - [Visual Studio 2022](#visual-studio)<sup> **Kinda Cross-platform**</sup>
@@ -18,7 +18,7 @@ Data Management
 
 GIT
 - [Git](#git)<sup> **Cross-platform**</sup>
-- [Gitkraken](#gitkraken)<sup> **Cross-platform**</sup>
+- [GitKraken](#gitkraken)<sup> **Cross-platform**</sup>
 ---
 class: dark middle
 
@@ -26,30 +26,30 @@ class: dark middle
 > Code Editors
 
 ---
-name:visual-studio
+name: visual-studio
 ### Installation Guide
 # Visual Studio 2022 Community 
-A fullblown source code editor to manipulate code **with a local database**
+A full-blown source code editor to manipulate code **with a local database**.
 
-Checkout the official website <a href="https://visualstudio.microsoft.com/vs/" target="blank">here</a>.
+Check out the official website <a href="https://visualstudio.microsoft.com/vs/" target="_blank">here</a>.
 
 1. Download Visual Studio 2022
   - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false" target="_blank">Download for Windows</a>
   - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio-mac/?sku=communitymac&rel=17" target="_blank">Download for Apple</a>
-  - Linux: Visual Studio Code + dotnet CLI is sufficient
+  - Linux: Visual Studio Code + dotnet CLI is sufficient.
 
 2. Install* (for Windows)
-  - Double click the installer
-  - Select `ASP.NET and web development` workload
-  - Select the tab `Individual components`
-  - Search for `Class Designer`
-  - Select `Class Designer`
-  - Click `Install`
+  - Double-click the installer.
+  - Select `ASP.NET and web development` workload.
+  - Select the tab `Individual components`.
+  - Search for `Class Designer`.
+  - Select `Class Designer`.
+  - Click `Install`.
 
 > *Recording provided on the next slide.
 
 ---
-### Visual Studio 2022 Community - Installation workflow
+### Visual Studio 2022 Community - Installation Workflow
 
 <br/>
 <br/>
@@ -59,30 +59,30 @@ Your browser does not support the video tag.
 </video>
 
 ---
-name:visual-studio-code
+name: visual-studio-code
 ### Installation Guide
 # Visual Studio Code
 A lightweight source code editor to manipulate code.
 
-Checkout the official website <a href="https://code.visualstudio.com" target="blank">here</a>.
+Check out the official website <a href="https://code.visualstudio.com" target="_blank">here</a>.
 
 1. Download Visual Studio Code
   - [Download for Windows](https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user)
   - [Download for Apple](https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal)
-  - [Dowload for Linux](https://code.visualstudio.com/download)
+  - [Download for Linux](https://code.visualstudio.com/download)
 
 2. Install* (for Windows)
-  - Double click the installer
+  - Double-click the installer.
   - Install as you normally should **but**:
-      - **Select Add Open with code action... file context menu**
-      - **Select Add Open with code action... directory context menu**
-      - **Select Register Code as an editor for supported file types**
-  - Click `Install`
+      - **Select Add Open with code action... file context menu**.
+      - **Select Add Open with code action... directory context menu**.
+      - **Select Register Code as an editor for supported file types**.
+  - Click `Install`.
 
 > *Recording provided on the next slide.
 
 ---
-### Visual Studio Code - Installation workflow
+### Visual Studio Code - Installation Workflow
 <video controls width="85%" class="center">
   <source src="images/visual-studio-code-install.mp4" type="video/mp4">
 Your browser does not support the video tag.
@@ -113,23 +113,23 @@ class: dark middle
 > Data Management
 
 ---
-name:ssms
+name: ssms
 ### Installation Guide
 # SQL Server Management Studio
-A fullblown data editor.
+A full-blown data editor.
 
 1. Download SQL Server Management Studio (SSMS)
   - [Download for Windows](https://aka.ms/ssmsfullsetup)
 
 2. Install (for Windows)
-  - Double click the installer
-  - Click `Install`
+  - Double-click the installer.
+  - Click `Install`.
 
 3. Install (for macOS & Linux)
-  - Follow the instructions based on this article [How to install SQL Server using Docker](https://medium.com/geekculture/docker-express-running-a-local-sql-server-on-your-m1-mac-8bbc22c49dc9)
+  - Follow the instructions based on this article [How to install SQL Server using Docker](https://medium.com/geekculture/docker-express-running-a-local-sql-server-on-your-m1-mac-8bbc22c49dc9).
 
 ---
-name:azure-data-studio
+name: azure-data-studio
 ### Installation Guide
 # Azure Data Studio
 A lightweight data editor to manipulate the database.
@@ -140,15 +140,15 @@ A lightweight data editor to manipulate the database.
   - [Download for Linux](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15#download-azure-data-studio)
 
 2. Install* (for Windows)
-  - Double click the installer
+  - Double-click the installer.
   - Install as you normally should **but**:
-      - **Select Register Studio as an editor for supported file types**
-  - Click `Install`
+      - **Select Register Studio as an editor for supported file types**.
+  - Click `Install`.
 
 > *Recording provided on the next slide.
 
 ---
-### Azure Data Studio - Installation workflow
+### Azure Data Studio - Installation Workflow
 <video controls width="85%" class="center">
   <source src="images/azure-data-studio-install.mp4" type="video/mp4">
 Your browser does not support the video tag.
@@ -159,10 +159,10 @@ Your browser does not support the video tag.
 class: dark middle
 
 # Installation Guide
-> GIT: *unpleasant person* in British English slang
+> GIT: *Unpleasant person* in British English slang
 
 ---
-name:git
+name: git
 ### Installation Guide
 # GIT
 Source control for your code.
@@ -173,15 +173,15 @@ Source control for your code.
 - <a href="https://git-scm.com/download/linux" target="_blank">Download for Linux</a>
 
 2. Install* (for Windows)
-  - Double click the installer
-  - Follow the GIF on the next slide
+  - Double-click the installer.
+  - Follow the GIF on the next slide.
   > Else you're gonna have a bad time...
   - Restart your PC.
 
 > *Recording provided on the next slide.
 
 ---
-### GIT - Installation workflow
+### GIT - Installation Workflow
 <video controls width="85%" class="center">
   <source src="images/git-install.mp4" type="video/mp4">
 Your browser does not support the video tag.
@@ -189,10 +189,10 @@ Your browser does not support the video tag.
 > Your version could be a little bit different.
 
 ---
-name:gitkraken
+name: gitkraken
 ### Installation Guide
 # Gitkraken
-A lightweight **G**raphical **U**ser **I**nterface for GIT
+A lightweight **G**raphical **U**ser **I**nterface for GIT.
 
 1. Download GitKraken
 - <a href="https://www.gitkraken.com/download/windows64" target="_blank">Download for Windows</a>
@@ -200,8 +200,8 @@ A lightweight **G**raphical **U**ser **I**nterface for GIT
 - <a href="https://www.gitkraken.com/download" target="_blank">Download for Linux</a>
 
 2. Install* (for Windows)
-  - Double click the installer
-  - Sign-in with your GitHub account.
+  - Double-click the installer.
+  - Sign in with your GitHub account.
 
 ---
 ### Installation Guide
@@ -209,5 +209,3 @@ A lightweight **G**raphical **U**ser **I**nterface for GIT
 You're now ready to follow the classes in this course! #yay
 
 <img src="https://media.giphy.com/media/a0h7sAqON67nO/giphy.gif" width="90%" class="center">
-
-
