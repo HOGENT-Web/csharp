@@ -5,43 +5,43 @@ class: dark middle
 
 ---
 ### Enterprise Web Development C&#35;
-# Table of contents
+# Table of Contents
 
 - [Situation](#situation)
 - [Goals](#goals)
 - [Technologies](#technologies)
-- [Learning materials](#learning-materials)
+- [Learning Materials](#learning-materials)
 - [Classes](#classes)
 - [Prerequisites](#prerequisites)
 - [Examination](#examination)
-- [What we're building](#what-were-building)
+- [What We're Building](#what-were-building)
 - [Chapter Overview](#chapter-explanation)
 
 ---
-name:situation
+name: situation
 ### Course Overview
 # Situation
 <br/>
 <img src="./images/situation.jpg" width="100%" class="center" /> 
 
 ---
-name:goals
+name: goals
 ### Course Overview
 # Goals
 
-At the end of this course the student:
-- has an deep understanding of the **.NET framework**;
-- can create a client web application using **Blazor**;
-- can create a **REST|GRPC Web API** using **ASP.NET**;
-- can connect clients to server applications using **various protocols**.
-- can use different **(micro)-ORM Technologies** to persist data;
-- can integrate **authorization and authentication** in the application;
-- can test software using **unit- and integration tests**;
-- can deploy production ready applications on **Microsoft Azure**;
-- can use various **design patterns** and **best practises**.
+At the end of this course, the student:
+- Has a deep understanding of the **.NET framework**.
+- Can create a client web application using **Blazor**.
+- Can create a **REST|GRPC Web API** using **ASP.NET**.
+- Can connect clients to server applications using **various protocols**.
+- Can use different **(micro)-ORM Technologies** to persist data.
+- Can integrate **authorization and authentication** in the application.
+- Can test software using **unit and integration tests**.
+- Can deploy production-ready applications on **Microsoft Azure**.
+- Can use various **design patterns** and **best practices**.
 
 ---
-name:technologies
+name: technologies
 ### Course Overview
 # Technologies
 
@@ -57,7 +57,7 @@ name:technologies
 **Packages**
 - Entity Framework 6 | Dapper
 - FluentValidation 
-- a bunch of others to make our lives easier
+- A bunch of others to make our lives easier
 
 ---
 ### Course Overview
@@ -74,29 +74,29 @@ name:technologies
      - [ASP.NET Core Switcher](https://marketplace.visualstudio.com/items?itemName=adrianwilczynski.asp-net-core-switcher) (optional)
 - Visual Studio Community 2022
 
-**Database access**
+**Database Access**
 - Azure Data Studio
 - Microsoft SQL Server Management Studio 
 
 ---
-name:learning-materials
+name: learning-materials
 ### Course Overview
-# Learning materials
+# Learning Materials
 
 - Slides (EN)
- - **bare minimum**, but linked to the [official documentation](https://docs.microsoft.com/)
-- Excercises (EN)
+ - **Bare minimum**, but linked to the [official documentation](https://docs.microsoft.com/)
+- Exercises (EN)
  - Drill exercises using `.NET Interactive`
- - Real life example implementing a web store
+ - Real-life examples implementing a web store
 - Demos
- - Each class we'll use `.NET Interactive` or the web store example.
+ - Each class, we'll use `.NET Interactive` or the web store example.
 - Summary 
  - There is a [portal](../../../index.html) with links to all the learning materials.
 
-> During this course we try to mimic the life of a professional developer. Therefore reading the official docs is mandatory.
+> During this course, we try to mimic the life of a professional developer. Therefore, reading the official docs is mandatory.
 
 ---
-name:classes
+name: classes
 ### Course Overview
 # Classes
 5 hours per week
@@ -104,15 +104,15 @@ name:classes
  - 3 hours
 > There is always a part theory and practicum.
 
-**Practise-first approach**
- - Essential theory explained with slides and demo's followed by exercises in each class.
+**Practice-first approach**
+ - Essential theory explained with slides and demos followed by exercises in each class.
 
 Time investment in this course
 - **60 hours** in class
 - **150 hours** self-study 
 
 ---
-name:prerequisites
+name: prerequisites
 ### Course Overview
 # Prerequisites
 - HTML
@@ -123,16 +123,16 @@ name:prerequisites
 - Common sense
 
 ---
-name:examination
+name: examination
 ### Course Overview
 # Examination
 - 100% Exam in the examination period
 - **B**ring **Y**our **O**wn **D**evice
 - Communication during the exam is strictly **forbidden**
-- AI based tools are strictly **forbidden**
+- AI-based tools are strictly **forbidden**
 - Implement parts of a larger solution
 
-> If the code does not compile a.ka. `Build Errors` ** = 0/20.**
+> If the code does not compile, a.k.a. `Build Errors`, **= 0/20.**
 
 ## Catch-up (inhaal examen)
 
@@ -141,11 +141,11 @@ name:examination
 - You can only take the catch-up exam if you have a **valid reason**.
 
 ---
-name:what-were-building
+name: what-were-building
 ### Course Overview
-# What we're building
+# What We're Building
 
-A Web store which sells bogus products called BogusStore.
+A Web store that sells bogus products called BogusStore.
 
 ### Technologies
 - Blazor WASM
@@ -161,7 +161,7 @@ A Web store which sells bogus products called BogusStore.
 - ...
 
 ---
-### What we're building
+### What We're Building
 # Bogus Store
 
 <video controls width="100%" class="center" >
@@ -170,7 +170,7 @@ Your browser does not support the video tag.
 </video>
 
 ---
-### What we're building
+### What We're Building
 # Shopping Cart
 
 <video controls width="100%" class="center" >
@@ -179,7 +179,7 @@ Your browser does not support the video tag.
 </video>
 
 ---
-name:chapter-explanation
+name: chapter-explanation
 ### Course Overview
 # Chapters
 - **Chapter 1** : Introduction to the .NET ecosystem
@@ -191,26 +191,26 @@ name:chapter-explanation
     - A lot of basic stuff you should already know in JAVA etc.
 - **Chapter 3** : Model & Unit Testing
     - C# Advanced
-    - Creating a Domain and best practises
-    - Unit Testig
+    - Creating a Domain and best practices
+    - Unit Testing
 - **Chapter 4** : LINQ **Self Study**
-    - Lanuage Integrated Query
+    - Language Integrated Query
     - Like JAVA Streams, functional programming
 - **Chapter 5** : David's & Goliath's Architecture
     - Modern Architecture
-    - Learn how to setup a project
+    - Learn how to set up a project
 - **Chapter 6** : Suit up, wear a Blazor
-    - Simple client side C# with Blazor
+    - Simple client-side C# with Blazor
     - Like React but with C#
     - No Server yet
 
-> At this point we're in week 4 of the semester.
+> At this point, we're in week 4 of the semester.
 
 ---
 ### Course Overview
 # Chapters
 - **Chapter 7** : Suit up, wear a Blazor
-    - Simple client side C# with Blazor
+    - Simple client-side C# with Blazor
     - Like React but with C#
     - No Server yet.
 - **Chapter 8** : Ain't No REST for the wicked
@@ -227,7 +227,7 @@ name:chapter-explanation
 - **Chapter 12** : Example Exams
     - Prepare yourself for the examination
     
-> At this point it's Christmas.🌲🤶
+> At this point, it's Christmas.🌲🤶
 
 ---
 ### Course Overview
