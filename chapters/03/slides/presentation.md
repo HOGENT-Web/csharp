@@ -618,7 +618,7 @@ Create a `Class Library` named `Domain` in the `src` folder
 
 ```
 cd src
-dotnet new classlib -n Domain
+dotnet new classlib -n Domain -f net6.0
 ```
 
 ---
@@ -628,7 +628,7 @@ dotnet new classlib -n Domain
 Create a `Console App` named `App` in the `src` folder
 
 ```
-dotnet new console -n App
+dotnet new console -n App -f net6.0
 ```
 
 Reference the `Domain` proejct from the `App` project
@@ -1791,7 +1791,7 @@ Create a new **xUnit Test Project** called `Domain.Tests`
 
 ```
 cd tests
-dotnet new xunit -n Domain.Tests
+dotnet new xunit -n Domain.Tests -f net6.0
 ```
 
 Add a **reference to** the **Domain** project

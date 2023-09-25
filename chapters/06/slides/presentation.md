@@ -128,12 +128,12 @@ cd src
 
 Create a Blazor Web Assembly Project called `Client`
 ```
-dotnet new blazorwasm -o Client
+dotnet new blazorwasm -o Client -f net6.0
 ```
 
 Create a Class Library called `Domain`
 ```
-dotnet new classlib -o Domain
+dotnet new classlib -o Domain -f net6.0
 ```
 
 Reference the Domain Class Library in the Client
@@ -1039,7 +1039,7 @@ class: dark middle
 # Introduction
 Until now we've been playing games. Let's introduce a more realistic example. Run the following command:
 ```
-dotnet new blazorwasm --hosted -o Project
+dotnet new blazorwasm --hosted -o Project -f net6.0
 ```
 Which generates 3 projects
 - Project.Client which is a Blazor WASM Client

@@ -162,12 +162,12 @@ dotnet tool install --global Microsoft.Playwright.CLI
 ```
 Create a new `blazor wasm hosted` project 
 ```
-dotnet new blazorwasm --hosted -o Example
+dotnet new blazorwasm --hosted -o Example -f net6.0
 ```
 Create a new `nUnit` project (xUnit is barely supported)
 ```
 cd Example
-dotnet new nunit -o PlaywrightTests -n Example.PlaywrightTests
+dotnet new nunit -o PlaywrightTests -n Example.PlaywrightTests -f net6.0
 ```
 Add the nUnit Test project to the solution
 ```

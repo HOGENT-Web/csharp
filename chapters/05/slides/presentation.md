@@ -183,7 +183,7 @@ However:
 - The template is almost the same as the MVC template. 
 - If you like to take a peek at the template, run:
 ```
-dotnet new webapi
+dotnet new webapi -f net6.0
 ```
 
 ---
@@ -398,7 +398,7 @@ name:monolithic
 
 > The default when you run the following command
 ```
-dotnet new mvc --auth Individual
+dotnet new mvc --auth Individual -f net6.0
 ```
 
 > More information can be found <a target="_blank" href="https://docs.microsoft.com/nl-be/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#what-is-a-monolithic-application">here.</a>

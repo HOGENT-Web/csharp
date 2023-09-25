@@ -247,7 +247,7 @@ class: dark middle
 # Swagger UI
 In the default template of a WebAPI Swagger is automatically added.
 ```
-dotnet new webapi
+dotnet new webapi -f net6.0
 dotnet run
 ```
 

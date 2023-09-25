@@ -594,7 +594,7 @@ Your browser does not support the video tag.
 # Console app for prototyping
 Create a new console app
 ```
-dotnet new console -o Hogent.Sas
+dotnet new console -o Hogent.Sas -f net6.0
 
 cd .\Hogent.Sas
 dotnet add package Azure.Storage.Blobs

@@ -386,12 +386,12 @@ cd src
 ```
 2. Create a new Console Application
 ```console
-dotnet new console -o App
+dotnet new console -o App -f net6.0
 ```
 > **-o** is used to specify the name.
 3. Create a Class Library
 ```console
-dotnet new classlib -o Domain
+dotnet new classlib -o Domain -f net6.0
 ```
 
 ---
