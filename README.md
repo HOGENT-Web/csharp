@@ -6,7 +6,6 @@ Portal can be found [here](https://hogent-web.github.io/csharp/)
 - Mimic how Web Applications are written in a company specific context
 - Practical design (anti)patterns
 - Best practises
-  - Logging
   - Deployment
   - Architectural guidelines
   - Integration Testing
@@ -17,21 +16,19 @@ Portal can be found [here](https://hogent-web.github.io/csharp/)
 
 ### Technology Stack
 - Backend
-  - ASP.NET Core 5.0 Web API (REST and gRPC)
+  - ASP.NET 6.0+ REST API
   - Background services
 - Fontend
   - Blazor (SPA, PWA)
 - Storage
   - EF Core 
   - Dapper
-  - Azure Blobstorage 
-- Logging
-  - SeriLog
+  - Azure Blobstorage (optional)
 - Deployment
   - Azure
 
 ### Software
-- .NET 5
+- .NET 6.0+
 - Visual Studio Code with the following extentions:
   - [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
   - [NuGet Gallery](https://marketplace.visualstudio.com/items?itemName=patcx.vscode-nuget-gallery)
