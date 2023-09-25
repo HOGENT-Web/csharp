@@ -165,7 +165,7 @@ A Web store which sells bogus products called BogusStore.
 # Final Result
 
 <video controls width="100%" class="center" >
-  <source src="/chapters/08/slides/images/bogusstore-final-result.mp4" type="video/mp4">
+  <source src="chapters/08/slides/images/bogusstore-final-result.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
@@ -174,7 +174,7 @@ Your browser does not support the video tag.
 # Shopping Cart
 
 <video controls width="100%" class="center" >
-  <source src="/chapters/08/slides/images/shopping-cart.mp4" type="video/mp4">
+  <source src="chapters/08/slides/images/shopping-cart.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
