@@ -31,6 +31,8 @@ name:visual-studio
 # Visual Studio 2022 Community 
 A fullblown source code editor to manipulate code **with a local database**
 
+Checkout the official website <a href="https://visualstudio.microsoft.com/vs/" target="blank">here</a>.
+
 1. Download Visual Studio 2022
   - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false" target="_blank">Download for Windows</a>
   - <a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio-mac/?sku=communitymac&rel=17" target="_blank">Download for Apple</a>
@@ -44,7 +46,7 @@ A fullblown source code editor to manipulate code **with a local database**
   - Select `Class Designer`
   - Click `Install`
 
-> *GIF provided in the next slide.
+> *Recording provided on the next slide.
 
 ---
 ### Visual Studio 2022 Community - Installation workflow
@@ -62,6 +64,8 @@ name:visual-studio-code
 # Visual Studio Code
 A lightweight source code editor to manipulate code.
 
+Checkout the official website <a href="https://code.visualstudio.com" target="blank">here</a>.
+
 1. Download Visual Studio Code
   - [Download for Windows](https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user)
   - [Download for Apple](https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal)
@@ -75,7 +79,7 @@ A lightweight source code editor to manipulate code.
       - **Select Register Code as an editor for supported file types**
   - Click `Install`
 
-> *GIF provided in the next slide.
+> *Recording provided on the next slide.
 
 ---
 ### Visual Studio Code - Installation workflow
@@ -94,7 +98,7 @@ Some extra extensions to make our lives easier.
 2. Click `Install` on the page.
 
 Mandatory
-- <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp" target="_blank">C#</a>
+- <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit" target="_blank">C# Dev Kit<sup> **preview**</sup></a>
 - <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode" target="_blank">.NET Interactive Notebooks</a>
 
 Optional
@@ -116,14 +120,13 @@ A fullblown data editor.
 
 1. Download SQL Server Management Studio (SSMS)
   - [Download for Windows](https://aka.ms/ssmsfullsetup)
-  - [Alternative for macOS & Linux](https://tableplus.com/)
-      - You should use [Docker to run SQL Server](https://hub.docker.com/_/microsoft-mssql-server)
 
-2. Install*
+2. Install (for Windows)
   - Double click the installer
   - Click `Install`
 
-> *GIF not provided in the next slide, since well yeah...
+3. Install (for macOS & Linux)
+  - Follow the instructions based on this article [How to install SQL Server using Docker](https://medium.com/geekculture/docker-express-running-a-local-sql-server-on-your-m1-mac-8bbc22c49dc9)
 
 ---
 name:azure-data-studio
@@ -142,7 +145,7 @@ A lightweight data editor to manipulate the database.
       - **Select Register Studio as an editor for supported file types**
   - Click `Install`
 
-> *GIF provided in the next slide.
+> *Recording provided on the next slide.
 
 ---
 ### Azure Data Studio - Installation workflow
@@ -175,7 +178,7 @@ Source control for your code.
   > Else you're gonna have a bad time...
   - Restart your PC.
 
-> *GIF provided in the next slide.
+> *Recording provided on the next slide.
 
 ---
 ### GIT - Installation workflow
@@ -199,8 +202,6 @@ A lightweight **G**raphical **U**ser **I**nterface for GIT
 2. Install* (for Windows)
   - Double click the installer
   - Sign-in with your GitHub account.
-
-> *GIF not provided in the next slide, since well yeah...
 
 ---
 ### Installation Guide
