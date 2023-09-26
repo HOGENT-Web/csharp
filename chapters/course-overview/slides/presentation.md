@@ -219,7 +219,8 @@ name: chapter-explanation
 - **Chapter 9** : Data The New Raw Material
     - Connecting to a database
     - Using Object Relational Mappers
-- **Chapter 10** : Authentication & Authorization
+- **Chapter 10** : Try "Password123"
+    - Authentication & Authorization
     - Using Auth0 to secure our application
 - **Chapter 11** : Headless Testing
     - Testing our application
