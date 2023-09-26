@@ -209,13 +209,13 @@ name: chapter-explanation
 ---
 ### Course Overview
 # Chapters
-- **Chapter 7** : Suit up, wear a Blazor
-    - Simple client-side C# with Blazor
-    - Like React but with C#
-    - No Server yet.
-- **Chapter 8** : Ain't No REST for the wicked
+- **Chapter 7** : Ain't No REST for the wicked
     - Setting up a REST API.
     - Kinda like the Web Services course
+- **Chapter 8** : Suit up, wear a fancy Blazor
+    - Advanced client-side C# with Blazor
+    - Connecting the Client and Server
+    - Component Libraries
 - **Chapter 9** : Data The New Raw Material
     - Connecting to a database
     - Using Object Relational Mappers
