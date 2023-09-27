@@ -703,9 +703,6 @@ Two associations in `Transaction` class:
 * Collections are **generic types**
 * Can only contain items of that type
 * Namespace: `System.Collections.Generic`
-* Always **use collection interfaces**
-  * better testable code
-  * loosely coupled
 
 ---
 ### Associations &amp; collections
