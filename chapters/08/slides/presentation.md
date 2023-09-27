@@ -199,6 +199,7 @@ Implement the Create Functionality.
 - Use the `ProductDto.Mutate` as model for the `EditForm`
 - Use <a target="_blank" href="https://bulma.io/documentation/form/general/">BULMA's form components</a> to style the form accordingly
 - After creation, navigate to the newly created product's detail page
+- Notice that we generate a fake image url using the `Bogus` library.
 
 > Form example on the next slide
 
@@ -213,7 +214,36 @@ class: dark middle
 > 📝 Commit: Create Product
 
 ---
-### Sportstore
+name:upload-image
+class: dark middle
+# Suit up, wear a fancy Blazor
+> Uploading images
+
+---
+### Uploading images
+# Fake images
+
+Currently we're using the `Bogus` library to generate fake images, but we're not actually uploading them to the server. This is quite tedious if you want to do it correctly and outside the scope of this course.
+
+Some notes about uploading images:
+- **Don't store images in your database**, unless they're small
+    - A browser cannot **cache** the images
+    - Server takes a **big perf. hit** when requesting multiple files
+    - Usually a reference(**URI**) to where the image is stored is kept
+- Store your images somewhere they can be **backed-up**
+    - Usually a wwwroot folder is not backed-up by default
+- Binary Large Object(**BLOB**) storage is generally a good choice
+- Who can upload/download the images?
+    - Depending on the use-case
+    - Most of the time **only certain users can upload**
+    - Some images can be public and some should be private
+    - Think about Facebook, who can see these images?
+- Let your **client stream images** to a BLOB storage
+
+> A tutorial about image uploading in BLOB can be found <a target="blank" href='../../../optionals/blob/slides/index.html'>here</a>.
+
+---
+### BogusStore
 # Create Product (Sidepanel)
 Sometimes the user experience can be better when rendering a small sidepanel to show the form, so that we're not actually navigating away from the index page.
 - Investigate the <a target="_blank" href="https://github.com/Append-IT/Blazor.Sidepanel">Append.Blazor.Sidepanel</a> package on GitHub, especially the Forms functionality on the documentation website.
@@ -227,6 +257,8 @@ Sometimes the user experience can be better when rendering a small sidepanel to 
   <source src="images/bogusstore-create-sidepanel.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
+
+
 
 ---
 class: dark middle
@@ -443,31 +475,6 @@ class: dark middle
 > 📝 Commit: Tags : Index / Create
 
 ---
-name:upload-image
-class: dark middle
-# Suit up, wear a fancy Blazor
-> Uploading images
-
----
-### Image uploading
-# Best practises
-- **Don't store images in your database**, unless they're small
-    - A browser cannot **cache** the images
-    - Server takes a **big perf. hit** when requesting multiple files
-    - Usually a reference(**URI**) to where the image is stored is kept
-- Store your images somewhere they can be **backed-up**
-    - Usually a wwwroot folder is not backed-up by default
-- Binary Large Object(**BLOB**) storage is generally a good choice
-- Who can upload/download the images?
-    - Depending on the use-case
-    - Most of the time **only certain users can upload**
-    - Some images can be public and some should be private
-    - Think about Facebook, who can see these images?
-- Let your **client stream images** to a BLOB storage
-
-> A tutorial about image uploading in BLOB can be found <a target="blank" href='../../../optionals/blob/slides/index.html'>here</a>.
-
----
 name:shopping-cart
 ### Exercise
 # Shopping Cart
@@ -581,8 +588,6 @@ Implement the following functionalities:
 Tip:
 - Use the Tags/Products as a reference.
 - See next slide for a small demo.
-
-> In the next chapters we'll implement the Customer side of the application.
 
 ---
 ### Customers
