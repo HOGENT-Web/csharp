@@ -20,7 +20,7 @@ The amount of slides in this chapter are very limited. We're using interactive n
 
 To start learning this chapter:
 - Open Visual Studio Code
-- Install the `.NET Interactvie Notebooks` extension
+- Install the `.NET Interactive Notebooks` extension
     > Check the install guide, normally it should already be installed.
 - GIT Clone the repository
 
