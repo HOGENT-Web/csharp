@@ -244,6 +244,14 @@ Your browser does not support the video tag.
 </video>
 
 ---
+### Upload on Create
+# Start
+Start by cloning the repository, we'll use the solution branch from chapter 8.
+```bash
+git clone --branch solution https://github.com/HOGENT-Web/csharp-ch-8-example-2.git
+```
+
+---
 ### Client
 # StorageService
 Using a normal HttpClient we can upload files to BLOB based on the SAS returned from the Server.
@@ -573,4 +581,9 @@ Your browser does not support the video tag.
 ---
 class: dark middle
 # Suit up, wear a fancy Blazor
-> 📝 Commit: Add Image Upload On Create
+> https://github.com/HOGENT-Web/csharp-ch-8-example-2.git
+>
+> 📝 Branch: uploading-images
+>
+> 📝 Commit: Upload Image on Create (BLOB)
+
