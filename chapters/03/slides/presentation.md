@@ -60,8 +60,8 @@ class: dark middle
 * **Container for one or more projects**
 * Also contains build information, VS window settings...
 * Extension `.sln`
-* **Only** used when you're using Visual Studio.
-  * So it doesn't matter for Visual Studio Code, Rider, other IDE's.
+* Used when you're using Visual Studio of Visual Studio Code with the [C# Dev Kit extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit).
+  * So it doesn't matter for Rider, other IDE's.
 
 <br />
 <img src="./images/vs-solution-2.jpg" width="60%" class="center" />
