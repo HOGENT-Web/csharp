@@ -442,8 +442,11 @@ If the setter for `Balance` was public, but there is no constructor to set it ri
 BankAccount account = new BankAccount("123-123123-12");
 myAccount.Balance = 200M;
 
-// Is equal to
-BankAccount account = new BankAccount("123-123123-12") { Balance = 200M };
+// Is equal to:
+BankAccount account = new BankAccount("123-123123-12") 
+{
+   Balance = 200M
+};
 ```
 
 ---
@@ -573,8 +576,6 @@ public class BankAccount
 
 * Used to **group pieces of code**
   * can be collapsed and opened
-* Best practice: at least **4 regions: Fields, Constructors, Methods, Properties**
-
 
 ```{cs}
 public class BankAccount
@@ -587,6 +588,9 @@ public class BankAccount
 ```
 
 > In Visual Studio: select code > right click > Snippet > Surround with > #region
+
+  The decision to use regions in C# code should be based on the team's coding conventions, and the preferences of the developers working on the codebase. It's essential to strike a **balance** between using regions to **improve code organization** and **not overusing ** them to the point where they hinder code readability and maintainability.
+
 
 ---
 ### Classes
@@ -649,11 +653,13 @@ Your browser does not support the video tag.
 
 ---
 ### Create an empty `BankAccount` class
-
+<br/>
 <video controls width="100%" >
   <source src="images/create-bankaccount-class.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
+
+> Pick .NET **6+** and not .NET **5**
 
 ---
 ### Pushing your changes to GitHub
