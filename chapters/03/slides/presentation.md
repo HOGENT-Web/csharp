@@ -612,7 +612,7 @@ mkdir src
 Create a new solution
 
 ```
-dotnet new sln -n Banking -o .
+dotnet new sln
 ```
 
 Create a `Class Library` named `Domain` in the `src` folder
@@ -635,10 +635,16 @@ dotnet new console -n App -f net6.0
 Reference the `Domain` proejct from the `App` project
 
 ```
-dotnet add .\App\App.csproj reference .\Domain\Domain.csproj
+dotnet add app/App.csproj reference domain/Domain.csproj
 ```
 
-Open the solution in Visual Studio (Code).
+Add projects to .sln
+```
+cd ..
+dotnet sln add src/app/App.csproj
+dotnet sln add src/domain/Domain.csproj
+```
+Open the solution in Visual Studio.
 
 ---
 ### Create a new solution & project
