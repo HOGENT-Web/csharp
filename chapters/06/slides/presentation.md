@@ -994,6 +994,7 @@ Your browser does not support the video tag.
 ---
 ### Deployment
 # GitHub Pages
+- Give the workflow write permissions: Settings > Actions > Workflow permissions and check "Read and write permissions" (press save)
 - Set the deployment branch to gh-pages once the action ran successfully
 <video controls width="80%" class="center">
   <source src="images/deployment-2.mp4" type="video/mp4">
