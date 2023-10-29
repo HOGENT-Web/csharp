@@ -77,7 +77,7 @@ Blazor is a web framework designed to run server-side in ASP.NET (Blazor Server)
 - Con's
     - Server sets up a in-memory session for **every client**
         - Memory and CPU are consumed by the server and not the client
-        - Cannot work **without** a internet connection ([SignalR](https://docs.microsoft.com/en-us/aspnet/core/signalr/introduction?view=aspnetcore-5.0))
+        - Cannot work **without** an internet connection ([SignalR](https://docs.microsoft.com/en-us/aspnet/core/signalr/introduction?view=aspnetcore-5.0))
     - **Latency** can be an issue with events that fire frequently
 
 > Read more about hosting models <a target="_blank" href="https://blazor-university.com/overview/blazor-hosting-models">here</a>.
