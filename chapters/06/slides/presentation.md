@@ -336,7 +336,7 @@ Welcome to your new app.
 - Navigate to **`/`** and you'll see this page.
 - Uses HTML + C# (Razor)
 - Renders a component called `SurveyPrompt`
-- The name of the Page is called `Title` which is taken care of by the `PageTitle` component. This can be seen in the browser tab, since it manipules the `<head>` content of the `<html>`.
+- The name of the Page is called `Index` which is taken care of by the `PageTitle` component. This can be seen in the browser tab, since it manipules the `<head>` content of the `<html>`.
 
 > Read more about controlling `<head>` content <a target="_blank" href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/control-head-content?view=aspnetcore-6.0">here</a>.
 
