@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -15,43 +15,101 @@
     </style>
 </head>
 
-<body>
-    <div class="container">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="/">
-                    <img src="images/logo_dark.png">
+<body class="has-navbar-fixed-top>
+    <div class=" container">
+    <nav class="navbar is-fixed-top" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <img src="images/logo_dark.png" alt="logo">
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item has-text-weight-semibold" href="#">
+                    Enterprise Web Development C#
                 </a>
 
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                    data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
             </div>
 
-            <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item has-text-weight-semibold" href="#">
-                        Enterprise Web Development C#
+            <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="/documentation/overview/start/">
+                        Chapters
                     </a>
-                </div>
-
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <a class="button is-light" href="https://github.com/HOGENT-Web/csharp/issues/new"
-                            target="_blank">
-                            Report an issue
+                    <div class="navbar-dropdown is-boxed">
+                        <a class="navbar-item" href="chapters/01/slides/index.html">
+                            1. Introduction
+                        </a>
+                        <a class="navbar-item" href="chapters/02/slides/index.html">
+                            2. See sharp with C#
+                        </a>
+                        <a class="navbar-item" href="chapters/03/slides/index.html">
+                            3. Solving The Problem Domain
+                        </a>
+                        <a class="navbar-item"
+                            href="https://steven-giesel.com/blogPost/8d12d9ef-c4e6-439c-9f88-46825cf35576">
+                            4. LINQ
+                        </a>
+                        <a class="navbar-item" href="chapters/05/slides/index.html">
+                            5. David's & Goliath's Architecture
+                        </a>
+                        <a class="navbar-item" href="chapters/06/slides/index.html">
+                            6. Suit up, wear a Blazor
+                        </a>
+                        <a class="navbar-item" href="chapters/07/slides/index.html">
+                            7. Ain't no REST for the wicked
+                        </a>
+                        <a class="navbar-item" href="chapters/08/slides/index.html">
+                            8. Suit up, wear a fancy Blazor
+                        </a>
+                        <a class="navbar-item" href="chapters/09/slides/index.html">
+                            9. Data, the new raw material
+                        </a>
+                        <a class="navbar-item" href="chapters/10/slides/index.html">
+                            10. Try "Password123"
+                        </a>
+                        <a class="navbar-item" href="chapters/11/slides/index.html">
+                            11. Headless Testing
                         </a>
                     </div>
                 </div>
+                <a class="navbar-item" href="#optionals">
+                    Optionals
+                </a>
+                <a class="navbar-item" href="#faq">
+                    FAQ
+                </a>
+                <div class="navbar-item">
+                    <a class="button is-light is-small" href="https://github.com/HOGENT-Web/csharp/issues/new"
+                        target="_blank">
+                        <span class="icon">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>Report an issue</span>
+                    </a>
+                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
     </div>
     <section class="section">
         <div class="container">
-            <h1 class="title">Prerequisites</h1>
+            <h1 id="prerequisites" class="title is-flex is-justify-content-space-between accordion is-clickable">
+                <span>Prerequisites</span>
+                <a class="has-text-dark">
+                    <span class="icon is-size-5">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </h1>
             <div class="columns">
                 <div class="column is-half">
                     <div class="card">
@@ -148,8 +206,15 @@
                     </div>
                 </div>
             </div>
-            <hr />
-            <h1 class="title">Chapters</h1>
+            <h1 class="title"></h1>
+            <h1 id="chapters" class="title is-flex is-justify-content-space-between accordion is-clickable">
+                <span>Chapters</span>
+                <a class="has-text-dark">
+                    <span class="icon is-size-5">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </h1>
             <div class="columns is-multiline">
                 <div class="column is-half">
                     <div class="card">
@@ -278,7 +343,7 @@
                     <div class="card">
                         <header class="card-header">
                             <p class="card-header-title">
-                                3. Model &amp; Unit Testing
+                                3. Solving The Problem Domain
                             </p>
                         </header>
                         <div class="card-content">
@@ -816,7 +881,14 @@
     </section>
     <section class="section">
         <div class="container">
-            <h1 class="title">Optionals</h1>
+            <h1 id="optionals" class="title is-flex is-justify-content-space-between accordion is-clickable">
+                <span>Optionals</span>
+                <a class="has-text-dark">
+                    <span class="icon is-size-5">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </h1>
             <div class="columns is-multiline">
                 <div class="column is-half">
                     <div class="card">
@@ -884,17 +956,68 @@
             </div>
         </div>
     </section>
-    <script>
-        var acc = document.getElementsByClassName("accordion is-clickable");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                var panel = this.nextElementSibling;
-                panel.classList.toggle("is-hidden");
-            });
-        }
-    </script>
+    <section class="section">
+        <div class="container">
+            <h1 class="title" id="faq"></h1>
+            <h1 id="faq" class="title is-flex is-justify-content-space-between accordion is-clickable">
+                <span>Frequently Asked Questions</span>
+                <a class="has-text-dark">
+                    <span class="icon is-size-5">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </h1>
+            <div>
+                <article class="message is-info">
+                    <div class="message-body">
+                        Feel free to add your question or solution to the list using <a
+                            href="https://github.com/HOGENT-Web/csharp/issues/new" target="_blank">
+                            <span class="icon">
+                                <i class="fab fa-github"></i>
+                            </span>
+                            <span>Github.</span>
+                        </a>
+                    </div>
+                </article>
+                <table class="table is-fullwidth is-striped">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>I want to use Tailwind CSS in combination with Blazor, what are the best practises?</td>
+                            <td><a href="https://steven-giesel.com/blogPost/351838ba-e308-4a09-b9f6-75bb95c39610">Blazor
+                                    with TailwindCSS </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>I want to use component libaries (like grids, sorting tables, notifications etc.), where
+                                do
+                                I find them?</td>
+                            <td><a href="https://github.com/AdrienTorris/awesome-blazor">Awesome
+                                    Blazor
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Is there a testing libary specifically for Blazor?</td>
+                            <td><a href="https://bunit.dev">bUnit</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>How do I link a database?</td>
+                            <td><a href="chapters/09/slides/index.html">Chapter 9</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <script src="portalscript.js"></script>
 </body>
 
 </html>
