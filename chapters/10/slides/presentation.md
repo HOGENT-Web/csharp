@@ -38,7 +38,10 @@ name:introduction
 # Introduction
 If you're unfamiliar with JWT's, Cookies, Access Tokens, Id Tokens, RBAC, ... We highly recommend you to watch the following webinar.
 
-<video controls="" src="//videos.ctfassets.net/2ntc334xpx65/58EF02DMi7g7MmfdW86pae/e24609566a25921060eaa9146e4360f6/Modern_Authentication_Demystified.mp4" width="100%" height="100%" class="sc-1t7m45w-0 ktSVqQ"></video>
+<video controls width="90%">
+  <source src="https://videos.ctfassets.net/2ntc334xpx65/58EF02DMi7g7MmfdW86pae/e24609566a25921060eaa9146e4360f6/Modern_Authentication_Demystified.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 &nbsp;
 
@@ -47,6 +50,8 @@ If you're unfamiliar with JWT's, Cookies, Access Tokens, Id Tokens, RBAC, ... We
 # Webinar
 
 You cannot google Identity without finding learning resources of Vittorio Bertocci. He is a Principal Architect for Auth0. Before Auth0, he had a lengthy career with Microsoft, where Vittorio worked with Fortune 100 and Global 100 companies, including working on Microsoft’s Azure Active Directory team as principal program manager focusing on the developer experience. In his series Learn Identity he explains Authentication and Authorization. It's really a go-to resource of you want to know more about Identity in general.
+
+<img src="https://images.ctfassets.net/cdy7uua7fh8z/3cCv1v1rVUKWg4z9IH5kal/4826403f616a8a4e65a0b81e63341484/learn-identity-intro.jpg" width="70%" class="center"/>
 
 <a target="_blank" href="https://auth0.com/docs/videos/learn-identity-series">Learn Identity By Vittorio Bertocci</a>
 
@@ -99,7 +104,7 @@ class: dark middle
 ### Chapter 10 - Try "Password123"
 # Solutions
 
-1. <a href="https://github.com/HOGENT-Web/csharp-ch-10-exercise-1/tree/solution" target="_blank">SportStore with Auth0</a>
+1. <a href="https://github.com/HOGENT-Web/csharp-ch-10-exercise-1/tree/solution" target="_blank">BogusStore with Auth0</a>
 
 ---
 class: dark middle
@@ -126,4 +131,7 @@ name:identity-server
 # Identity Server
 To integrate with Identity Server you can follow the tutorial <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/security/webassembly/hosted-with-identity-server?view=aspnetcore-5.0&tabs=visual-studio">here</a>.
 
-However you might want to read-up on the license changes of Identity Server and why it might or might not be suitable for your project, read it <a href="https://devblogs.microsoft.com/aspnet/asp-net-core-6-and-authentication-servers/">here</a>..
+However you might want to read-up on the license changes of Identity Server and why it might or might not be suitable for your project, read it <a href="https://devblogs.microsoft.com/aspnet/asp-net-core-6-and-authentication-servers/">here</a>...
+
+**However:**
+Since the community complained about these changes, it will be revered to a pre-duende era in ASP.NET 8. Read more about it in <a href="https://devblogs.microsoft.com/dotnet/improvements-auth-identity-aspnetcore-8/">this post</a>
