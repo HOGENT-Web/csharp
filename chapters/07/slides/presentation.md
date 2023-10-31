@@ -299,7 +299,7 @@ pref set editor.command.default.arguments "--wait"
 ```
 httprepl http://localhost:5000
 pref set editor.command.default "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
-pref set editor.command.default.arguments "--disable-extensions —-wait"
+pref set editor.command.default.arguments "-w"
 ```
 > More information can be found <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/web-api/http-repl/?view=aspnetcore-6.0&tabs=macos#set-the-default-text-editor">here</a>
 
