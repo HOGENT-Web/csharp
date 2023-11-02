@@ -204,7 +204,7 @@ finally
 ### Serilog
 # AppSettings
 
-Note that AppSettings.json won't be used in the previous slide. So remove the entire "Logging" section.
+Note that `AppSettings` won't be used in the previous slide. So remove the entire "Logging" section in `AppSettings.json`
 
 If you want to swap config on runtime without a rebuild, refer to the  <a href="https://github.com/serilog/serilog-aspnetcore/blob/dev/samples/Sample/Program.cs" target="_blank">the sample</a>.
 
