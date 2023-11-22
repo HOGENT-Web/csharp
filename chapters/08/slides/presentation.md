@@ -541,8 +541,96 @@ public class Cart
 
 ---
 ### Shopping Cart
+**CartItem.cs**
+```cs
+public class CartItem
+ {
+     public int ProductId { get; init; }
+     public string Name { get; init; }
+     public int Amount { get; set; }
+     public decimal Price { get; init; }
+     public decimal Total => Price * Amount;
+
+     public CartItem(int productId, string name, decimal price, int amount)
+     {
+         ProductId = productId;
+         Name = name;
+         Price = price;
+         Amount = amount;
+     }
+ }
+```
+
+---
+### Shopping Cart
+**ShoppingCart.razor**
+```cs
+<table class="table is-fullwidth ">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Aantal</th>
+            <th>Prijs&nbsp;<small>(&euro;)</small></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Cart.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td><input type="number" class="input" @bind="item.Amount" /></td>
+                <td class="price">@item.Price.ToString("C")</td>
+                <td><button @onclick="_ => Cart.RemoveItem(item)" class="button is-white"><span class="icon is-danger"><i class="fas fa-trash"></i></span></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+```
+> Not all code is shown for this component, just a starter.
+
+---
+### Shopping Cart
+**ShoppingCart.razor.cs**
+```cs
+public partial class ShoppingCart : IDisposable
+ {
+     [Inject] public ISidepanelService Sidepanel { get; set; } = default!;
+     [Inject] public Cart Cart { get; set; } = default!;
+
+     protected override void OnInitialized()
+     {
+         Cart.OnCartChanged += StateHasChanged;
+     }
+
+     public void Dispose()
+     {
+         Cart.OnCartChanged -= StateHasChanged;
+     }
+ }
+```
+
+---
+### Shopping Cart
+**Header.razor**
+Add a button
+
+```cs
+// Other navitems
+<button class="button is-white" @onclick="OpenShoppingCart">
+    <span class="icon">
+        <i class="fas fa-shopping-cart"></i>
+    </span>
+    <span class="tag">@Cart.Items.Count</span>
+</button>
+// Other navitems
+```
+
+---
+### Shopping Cart
 **Header.razor.cs**
-Part of code-behind of the `Header` component.
+Code-behind of the `Header` component.
 ```cs
 public partial class Header : IDisposable
 {
