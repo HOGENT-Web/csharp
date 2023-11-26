@@ -52,7 +52,7 @@ class: dark middle
 ### Data, the new raw material
 # Dapper
 
-First read through the [Dapper Introduction documentation](https://dapper-tutorial.net/dapper).
+First read through the [Dapper Introduction documentation](https://dappertutorial.net/dapper).
 
 Then move on to the [Dapper notebook](../notebooks/dapper.ipynb) and learn what it's capable of.
 
