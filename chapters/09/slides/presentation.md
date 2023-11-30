@@ -709,12 +709,6 @@ class: dark middle
 > 📝 Commit: Additional Mappings
 
 ---
-class: dark middle
-
-# Data, the new raw material
-> 📝 Commit: Additional Mappings
-
----
 ### ProductTag as Entity (if you want to)
 **Persistence/Configurations/TagConfiguration.cs**
 ```cs
