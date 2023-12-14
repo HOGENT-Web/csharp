@@ -632,7 +632,7 @@ Create a `Console App` named `App` in the `src` folder
 dotnet new console -n App -f net6.0
 ```
 
-Reference the `Domain` proejct from the `App` project
+Reference the `Domain` project from the `App` project
 
 ```
 dotnet add app/App.csproj reference domain/Domain.csproj
