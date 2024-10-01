@@ -512,7 +512,7 @@ class: dark middle
 > Show the database schema using SSMS or Azure Data Studio
 
 ---
-name:configurations
+name:overriding-conventions
 ### Overriding the default conventions
 **BogusDbContext.cs**
 
@@ -687,6 +687,7 @@ class: dark middle
 > Exercise
 
 ---
+name: exercises
 ### Data, the new raw material
 # Exercise
 Use the <a href="https://learn.microsoft.com/en-us/ef/core/" target="_blank">documentation</a> of EF Core and configurations to:
@@ -707,6 +708,8 @@ class: dark middle
 
 # Data, the new raw material
 > 📝 Commit: Additional Mappings
+>
+> [GitHub](https://github.com/HOGENT-Web/csharp-ch-9-example-1/commit/bf3453e573d5fd8137ffa7810c0d22003b28efb0)
 
 ---
 ### ProductTag as Entity (if you want to)

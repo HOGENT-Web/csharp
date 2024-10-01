@@ -330,7 +330,7 @@ Complete the following interactive tutorials provided by Microsoft Learn:
 
 ---
 class: dark middle
-name:class-Libraries
+name:class-libraries
 # Enterprise Web Development C&#35;
 >  Class Libraries
 
