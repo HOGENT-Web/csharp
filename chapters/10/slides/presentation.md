@@ -10,8 +10,6 @@ class: dark middle
 # Table of contents
 - [Introduction](#introduction)
 - [Auth0](#auth0)
-- [Exercises](#exercises)
-- [Solutions](#solutions)
 - Extra:
     - [Azure AAD](#azure-aad)
     - [Azure AD B2C](#azure-ad-b2c)
