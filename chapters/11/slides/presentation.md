@@ -11,8 +11,6 @@ class: dark middle
 - [Managed vs Unmanaged dependencies](#managed-vs-unmanaged-dependencies)
 - [Levels of testing](#levels-of-testing)
 - [Playwright](#playwright)
-- [Exercises](#exercises)
-- [Solutions](#solutions)
 - Extra:
     - [Literature](#literature)
 
@@ -45,11 +43,12 @@ These broader tests are used to test the app's infrastructure and the whole fram
 ### Headless testing
 # Confidence
 
-When testing, it's all about confidence and the time you spent on writing tests. If you write tests, it takes time to write these tests, which in essence is an extra cost to the client. 
+When testing, it's all about confidence and the time you spent on writing tests. If you write tests, it takes time to write these tests, which in essence is an extra cost to the customer paying for the solution. 
 
 The test suite you write needs a descent architecture, when tests are too hard to write, nobody will write any, when they're brittle (a.k.a. flaky tests) it takes a lot of time to fix the suite when introducing new features.
 
-<img src="https://i0.wp.com/www.e4-services.com/wp-content/uploads/2017/08/Testing.png?w=900&ssl=1" class="center" width="55%"/>
+<img src="images/testing-graph.png" class="center" width="75%"/>
+ - [The Complete Guide to Unit Testing, Vladimir Khorikov](https://enterprisecraftsmanship.com/)
 
 ---
 ### Headless testing
@@ -95,6 +94,10 @@ These bugs cannot be found or tested using an in-memory collection, since there 
 
 While writing integration tests, you want to replicate a production environment. Changing database providers in your integration test suite is *most of the time*... **lying to yourself**.
 
+**Tip:**
+
+Read the following article <a target="_blank" href="https://enterprisecraftsmanship.com/posts/should-you-abstract-database/">Should you abstract your database?</a>
+
 ---
 name:levels-of-testing
 ### Headless testing
@@ -108,12 +111,6 @@ How far are you willing to go? What part of the application are you going to tes
     - Does not test the request-response pipeline
 - Persistence Layer
     - Meh, you don't own Entity Framework
-
-
----
-### Headless testing
-# Levels of testing
-
 - Server Layer
     - Can be unit and integration tested
     - You can test the endpoints in your controllers and in fact the service layer and the domain layer in one go
@@ -162,12 +159,12 @@ dotnet tool install --global Microsoft.Playwright.CLI
 ```
 Create a new `blazor wasm hosted` project 
 ```
-dotnet new blazorwasm --hosted -o Example -f net6.0
+dotnet new blazorwasm --hosted -o Example -f net8.0
 ```
 Create a new `nUnit` project (xUnit is barely supported)
 ```
 cd Example
-dotnet new nunit -o PlaywrightTests -n Example.PlaywrightTests -f net6.0
+dotnet new nunit -o PlaywrightTests -n Example.PlaywrightTests -f net8.0
 ```
 Add the nUnit Test project to the solution
 ```
@@ -182,7 +179,7 @@ dotnet sln add PlaywrightTests
 Add package `Microsoft.Playwright.NUnit` to the test project 
 ```
 cd PlaywrightTests
-dotnet add package Microsoft.Playwright.NUnit --version 1.17.3
+dotnet add package Microsoft.Playwright.NUnit --version 1.48.0
 ```
 Build the test project
 ``` 
@@ -191,9 +188,9 @@ dotnet build
 Install the browsers
 ```
 dotnet tool install --global PowerShell
-pwsh bin/Debug/`net6.0`/playwright.ps1 install
+pwsh bin/Debug/`net8.0`/playwright.ps1 install
 ```
-> Make sure to adjust **net6.0** to the correct version if using a different one
+> Make sure to adjust **net8.0** to the correct version if using a different one
 
 Open the solution `Example.sln`
 
@@ -206,6 +203,7 @@ Replace the contents of `UnitTest1.cs` with the following:
 [Parallelizable(ParallelScope.Self)]
 public class CounterTests : PageTest
 {
+    // Might want to use AppSettings.json for this.
     private const string ServerBaseUrl = "https://localhost:5001";
     
     [Test]
@@ -219,7 +217,7 @@ public class CounterTests : PageTest
         await Page.ClickAsync("text=Click Me");
         // Assert
         var content = await Page.TextContentAsync("p");
-        Assert.AreEqual("Current count: 1", content);
+        Assert.That(content, Is.EqualTo("Current count: 1"));
     }
 }
 ```
@@ -272,26 +270,6 @@ Using the documentation you can get the hang of Playwright, some interesting one
 - <a target="_blank" href="https://playwright.dev/dotnet/docs/debug">Debugging tools</a>
 - <a target="_blank" href="https://playwright.dev/dotnet/docs/input">Using forms</a>
 
-
----
-class: dark middle
-name:exercises
-# Chapter 11 - Headless testing
-> Exercises
-
----
-name:exercises
-### Headless testing
-# Exercises
-Complete the following exercise:
-1. <a target="_blank" href="https://github.com/HOGENT-Web/csharp-ch-11-exercise-1">Integration Tests for the SportStore</a>
-
----
-name:solutions
-### Headless testing
-# Solutions
-1. <a target="_blank" href="https://github.com/HOGENT-Web/csharp-ch-11-exercise-1/tree/solution">Integration Tests for the SportStore</a>
-
 ---
 class: dark middle
 name:literature
@@ -306,7 +284,7 @@ Creating a non-flaky, high confidence test suite can be hard. Here are some addi
 - Video's
     - <a target="_blank" href="https://www.pluralsight.com/courses/integration-testing-asp-dot-net-core-applications-best-practices?aid=7010a000002BWqGAAW&promo=&utm_source=non_branded&utm_medium=digital_paid_search_google&utm_campaign=EMEA_Dynamic&utm_content=&gclid=Cj0KCQiAweaNBhDEARIsAJ5hwbeqzns-7rhw1aLYRqFfW0RBonXiTyy_j5GhCUhOmIvLd2yFHnnj9FAaArbFEALw_wcB">Integration Testing ASP.NET Core Applications: Best Practices</a>
 - Books
-    - <a target="_blank" href="https://www.manning.com/books/unit-testing">Unit Testing Principles, Practices, and Patterns </a>
+    - <a target="_blank" href="https://www.manning.com/books/unit-testing">Unit Testing Principles, Practices, and Patterns<sup>** recommended**</sup</a>
 - Packages
     - <a target="_blank" href="https://bunit.dev">bUnit: a testing library for Blazor components</a>
     - <a target="_blank" href="https://nunit.org">nUnit: a testing library by Microsoft</a>
