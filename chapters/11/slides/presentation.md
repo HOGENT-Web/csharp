@@ -111,6 +111,10 @@ How far are you willing to go? What part of the application are you going to tes
     - Does not test the request-response pipeline
 - Persistence Layer
     - Meh, you don't own Entity Framework
+
+---
+### Headless testing
+# Levels of testing
 - Server Layer
     - Can be unit and integration tested
     - You can test the endpoints in your controllers and in fact the service layer and the domain layer in one go
@@ -157,13 +161,13 @@ Add the Playwright CLI as a .NET global tool (only once)
 ```
 dotnet tool install --global Microsoft.Playwright.CLI
 ```
-Create a new `blazor wasm hosted` project 
+Clone the following respository
 ```
-dotnet new blazorwasm --hosted -o Example -f net8.0
+git clone https://github.com/HOGENT-Web/csharp-ch-11-example-1
 ```
 Create a new `nUnit` project (xUnit is barely supported)
 ```
-cd Example
+cd csharp-ch-11-example-1
 dotnet new nunit -o PlaywrightTests -n Example.PlaywrightTests -f net8.0
 ```
 Add the nUnit Test project to the solution
