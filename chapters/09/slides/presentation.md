@@ -39,29 +39,7 @@ Fetching in data in .NET can be done in different ways:
 
 Each has its own (dis)advantages: simplicity, need to known SQL, ...
 
-> We'll cover Dapper and EF Core in this course.
-
----
-name: dapper
-class: dark middle
-
-# Data, the new raw material
-> Dapper
-
----
-### Data, the new raw material
-# Dapper
-
-First read through the [Dapper Introduction documentation](https://dappertutorial.net/dapper).
-
-Then move on to the [Dapper notebook](../notebooks/dapper.ipynb) and learn what it's capable of.
-
-At last solve the [exercises](.../../../notebooks/exercises.ipynb), there is an example
-[solution](../notebooks/solutions.ipynb) provided.
-
-> **Note**: This is not the only solution, your queries might differ a little.
-
-<img src="./images/dapper.png" alt="Dapper Logo" width="20%" style="display: block; margin: 0 auto;" />
+> We'll cover Entity Framework Core (EF) in this course.
 
 ---
 name: ef-core
@@ -441,8 +419,7 @@ Windows
 ```json
 {
   "ConnectionStrings": {
-    "Storage": "YOUR_BLOB_STORAGE_CONNECTION_STRING_HERE",
-    "SqlServer": "Server=localhost;TrustServerCertificate=True;Database=BogusDb;Trusted_Connection=True;"
+    "SqlServer": "Server=localhost;Database=BogusDb;Trusted_Connection=True;TrustServerCertificate=True;"
   }
 }
 ```
@@ -450,13 +427,15 @@ macOS/Linux
 ```json
 {
   "ConnectionStrings": {
-    "Storage": "YOUR_BLOB_STORAGE_CONNECTION_STRING_HERE",
     "SqlServer": "Server=localhost,1433;Database=Csharp.BogusDb;User=sa;Password=p@ssw0rd"
   }
 }
 ```
 > You will need Docker if you're on Linux / macOS.
 
+**Tip:**
+Do not put the connection string in the `AppSettings.json` file in production. Use a secret manager or environment variables.
+More information in how to do so, can be found in the docs of <a href="https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-8.0&tabs=windows">UserSecrets</a> 
 ---
 ### DbContext
 # MS SQL Server 
@@ -541,7 +520,6 @@ class: dark middle
 ```json
 {
   "ConnectionStrings": {
-    "Storage": "YOUR_CONNECTION_STRING_HERE",
     "SqlServer": "YOUR_CONNECTION_STRING_HERE"
   },
   "Logging": {
