@@ -184,11 +184,16 @@ Add package `Microsoft.Playwright.NUnit` to the test project
 cd PlaywrightTests
 dotnet add package Microsoft.Playwright.NUnit --version 1.17.3
 ```
-Build the test project and install browsers
+Build the test project
 ``` 
 dotnet build
-playwright install
 ```
+Install the browsers
+```
+dotnet tool install --global PowerShell
+pwsh bin/Debug/`net6.0`/playwright.ps1 install
+```
+> Make sure to adjust **net6.0** to the correct version if using a different one
 
 Open the solution `Example.sln`
 
